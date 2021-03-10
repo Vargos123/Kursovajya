@@ -94,8 +94,10 @@
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.Location = new System.Drawing.Point(356, 352);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(22, 13);
             this.textBox1.TabIndex = 27;
+            this.textBox1.TabStop = false;
             this.textBox1.Text = "/32";
             // 
             // richTextBox1
@@ -106,9 +108,11 @@
             this.richTextBox1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.richTextBox1.Location = new System.Drawing.Point(330, 352);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox1.Size = new System.Drawing.Size(26, 13);
             this.richTextBox1.TabIndex = 26;
+            this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "0";
             // 
             // textBox4
@@ -118,8 +122,10 @@
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox4.Location = new System.Drawing.Point(356, 242);
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
             this.textBox4.TabIndex = 25;
+            this.textBox4.TabStop = false;
             this.textBox4.Text = "/16";
             // 
             // richTextBox2
@@ -130,9 +136,11 @@
             this.richTextBox2.ForeColor = System.Drawing.SystemColors.WindowText;
             this.richTextBox2.Location = new System.Drawing.Point(330, 242);
             this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox2.Size = new System.Drawing.Size(26, 13);
             this.richTextBox2.TabIndex = 24;
+            this.richTextBox2.TabStop = false;
             this.richTextBox2.Text = "0";
             // 
             // goToLogin
@@ -196,6 +204,7 @@
             this.butRegister.Name = "butRegister";
             this.butRegister.Size = new System.Drawing.Size(192, 53);
             this.butRegister.TabIndex = 3;
+            this.butRegister.TabStop = false;
             this.butRegister.UseVisualStyleBackColor = false;
             this.butRegister.Click += new System.EventHandler(this.butRegister_Click);
             // 
@@ -207,6 +216,7 @@
             this.passF.Name = "passF";
             this.passF.Size = new System.Drawing.Size(245, 39);
             this.passF.TabIndex = 2;
+            this.passF.TabStop = false;
             this.passF.UseSystemPasswordChar = true;
             this.passF.TextChanged += new System.EventHandler(this.passF_TextChanged);
             // 
@@ -219,6 +229,7 @@
             this.loginF.Name = "loginF";
             this.loginF.Size = new System.Drawing.Size(245, 37);
             this.loginF.TabIndex = 1;
+            this.loginF.TabStop = false;
             this.loginF.TextChanged += new System.EventHandler(this.loginF_TextChanged);
             // 
             // CloseButton

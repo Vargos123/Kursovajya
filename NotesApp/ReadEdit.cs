@@ -29,8 +29,11 @@ namespace NotesApp
 
         private void LoadData()
         {
-            message.ReadOnly = true;
+            
             name.ReadOnly = true;
+            message.ReadOnly = true;           
+            this.name.Cursor = Cursors.Default;
+            this.message.Cursor = Cursors.Default;
             name.Text = nameBox;
             message.Text = messageBox;         
         }
@@ -63,31 +66,59 @@ namespace NotesApp
         private void name_TextChanged(object sender, EventArgs e)
         {
             name.ScrollBars = ScrollBars.Vertical;
-            richTextBox2.Text = name.Text.Length.ToString();
+            richTextBox1.Text = name.Text.Length.ToString();
         }
         private void message_TextChanged(object sender, EventArgs e)
         {
             message.ScrollBars = ScrollBars.Vertical;
-
             richTextBox1.Text = message.Text.Length.ToString();
         }
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (name.ReadOnly == false)
+            {
+                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
         private void exit_Click(object sender, EventArgs e)
         {
-            this.Close();
-
+            if (name.ReadOnly == false)
+            {
+                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
         private void bttEdit_Click(object sender, EventArgs e)
-        {           
+        {
             message.ReadOnly = false;
             name.ReadOnly = false;
         }
         private void ReadEdit_MouseDown_1(object sender, MouseEventArgs e)
         {
             lastPoint = new Point(e.X, e.Y);
+        }
+
+        private void bttEdit_Click_1(object sender, EventArgs e)
+        {
+            name.ReadOnly = false;
+            message.ReadOnly = false;
+            this.name.Cursor = Cursors.IBeam;
+            this.message.Cursor = Cursors.IBeam;
         }
 
         private void ReadEdit_Load(object sender, EventArgs e)
@@ -109,8 +140,10 @@ namespace NotesApp
                     MessageBox.Show("Сообщение не может быть пустым!");
                     return;
                 }
-                message.ReadOnly = true;
                 name.ReadOnly = true;
+                message.ReadOnly = true;
+                this.name.Cursor = Cursors.Default;
+                this.message.Cursor = Cursors.Default;
                 MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
                 command.Parameters.AddWithValue("title", name.Text);
                 command.Parameters.AddWithValue("message", message.Text);

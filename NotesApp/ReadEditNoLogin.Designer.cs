@@ -32,8 +32,6 @@ namespace NotesApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReadEditNoLogin));
             this.hide = new System.Windows.Forms.Label();
             this.CloseButton = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.message = new System.Windows.Forms.TextBox();
@@ -43,8 +41,10 @@ namespace NotesApp
             this.bttSave = new System.Windows.Forms.Button();
             this.bttEdit = new System.Windows.Forms.Button();
             this.exit = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // hide
@@ -79,30 +79,6 @@ namespace NotesApp
             this.CloseButton.MouseEnter += new System.EventHandler(this.CloseButton_MouseEnter);
             this.CloseButton.MouseLeave += new System.EventHandler(this.CloseButton_MouseLeave);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::NotesApp.Properties.Resources.Сообщение;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(212, 29);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(368, 43);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox2.TabIndex = 33;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Image = global::NotesApp.Properties.Resources.Название;
-            this.pictureBox1.Location = new System.Drawing.Point(22, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(184, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 32;
-            this.pictureBox1.TabStop = false;
-            // 
             // textBox3
             // 
             this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(95)))), ((int)(((byte)(188)))));
@@ -114,6 +90,7 @@ namespace NotesApp
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(32, 13);
             this.textBox3.TabIndex = 35;
+            this.textBox3.TabStop = false;
             this.textBox3.Text = "/500";
             // 
             // richTextBox1
@@ -129,6 +106,7 @@ namespace NotesApp
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox1.Size = new System.Drawing.Size(26, 13);
             this.richTextBox1.TabIndex = 34;
+            this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "0";
             // 
             // message
@@ -142,6 +120,7 @@ namespace NotesApp
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(558, 195);
             this.message.TabIndex = 3;
+            this.message.TabStop = false;
             this.message.TextChanged += new System.EventHandler(this.message_TextChanged);
             // 
             // name
@@ -155,6 +134,7 @@ namespace NotesApp
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(184, 35);
             this.name.TabIndex = 36;
+            this.name.TabStop = false;
             this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
             // 
             // textBox4
@@ -168,6 +148,7 @@ namespace NotesApp
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
             this.textBox4.TabIndex = 38;
+            this.textBox4.TabStop = false;
             this.textBox4.Text = "/50";
             // 
             // richTextBox2
@@ -183,6 +164,7 @@ namespace NotesApp
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox2.Size = new System.Drawing.Size(26, 13);
             this.richTextBox2.TabIndex = 37;
+            this.richTextBox2.TabStop = false;
             this.richTextBox2.Text = "0";
             // 
             // bttSave
@@ -194,6 +176,7 @@ namespace NotesApp
             this.bttSave.Name = "bttSave";
             this.bttSave.Size = new System.Drawing.Size(104, 35);
             this.bttSave.TabIndex = 40;
+            this.bttSave.TabStop = false;
             this.bttSave.Text = "Сохранить";
             this.bttSave.UseVisualStyleBackColor = false;
             this.bttSave.Click += new System.EventHandler(this.bttSave_Click);
@@ -207,6 +190,7 @@ namespace NotesApp
             this.bttEdit.Name = "bttEdit";
             this.bttEdit.Size = new System.Drawing.Size(104, 34);
             this.bttEdit.TabIndex = 39;
+            this.bttEdit.TabStop = false;
             this.bttEdit.Text = "Редактировать";
             this.bttEdit.UseVisualStyleBackColor = false;
             this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click);
@@ -218,11 +202,36 @@ namespace NotesApp
             this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.exit.Location = new System.Drawing.Point(476, 81);
             this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(104, 34);
+            this.exit.Size = new System.Drawing.Size(104, 35);
             this.exit.TabIndex = 41;
+            this.exit.TabStop = false;
             this.exit.Text = "Выйти";
             this.exit.UseVisualStyleBackColor = false;
             this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.BackgroundImage = global::NotesApp.Properties.Resources.Сообщение;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Location = new System.Drawing.Point(212, 29);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(412, 43);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox3.TabIndex = 43;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.BackgroundImage = global::NotesApp.Properties.Resources.Название;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox4.Location = new System.Drawing.Point(12, 28);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(196, 34);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox4.TabIndex = 42;
+            this.pictureBox4.TabStop = false;
             // 
             // ReadEditNoLogin
             // 
@@ -230,6 +239,8 @@ namespace NotesApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(604, 350);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.exit);
             this.Controls.Add(this.bttSave);
             this.Controls.Add(this.bttEdit);
@@ -239,8 +250,6 @@ namespace NotesApp
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.name);
             this.Controls.Add(this.message);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.hide);
             this.Controls.Add(this.CloseButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -250,8 +259,8 @@ namespace NotesApp
             this.Load += new System.EventHandler(this.ReadEditNoLogin_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadEditNoLogin_MouseDown_1);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReadEditNoLogin_MouseMove);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,8 +270,6 @@ namespace NotesApp
 
         private System.Windows.Forms.Label hide;
         private System.Windows.Forms.Label CloseButton;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox message;
@@ -272,5 +279,7 @@ namespace NotesApp
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.Button bttEdit;
         private System.Windows.Forms.Button exit;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }

@@ -75,19 +75,42 @@ namespace NotesApp
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();            
-
+            if (name.ReadOnly == false)
+            {
+                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (name.ReadOnly == false)
+            {
+                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void bttEdit_Click(object sender, EventArgs e)
-        {           
-            message.ReadOnly = false;
+        {
             name.ReadOnly = false;
+            message.ReadOnly = false;
+            this.name.Cursor = Cursors.IBeam;
+            this.message.Cursor = Cursors.IBeam;
         }
 
         private void ReadEditNoLogin_MouseDown_1(object sender, MouseEventArgs e)
@@ -112,8 +135,10 @@ namespace NotesApp
                 MessageBox.Show("Сообщение не может быть пустым!");
                 return;
             }
-            message.ReadOnly = true;
             name.ReadOnly = true;
+            message.ReadOnly = true;
+            this.name.Cursor = Cursors.Default;
+            this.message.Cursor = Cursors.Default;
             SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
             command.Parameters.AddWithValue("Id", index);
             command.Parameters.AddWithValue("Title", name.Text);

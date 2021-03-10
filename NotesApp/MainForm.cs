@@ -457,38 +457,7 @@ namespace NotesApp
             {
                 MessageBox.Show("Не удалось редактировать данные. Проверьте доступ к интернету!");
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                try
-                {
-                    int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
-                    command.Parameters.AddWithValue("title", nameBox.Text);
-                    command.Parameters.AddWithValue("message", nameBox.Text);
-                    command.Parameters.AddWithValue("Id", index);
-                    MySqlCommand command1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
-                               "ALTER TABLE `" + log + "`" +
-                               "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                               "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1 на всякий
-                    db.openConn();
-                    command.ExecuteNonQuery();
-                    command1.ExecuteNonQuery();
-                    db.closeConn();
-                }
-                catch
-                {
-                    MessageBox.Show("Произошла ошибка при обновлении данных!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Не удалось редактировать данные. Проверьте доступ к интернету!");
-            }
-        }
+        }               
 
         private void bttUpdate_Click(object sender, EventArgs e)
         {
@@ -497,6 +466,16 @@ namespace NotesApp
         }
 
         private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
         }

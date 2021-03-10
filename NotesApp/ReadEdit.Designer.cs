@@ -114,6 +114,7 @@ namespace NotesApp
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(32, 13);
             this.textBox3.TabIndex = 35;
+            this.textBox3.TabStop = false;
             this.textBox3.Text = "/500";
             // 
             // richTextBox1
@@ -129,6 +130,7 @@ namespace NotesApp
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox1.Size = new System.Drawing.Size(26, 13);
             this.richTextBox1.TabIndex = 34;
+            this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "0";
             // 
             // message
@@ -142,6 +144,7 @@ namespace NotesApp
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(558, 195);
             this.message.TabIndex = 3;
+            this.message.TabStop = false;
             this.message.TextChanged += new System.EventHandler(this.message_TextChanged);
             // 
             // name
@@ -155,6 +158,7 @@ namespace NotesApp
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(184, 35);
             this.name.TabIndex = 36;
+            this.name.TabStop = false;
             this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
             // 
             // textBox4
@@ -168,6 +172,7 @@ namespace NotesApp
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
             this.textBox4.TabIndex = 38;
+            this.textBox4.TabStop = false;
             this.textBox4.Text = "/50";
             // 
             // richTextBox2
@@ -183,6 +188,7 @@ namespace NotesApp
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox2.Size = new System.Drawing.Size(26, 13);
             this.richTextBox2.TabIndex = 37;
+            this.richTextBox2.TabStop = false;
             this.richTextBox2.Text = "0";
             // 
             // bttSave
@@ -194,6 +200,7 @@ namespace NotesApp
             this.bttSave.Name = "bttSave";
             this.bttSave.Size = new System.Drawing.Size(104, 35);
             this.bttSave.TabIndex = 40;
+            this.bttSave.TabStop = false;
             this.bttSave.Text = "Сохранить";
             this.bttSave.UseVisualStyleBackColor = false;
             this.bttSave.Click += new System.EventHandler(this.bttSave_Click);
@@ -207,19 +214,21 @@ namespace NotesApp
             this.bttEdit.Name = "bttEdit";
             this.bttEdit.Size = new System.Drawing.Size(104, 34);
             this.bttEdit.TabIndex = 39;
+            this.bttEdit.TabStop = false;
             this.bttEdit.Text = "Редактировать";
             this.bttEdit.UseVisualStyleBackColor = false;
-            this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click);
+            this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click_1);
             // 
             // exit
             // 
             this.exit.BackColor = System.Drawing.Color.PaleVioletRed;
             this.exit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.exit.Location = new System.Drawing.Point(476, 81);
+            this.exit.Location = new System.Drawing.Point(476, 82);
             this.exit.Name = "exit";
             this.exit.Size = new System.Drawing.Size(104, 34);
             this.exit.TabIndex = 41;
+            this.exit.TabStop = false;
             this.exit.Text = "Выйти";
             this.exit.UseVisualStyleBackColor = false;
             this.exit.Click += new System.EventHandler(this.exit_Click);

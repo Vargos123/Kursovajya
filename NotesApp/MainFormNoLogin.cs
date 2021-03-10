@@ -130,7 +130,7 @@ namespace NotesApp
                         string message = (string)dataGridView1.Rows[n].Cells[2].Value;
                         int index = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
                         ReadEditNoLogin readE = new ReadEditNoLogin(name, message, index);
-                        readE.ShowDialog();                       
+                        readE.ShowDialog();
                     }
                 }
                 catch
@@ -312,7 +312,6 @@ namespace NotesApp
             {
                 sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString);
                 sqlConnection.Open();
-
                 LoadData();
             }
             catch
