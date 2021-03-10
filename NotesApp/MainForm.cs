@@ -17,7 +17,6 @@ namespace NotesApp
     public partial class MainForm : Form
     {
         MySqlConnection connection = new MySqlConnection("server = remotemysql.com; port = 3306; Username = ed5dW7gcoL; Password = 0Gm5En5jkl; database = ed5dW7gcoL; charset = utf8");
-
         DataB db = new DataB();
         MySqlCommand command;
         MySqlDataReader reader;
@@ -32,6 +31,7 @@ namespace NotesApp
             LoadData();
         }
         string log;
+
         private void LoadData()
         {
             try
@@ -115,6 +115,7 @@ namespace NotesApp
                 MessageBox.Show("Не удалось сохранить данные. Проверьте доступ к интернету!");
             }            
         }
+
         private void CloseButton_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
@@ -130,6 +131,7 @@ namespace NotesApp
                 Application.Exit();
             }
         }
+
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
             CloseButton.ForeColor = Color.Black; // черный крестик при наводе мышкой
@@ -191,12 +193,27 @@ namespace NotesApp
             {
                 if (dataGridView1.RowCount > 0)
                 {
-                    int n = dataGridView1.CurrentCell.RowIndex;
-                    string name = (string)dataGridView1.Rows[n].Cells[0].Value;
-                    string message = (string)dataGridView1.Rows[n].Cells[1].Value;
-                    int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                    ReadEdit readE = new ReadEdit(name, message, index, log);
-                    readE.ShowDialog();
+                    try
+                    {
+                        if (dataGridView1.SelectedCells.Count == 0) //поверяю выбрана ли запись
+                        {
+                            MessageBox.Show("Вы не выбрали запись для чтения!");
+                        }
+                        else
+                        {
+                            int n = dataGridView1.CurrentCell.RowIndex;
+                            string name = (string)dataGridView1.Rows[n].Cells[0].Value;
+                            string message = (string)dataGridView1.Rows[n].Cells[1].Value;
+                            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+                            ReadEdit readE = new ReadEdit(name, message, index, log);
+                            readE.ShowDialog();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка!");
+                    }
+
                 }
                 else
                 {
@@ -213,8 +230,7 @@ namespace NotesApp
         {
             if (dataGridView1.RowCount > 0)
             {
-
-                if (textBoxSearch.Text == "")
+                if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
                 {
                     MessageBox.Show("Вы не ввели данные для поиска");
                     return;
@@ -233,8 +249,7 @@ namespace NotesApp
             }
             else
             {
-                MessageBox.Show("Нет записей для поиска. Добавьте записи!");
-                return;
+                MessageBox.Show("Нет записей для поиска. Добавьте записи!");                
             }
         }
 
@@ -246,8 +261,7 @@ namespace NotesApp
 
             if (messageBox.TextLength == 500)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 500");
-                return;
+                MessageBox.Show("Достигнуто максимальное количество символов: 500");                
             }
         }
 
@@ -267,41 +281,45 @@ namespace NotesApp
             {
                 if (dataGridView1.RowCount > 0)
                 {
-                    if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    if (dataGridView1.SelectedCells.Count == 0) //поверяем выбрана ли запись
                     {
-                        if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                        MessageBox.Show("Вы не выбрали запись для удаления!");
+                    }
+                    else
+                    {
+                        if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
-                            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                            dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
+                            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                            {
+                                int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+                                dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
 
-                            MySqlCommand comman2 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn()); // Удаляем выделенную строку по индексу
-                            MySqlCommand comman1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
-                            "ALTER TABLE `" + log + "`" +
-                            "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                            "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1
-                            db.openConn();
-                            comman2.ExecuteNonQuery();
-                            comman1.ExecuteNonQuery();
-                            db.closeConn();
+                                MySqlCommand comman2 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn()); // Удаляем выделенную строку по индексу
+                                MySqlCommand comman1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
+                                "ALTER TABLE `" + log + "`" +
+                                "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
+                                "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1
+                                db.openConn();
+                                comman2.ExecuteNonQuery();
+                                comman1.ExecuteNonQuery();
+                                db.closeConn();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");
-                            return;
-                        }
-                    }                    
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Нет записей для удаления!");
-                    return;
+                    MessageBox.Show("Нет записей для удаления!");                    
                 }
             }
             else
             {
-                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");
-                return;
+                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");                
             }
         }
 
@@ -309,8 +327,7 @@ namespace NotesApp
         {
             if (textBoxSearch.TextLength == 50)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 50!");
-                return;
+                MessageBox.Show("Достигнуто максимальное количество символов: 50!");                
             }
         }
 
@@ -404,8 +421,7 @@ namespace NotesApp
                         }
                         else
                         {
-                            MessageBox.Show("Не удалось удалить аккаунт. Проверьте доступ к интернету!");
-                            
+                            MessageBox.Show("Не удалось удалить аккаунт. Проверьте доступ к интернету!");                            
                         }
                     }
                 }                
@@ -478,6 +494,11 @@ namespace NotesApp
         {
             dataGridView1.Rows.Clear();
             LoadData();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

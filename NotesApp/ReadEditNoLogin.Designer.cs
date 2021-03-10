@@ -249,6 +249,7 @@ namespace NotesApp
             this.Text = "ReadEdit";
             this.Load += new System.EventHandler(this.ReadEditNoLogin_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadEditNoLogin_MouseDown_1);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReadEditNoLogin_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

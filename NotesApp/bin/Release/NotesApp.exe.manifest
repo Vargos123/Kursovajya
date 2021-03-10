@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="829408">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="829920">
       <assemblyIdentity name="NotesApp" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>T4XYyd5tu9d20ilr1B4Yj/8m95ZI4Cz3k6PBAE5YDak=</dsig:DigestValue>
+        <dsig:DigestValue>MqoKH1zjNpwWobpDltNyCbq1F5tuZp3+OjIV+hrpOwI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -105,7 +105,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AluNX3HhRQMvqJXb1fZcFZ8OkirvJadHCHJHjNW8fY4=</dsig:DigestValue>
+      <dsig:DigestValue>Iktq/XFCObgKDQ1cTJlBEZ+rJ76mOYV7TdNO9Z3dVt8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="DataBase_log.ldf" size="8388608" writeableType="applicationData">
@@ -114,7 +114,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>XUfrdOpmE0i8s+H2XA3osfcMtve5WWiSpOezQbZDoqM=</dsig:DigestValue>
+      <dsig:DigestValue>mUtCvRc1DKnj8rJiGdXo2svqoE28Jy1Ke1lh20P4opE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Icon.ico" size="67646">

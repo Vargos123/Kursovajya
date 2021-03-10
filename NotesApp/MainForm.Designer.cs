@@ -391,6 +391,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

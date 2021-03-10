@@ -73,11 +73,11 @@ namespace NotesApp
         }
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
         private void exit_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
 
         }
         private void bttEdit_Click(object sender, EventArgs e)

@@ -36,7 +36,7 @@ namespace NotesApp
         }
 
         Point lastPoint;
-        private void ReadEdit_MouseMove(object sender, MouseEventArgs e)
+        private void ReadEditNoLogin_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -75,13 +75,13 @@ namespace NotesApp
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();            
+
         }
 
         private void exit_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
+            this.Close();
         }
 
         private void bttEdit_Click(object sender, EventArgs e)
@@ -119,9 +119,14 @@ namespace NotesApp
             command.Parameters.AddWithValue("Title", name.Text);
             command.Parameters.AddWithValue("Message", message.Text);
             sqlConnection.Open();
-            command.ExecuteNonQuery();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                MessageBox.Show("Вы успешно обновлили данные!");
+            }
+            else
+                MessageBox.Show("Вы не смогли обновить данные!");
             sqlConnection.Close();
-        }
+        }        
 
         private void hide_Click(object sender, EventArgs e)
         {

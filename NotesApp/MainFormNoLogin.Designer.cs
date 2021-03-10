@@ -354,7 +354,7 @@
             this.bttReload.TabIndex = 54;
             this.bttReload.Text = "Обновить";
             this.bttReload.UseVisualStyleBackColor = false;
-            this.bttReload.Click += new System.EventHandler(this.button1_Click);
+            this.bttReload.Click += new System.EventHandler(this.bttReload_Click);
             // 
             // MainFormNoLogin
             // 
