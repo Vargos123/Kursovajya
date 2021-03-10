@@ -66,7 +66,7 @@
             this.bttSave.Name = "bttSave";
             this.bttSave.Size = new System.Drawing.Size(119, 36);
             this.bttSave.TabIndex = 1;
-            this.bttSave.Text = "Сохранить";
+            this.bttSave.Text = "Добавить";
             this.bttSave.UseVisualStyleBackColor = false;
             this.bttSave.Click += new System.EventHandler(this.bttSave_Click);
             // 
@@ -353,7 +353,7 @@
             this.bttUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bttUpdate.Location = new System.Drawing.Point(178, 117);
             this.bttUpdate.Name = "bttUpdate";
-            this.bttUpdate.Size = new System.Drawing.Size(71, 25);
+            this.bttUpdate.Size = new System.Drawing.Size(71, 23);
             this.bttUpdate.TabIndex = 30;
             this.bttUpdate.Text = "Обновить";
             this.bttUpdate.UseVisualStyleBackColor = false;

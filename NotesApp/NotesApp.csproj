@@ -102,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataB.cs" />
-    <Compile Include="DateTable.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +122,17 @@
     </Compile>
     <Compile Include="MySqlDataTable.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReadEditNoLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReadEditNoLogin.Designer.cs">
+      <DependentUpon>ReadEditNoLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReadEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +159,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReadEditNoLogin.resx">
+      <DependentUpon>ReadEditNoLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReadEdit.resx">
       <DependentUpon>ReadEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,11 +177,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -217,8 +225,6 @@
       <DependentUpon>DataBase.mdf</DependentUpon>
     </Content>
     <Content Include="Icon.ico" />
-    <None Include="Resources\f.png" />
-    <None Include="Resources\57daa786629c61572e1e6504.jpg" />
     <None Include="Resources\%24this.Icon.ico" />
     <None Include="Resources\Сообщение.png" />
     <None Include="Resources\Название.png" />

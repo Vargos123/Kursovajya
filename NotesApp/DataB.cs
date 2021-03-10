@@ -10,7 +10,7 @@ namespace NotesApp
     class DataB
     {
         MySqlConnection connection = new MySqlConnection("server = remotemysql.com; port = 3306; Username = ed5dW7gcoL; Password = 0Gm5En5jkl; database = ed5dW7gcoL; charset = utf8");
-               
+
         public void openConn()
         {
             if (connection.State == System.Data.ConnectionState.Closed)

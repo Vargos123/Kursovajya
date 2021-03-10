@@ -50,10 +50,8 @@
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bttEdit = new System.Windows.Forms.Button();
             this.bttDelete = new System.Windows.Forms.Button();
             this.bttReload = new System.Windows.Forms.Button();
-            this.saveEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -272,6 +270,7 @@
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(196, 36);
             this.nameBox.TabIndex = 32;
+            this.nameBox.TextChanged += new System.EventHandler(this.nameBox_TextChanged);
             // 
             // bttSave
             // 
@@ -331,25 +330,12 @@
             this.Message.Name = "Message";
             this.Message.ReadOnly = true;
             // 
-            // bttEdit
-            // 
-            this.bttEdit.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.bttEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bttEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttEdit.Location = new System.Drawing.Point(654, 325);
-            this.bttEdit.Name = "bttEdit";
-            this.bttEdit.Size = new System.Drawing.Size(89, 26);
-            this.bttEdit.TabIndex = 52;
-            this.bttEdit.Text = "Редактировать";
-            this.bttEdit.UseVisualStyleBackColor = false;
-            this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click);
-            // 
             // bttDelete
             // 
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(654, 357);
+            this.bttDelete.Location = new System.Drawing.Point(654, 325);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(89, 26);
             this.bttDelete.TabIndex = 53;
@@ -362,26 +348,13 @@
             this.bttReload.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttReload.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttReload.Location = new System.Drawing.Point(178, 146);
+            this.bttReload.Location = new System.Drawing.Point(178, 117);
             this.bttReload.Name = "bttReload";
-            this.bttReload.Size = new System.Drawing.Size(119, 36);
+            this.bttReload.Size = new System.Drawing.Size(71, 23);
             this.bttReload.TabIndex = 54;
             this.bttReload.Text = "Обновить";
             this.bttReload.UseVisualStyleBackColor = false;
             this.bttReload.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // saveEdit
-            // 
-            this.saveEdit.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.saveEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.saveEdit.Location = new System.Drawing.Point(178, 117);
-            this.saveEdit.Name = "saveEdit";
-            this.saveEdit.Size = new System.Drawing.Size(119, 23);
-            this.saveEdit.TabIndex = 55;
-            this.saveEdit.Text = "Сохранить";
-            this.saveEdit.UseVisualStyleBackColor = false;
-            this.saveEdit.Click += new System.EventHandler(this.saveEdit_Click);
             // 
             // MainFormNoLogin
             // 
@@ -389,10 +362,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(785, 463);
-            this.Controls.Add(this.saveEdit);
             this.Controls.Add(this.bttReload);
             this.Controls.Add(this.bttDelete);
-            this.Controls.Add(this.bttEdit);
             this.Controls.Add(this.hide);
             this.Controls.Add(this.bttExit);
             this.Controls.Add(this.bttDelAll);
@@ -446,12 +417,10 @@
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button bttEdit;
         private System.Windows.Forms.Button bttDelete;
         private System.Windows.Forms.Button bttReload;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Message;
-        private System.Windows.Forms.Button saveEdit;
     }
 }

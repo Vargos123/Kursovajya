@@ -121,9 +121,12 @@ namespace NotesApp
         {
             if (dataGridView1.RowCount > 0)
             {
-                int n = dataGridView1.CurrentCell.RowIndex;                
-                nameBox.Text = (string)dataGridView1.Rows[n].Cells[1].Value;
-                messageBox.Text = (string)dataGridView1.Rows[n].Cells[2].Value;
+                int n = dataGridView1.CurrentCell.RowIndex;
+                string name = (string)dataGridView1.Rows[n].Cells[1].Value;
+                string message = (string)dataGridView1.Rows[n].Cells[2].Value;
+                int index = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
+                ReadEditNoLogin readE = new ReadEditNoLogin(name, message, index);
+                readE.ShowDialog();
             }
             else
             {
@@ -263,7 +266,7 @@ namespace NotesApp
             if (dataGridView1.RowCount > 0)
             {
                 SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
-                string x = (string)dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+                int x = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
                 command.Parameters.AddWithValue("Id", x);
                 command.Parameters.AddWithValue("Title", nameBox.Text);
                 command.Parameters.AddWithValue("Message", messageBox.Text);
@@ -286,7 +289,7 @@ namespace NotesApp
             bttAndTextVisible();
             if (dataGridView1.RowCount > 0)
             {
-                if (MessageBox.Show("Вы действительно удалить запись?", "Удаление", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {                    
                     SqlCommand command = new SqlCommand("DELETE FROM [Table] WHERE id = @Id", sqlConnection); // Удаляем строку по индексу
@@ -307,7 +310,15 @@ namespace NotesApp
 
         private void messageBox_TextChanged(object sender, EventArgs e)
         {
-            this.messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            messageBox.ScrollBars = ScrollBars.Vertical;
+
+            richTextBox1.Text = messageBox.Text.Length.ToString();
+
+            if (messageBox.TextLength == 500)
+            {
+                MessageBox.Show("Достигнуто максимальное количество символов: 500");
+                return;
+            }
         }
 
         private void MainFormNoLogin_Load(object sender, EventArgs e)
@@ -368,6 +379,16 @@ namespace NotesApp
         private void pictureBox3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void nameBox_TextChanged(object sender, EventArgs e)
+        {
+            nameBox.ScrollBars = ScrollBars.Vertical;
+            richTextBox2.Text = nameBox.Text.Length.ToString();
+            if (nameBox.TextLength == 50)
+            {
+                MessageBox.Show("Достигнуто максимальное количество символов: 50");
+            }
         }
     }
 }

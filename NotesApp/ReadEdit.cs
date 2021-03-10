@@ -26,6 +26,7 @@ namespace NotesApp
         }
         string nameBox, messageBox, log;
         int index;
+
         private void LoadData()
         {
             message.ReadOnly = true;
@@ -59,9 +60,9 @@ namespace NotesApp
         {
             hide.ForeColor = Color.White; // белый -
         }
-
         private void name_TextChanged(object sender, EventArgs e)
         {
+            name.ScrollBars = ScrollBars.Vertical;
             richTextBox2.Text = name.Text.Length.ToString();
             if (name.TextLength == 50)
             {
@@ -69,7 +70,6 @@ namespace NotesApp
                 return;
             }
         }
-
         private void message_TextChanged(object sender, EventArgs e)
         {
             message.ScrollBars = ScrollBars.Vertical;
@@ -82,43 +82,39 @@ namespace NotesApp
                 return;
             }
         }
-
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Hide();
         }
-
         private void exit_Click(object sender, EventArgs e)
         {
             this.Hide();
 
         }
-
         private void bttEdit_Click(object sender, EventArgs e)
         {           
             message.ReadOnly = false;
             name.ReadOnly = false;
         }
-
         private void ReadEdit_MouseDown_1(object sender, MouseEventArgs e)
         {
             lastPoint = new Point(e.X, e.Y);
         }
-
         private void bttSave_Click(object sender, EventArgs e)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
             command.Parameters.AddWithValue("title", name.Text);
             command.Parameters.AddWithValue("message", message.Text);
             command.Parameters.AddWithValue("Id", index);
-            MySqlCommand command1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
-                       "ALTER TABLE `" + log + "`" +
-                       "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                       "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1 на всякий
             db.openConn();
-            command.ExecuteNonQuery();
-            command1.ExecuteNonQuery();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                MessageBox.Show("Вы успешно обновлили данные!");
+            }
+            else
+                MessageBox.Show("Вы не смогли обновить данные!");
             db.closeConn();
+            
         }
 
         private void hide_Click(object sender, EventArgs e)

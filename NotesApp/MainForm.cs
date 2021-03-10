@@ -199,8 +199,8 @@ namespace NotesApp
                 string name = (string)dataGridView1.Rows[n].Cells[0].Value;
                 string message = (string)dataGridView1.Rows[n].Cells[1].Value;
                 int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                ReadEdit read = new ReadEdit(name, message, index, log);
-                read.ShowDialog();
+                ReadEdit readE = new ReadEdit(name, message, index, log);
+                readE.ShowDialog();
             }
             else
             {
@@ -253,11 +253,11 @@ namespace NotesApp
 
         private void nameBox_TextChanged(object sender, EventArgs e)
         {
+            nameBox.ScrollBars = ScrollBars.Vertical;
             richTextBox2.Text = nameBox.Text.Length.ToString();
             if (nameBox.TextLength == 50)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 50");
-                return;
+                MessageBox.Show("Достигнуто максимальное количество символов: 50");                
             }
         }
 

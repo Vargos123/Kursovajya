@@ -121,9 +121,6 @@
   <data name="Сообщение" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Сообщение.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="57daa786629c61572e1e6504" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\57daa786629c61572e1e6504.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Регистр" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Регистр.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,8 +141,5 @@
   </data>
   <data name="Login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="f" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
