@@ -64,7 +64,7 @@ namespace NotesApp
         }
 
             private void bttSave_Click(object sender, EventArgs e)
-        {            
+            {            
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 if (dataGridView1.Rows.Count == 100)
@@ -173,9 +173,6 @@ namespace NotesApp
             {
                 nameBox.Clear();
                 messageBox.Clear();
-                bttSave.Visible = true;
-                messageBox.ReadOnly = false;
-                nameBox.ReadOnly = false;
             }
             else
             {
@@ -184,28 +181,31 @@ namespace NotesApp
                 {
                     nameBox.Clear();
                     messageBox.Clear();
-                    bttSave.Visible = true;
-                    messageBox.ReadOnly = false;
-                    nameBox.ReadOnly = false;
                 }
             }            
         }
 
         private void bttRead_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 0)
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                int n = dataGridView1.CurrentCell.RowIndex;
-                string name = (string)dataGridView1.Rows[n].Cells[0].Value;
-                string message = (string)dataGridView1.Rows[n].Cells[1].Value;
-                int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                ReadEdit readE = new ReadEdit(name, message, index, log);
-                readE.ShowDialog();
+                if (dataGridView1.RowCount > 0)
+                {
+                    int n = dataGridView1.CurrentCell.RowIndex;
+                    string name = (string)dataGridView1.Rows[n].Cells[0].Value;
+                    string message = (string)dataGridView1.Rows[n].Cells[1].Value;
+                    int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+                    ReadEdit readE = new ReadEdit(name, message, index, log);
+                    readE.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Нет записей для чтения. Добавьте записи!");
+                }
             }
             else
             {
-                MessageBox.Show("Нет записей для чтения. Добавьте записи!");
-                return;
+                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");                
             }
         }
 
@@ -263,10 +263,6 @@ namespace NotesApp
 
         private void bttDelete_Click(object sender, EventArgs e)
         {
-            bttSave.Visible = true;
-            messageBox.ReadOnly = false;
-            nameBox.ReadOnly = false;
-
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 if (dataGridView1.RowCount > 0)
@@ -323,15 +319,14 @@ namespace NotesApp
             bttSave.Visible = true;
             messageBox.ReadOnly = false;
             nameBox.ReadOnly = false;
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                if (dataGridView1.RowCount > 0)
+            if (dataGridView1.RowCount > 0)
                 {
                     if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                     {
                         if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
+                                
                             
                                 dataGridView1.Rows.Clear();
                                 using (MySqlCommand commanS = new MySqlCommand("TRUNCATE TABLE `" + log + "`", db.getConn()))
@@ -354,7 +349,7 @@ namespace NotesApp
                 {
                     MessageBox.Show("Нет записей для удаления!");                    
                 }
-            }
+            
         }
 
         private void bttExit_Click(object sender, EventArgs e)
@@ -448,26 +443,35 @@ namespace NotesApp
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-            MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
-            command.Parameters.AddWithValue("title", nameBox.Text);
-            command.Parameters.AddWithValue("message", nameBox.Text);
-            command.Parameters.AddWithValue("Id", index);
-            MySqlCommand command1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
-                       "ALTER TABLE `" + log + "`" +
-                       "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                       "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1 на всякий
-            db.openConn();
-            command.ExecuteNonQuery();
-            command1.ExecuteNonQuery();
-            db.closeConn();
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                try
+                {
+                    int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
+                    command.Parameters.AddWithValue("title", nameBox.Text);
+                    command.Parameters.AddWithValue("message", nameBox.Text);
+                    command.Parameters.AddWithValue("Id", index);
+                    MySqlCommand command1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
+                               "ALTER TABLE `" + log + "`" +
+                               "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
+                               "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1 на всякий
+                    db.openConn();
+                    command.ExecuteNonQuery();
+                    command1.ExecuteNonQuery();
+                    db.closeConn();
+                }
+                catch
+                {
+                    MessageBox.Show("Произошла ошибка при обновлении данных!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не удалось редактировать данные. Проверьте доступ к интернету!");
+            }
         }
 
         private void bttUpdate_Click(object sender, EventArgs e)

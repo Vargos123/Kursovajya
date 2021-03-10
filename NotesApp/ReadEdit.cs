@@ -97,30 +97,37 @@ namespace NotesApp
 
         private void bttSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(name.Text))
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show("Название не может быть пустым!");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(message.Text))
-            {
-                MessageBox.Show("Сообщение не может быть пустым!");
-                return;
-            }
-            message.ReadOnly = true;
-            name.ReadOnly = true;
-            MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
-            command.Parameters.AddWithValue("title", name.Text);
-            command.Parameters.AddWithValue("message", message.Text);
-            command.Parameters.AddWithValue("Id", index);
-            db.openConn();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                MessageBox.Show("Вы успешно обновлили данные!");
+                if (string.IsNullOrWhiteSpace(name.Text))
+                {
+                    MessageBox.Show("Название не может быть пустым!");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(message.Text))
+                {
+                    MessageBox.Show("Сообщение не может быть пустым!");
+                    return;
+                }
+                message.ReadOnly = true;
+                name.ReadOnly = true;
+                MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
+                command.Parameters.AddWithValue("title", name.Text);
+                command.Parameters.AddWithValue("message", message.Text);
+                command.Parameters.AddWithValue("Id", index);
+                db.openConn();
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Вы успешно обновлили данные!");
+                }
+                else
+                    MessageBox.Show("Вы не смогли обновить данные!");
+                db.closeConn();
             }
             else
-                MessageBox.Show("Вы не смогли обновить данные!");
-            db.closeConn();
+            {
+                MessageBox.Show("Не удалось обновить данные. Проверьте доступ к интернету!");
+            }
             
         }
 
