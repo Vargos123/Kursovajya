@@ -64,24 +64,13 @@ namespace NotesApp
         private void name_TextChanged(object sender, EventArgs e)
         {
             name.ScrollBars = ScrollBars.Vertical;
-            richTextBox2.Text = name.Text.Length.ToString();
-            if (name.TextLength == 50)
-            {
-                MessageBox.Show("Достигнуто максимальное количество символов: 50");               
-            }
+            richTextBox2.Text = name.Text.Length.ToString();            
         }
 
         private void message_TextChanged(object sender, EventArgs e)
         {
             message.ScrollBars = ScrollBars.Vertical;
-
-            richTextBox1.Text = message.Text.Length.ToString();
-
-            if (message.TextLength == 500)
-            {
-                MessageBox.Show("Достигнуто максимальное количество символов: 500");
-                
-            }
+            richTextBox1.Text = message.Text.Length.ToString();            
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -113,6 +102,7 @@ namespace NotesApp
 
         private void bttSave_Click(object sender, EventArgs e)
         {
+            
             SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
             command.Parameters.AddWithValue("Id", index);
             command.Parameters.AddWithValue("Title", name.Text);

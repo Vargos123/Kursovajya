@@ -85,9 +85,14 @@ namespace NotesApp
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
 
-                if (string.IsNullOrWhiteSpace(loginF.Text) || string.IsNullOrWhiteSpace(passF.Text))
+                if (string.IsNullOrWhiteSpace(loginF.Text))
                 {
-                    MessageBox.Show("Вы не ввели Логин или Пароль!");
+                    MessageBox.Show("Вы не ввели Логин!");
+                    return;
+                }
+                if(string.IsNullOrWhiteSpace(passF.Text))
+                {
+                    MessageBox.Show("Вы не ввели Пароль!");
                     return;
                 }
 

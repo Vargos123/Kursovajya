@@ -61,9 +61,14 @@ namespace NotesApp
             {
                 DataB db = new DataB();
 
-                if (string.IsNullOrWhiteSpace(loginF.Text) || string.IsNullOrWhiteSpace(passF.Text))
+                if (string.IsNullOrWhiteSpace(loginF.Text))
                 {
-                    MessageBox.Show("Вы не ввели Логин или Пароль!");
+                    MessageBox.Show("Вы не ввели Логин!");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(passF.Text))
+                {
+                    MessageBox.Show("Вы не ввели Пароль!");
                     return;
                 }
                 else if (loginF.TextLength < 4 || passF.TextLength < 4)

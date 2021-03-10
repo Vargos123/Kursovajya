@@ -43,6 +43,7 @@ namespace NotesApp
             this.bttSave = new System.Windows.Forms.Button();
             this.bttEdit = new System.Windows.Forms.Button();
             this.exit = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -86,7 +87,7 @@ namespace NotesApp
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Location = new System.Drawing.Point(212, 29);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(412, 43);
+            this.pictureBox2.Size = new System.Drawing.Size(368, 43);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 33;
             this.pictureBox2.TabStop = false;
@@ -96,9 +97,9 @@ namespace NotesApp
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Image = global::NotesApp.Properties.Resources.Название;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(196, 34);
+            this.pictureBox1.Size = new System.Drawing.Size(184, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 32;
             this.pictureBox1.TabStop = false;
@@ -224,12 +225,22 @@ namespace NotesApp
             this.exit.UseVisualStyleBackColor = false;
             this.exit.Click += new System.EventHandler(this.exit_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(406, 320);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "label1";
+            // 
             // ReadEditNoLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(604, 350);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.exit);
             this.Controls.Add(this.bttSave);
             this.Controls.Add(this.bttEdit);
@@ -271,5 +282,6 @@ namespace NotesApp
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.Button bttEdit;
         private System.Windows.Forms.Button exit;
+        private System.Windows.Forms.Label label1;
     }
 }

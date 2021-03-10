@@ -64,23 +64,12 @@ namespace NotesApp
         {
             name.ScrollBars = ScrollBars.Vertical;
             richTextBox2.Text = name.Text.Length.ToString();
-            if (name.TextLength == 50)
-            {
-                MessageBox.Show("Достигнуто максимальное количество символов: 50");
-                return;
-            }
         }
         private void message_TextChanged(object sender, EventArgs e)
         {
             message.ScrollBars = ScrollBars.Vertical;
 
             richTextBox1.Text = message.Text.Length.ToString();
-
-            if (message.TextLength == 500)
-            {
-                MessageBox.Show("Достигнуто максимальное количество символов: 500");
-                return;
-            }
         }
         private void CloseButton_Click(object sender, EventArgs e)
         {
