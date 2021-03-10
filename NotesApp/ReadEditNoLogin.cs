@@ -102,7 +102,18 @@ namespace NotesApp
 
         private void bttSave_Click(object sender, EventArgs e)
         {
-            
+            if (string.IsNullOrWhiteSpace(name.Text))
+            {
+                MessageBox.Show("Название не может быть пустым!");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(message.Text))
+            {
+                MessageBox.Show("Сообщение не может быть пустым!");
+                return;
+            }
+            message.ReadOnly = true;
+            name.ReadOnly = true;
             SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
             command.Parameters.AddWithValue("Id", index);
             command.Parameters.AddWithValue("Title", name.Text);

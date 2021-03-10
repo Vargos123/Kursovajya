@@ -89,8 +89,26 @@ namespace NotesApp
         {
             lastPoint = new Point(e.X, e.Y);
         }
+
+        private void ReadEdit_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void bttSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(name.Text))
+            {
+                MessageBox.Show("Название не может быть пустым!");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(message.Text))
+            {
+                MessageBox.Show("Сообщение не может быть пустым!");
+                return;
+            }
+            message.ReadOnly = true;
+            name.ReadOnly = true;
             MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
             command.Parameters.AddWithValue("title", name.Text);
             command.Parameters.AddWithValue("message", message.Text);
