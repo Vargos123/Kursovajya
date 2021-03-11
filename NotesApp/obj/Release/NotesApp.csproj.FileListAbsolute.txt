@@ -59,7 +59,6 @@ D:\Notes\NotesApp\bin\Release\ExcelDataReader.pdb
 D:\Notes\NotesApp\bin\Release\ExcelDataReader.xml
 D:\Notes\NotesApp\bin\Release\ExcelDataReader.DataSet.pdb
 D:\Notes\NotesApp\bin\Release\ExcelDataReader.DataSet.xml
-D:\Notes\NotesApp\obj\Release\NotesApp.csprojAssemblyReference.cache
 D:\Notes\NotesApp\obj\Release\NotesApp.csproj.ResolveComReference.cache
 D:\Notes\NotesApp\obj\Release\NotesApp.LoginForm.resources
 D:\Notes\NotesApp\obj\Release\NotesApp.MainForm.resources

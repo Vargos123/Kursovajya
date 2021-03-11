@@ -258,7 +258,6 @@
             this.richTextBox1.TabIndex = 16;
             this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "0";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // textBox3
             // 
@@ -273,7 +272,6 @@
             this.textBox3.TabIndex = 17;
             this.textBox3.TabStop = false;
             this.textBox3.Text = "/500";
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -409,7 +407,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

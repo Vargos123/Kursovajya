@@ -34,32 +34,43 @@ namespace NotesApp
 
         private void LoadData()
         {
-            try
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                connection.Open();
-                string query = "SELECT * FROM  `" + log + "` ORDER BY `id`";
-                command = new MySqlCommand(query, connection);
-                reader = command.ExecuteReader();
-
-                List<string[]> data = new List<string[]>();
-                while (reader.Read())
+                try
                 {
-                    data.Add(new string[2]);
-                    data[data.Count - 1][0] = reader[1].ToString();
-                    data[data.Count - 1][1] = reader[2].ToString();
+                    connection.Open();
+                    string query = "SELECT * FROM  `" + log + "` ORDER BY `id`";
+                    command = new MySqlCommand(query, connection);
+                    reader = command.ExecuteReader();
 
+                    List<string[]> data = new List<string[]>();
+                    while (reader.Read())
+                    {
+                        data.Add(new string[2]);
+                        data[data.Count - 1][0] = reader[1].ToString();
+                        data[data.Count - 1][1] = reader[2].ToString();
+
+                    }
+                    reader.Close();
+                    connection.Close();
+                    foreach (string[] s in data)
+                        dataGridView1.Rows.Add(s);
                 }
-                reader.Close();
-                connection.Close();
-                foreach (string[] s in data)
-                    dataGridView1.Rows.Add(s);
+                catch
+                {
+                    this.Close();
+                    LoginForm logF = new LoginForm();
+                    logF.Show();
+                    MessageBox.Show("Непредвиденная ошибка!");
+                }
+                
             }
-            catch
+            else
             {
-                this.Close();                
+                this.Close();
                 LoginForm logF = new LoginForm();
                 logF.Show();
-                MessageBox.Show("Непредвиденная ошибка!");
+                MessageBox.Show("Проверьте доступ к интернету");
             }
         }
 
@@ -90,33 +101,29 @@ namespace NotesApp
                             return;
                         }
                         else
-                        {
-                            int n = dataGridView1.Rows.Add();
-                            dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
-                            dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
-                        }
+                        {                            
+                            MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn());
+                            command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
+                            command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;                             
+                            
+                            db.openConn();
+                            if (command.ExecuteNonQuery() == 1)
+                            {
+                                int n = dataGridView1.Rows.Add();
+                                dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
+                                dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
+                                MessageBox.Show("Вы успешно добавили данные");
+                            }
+                            else
+                                MessageBox.Show("Не удалось добавить данные");
+                            db.closeConn();
 
-                        MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn());
-
-                        command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
-                        command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;
-
-                        db.openConn();
-
-                        if (command.ExecuteNonQuery() == 1)
-                            MessageBox.Show("Вы успешно добавили данные");
-                        else
-                            MessageBox.Show("Не удалось добавить данные");
-
-                        db.closeConn();
-                        nameBox.Clear();
-                        messageBox.Clear();                
+                            nameBox.Clear();
+                            messageBox.Clear();
+                        }                                      
                     }
                     catch
                     {
-                        this.Close();
-                        LoginForm logF = new LoginForm();
-                        logF.Show();
                         MessageBox.Show("Произошла ошибка!");
                     }
                 }
@@ -181,12 +188,7 @@ namespace NotesApp
 
         private void bttNew_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(nameBox.Text) & string.IsNullOrWhiteSpace(messageBox.Text))
-            {
-                nameBox.Clear();
-                messageBox.Clear();
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
             {
                 if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
@@ -194,7 +196,7 @@ namespace NotesApp
                     nameBox.Clear();
                     messageBox.Clear();
                 }
-            }            
+            }          
         }
 
         private void bttRead_Click(object sender, EventArgs e)
@@ -352,9 +354,6 @@ namespace NotesApp
 
         private void bttDelAll_Click(object sender, EventArgs e)
         {
-            bttSave.Visible = true;
-            messageBox.ReadOnly = false;
-            nameBox.ReadOnly = false;
             if (dataGridView1.RowCount > 0)
                 {
                     if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -377,10 +376,7 @@ namespace NotesApp
                                 }
                                 catch
                                 {
-                                    this.Close();
-                                    LoginForm logF = new LoginForm();
-                                    logF.Show();
-                                    MessageBox.Show("Произошла ошибка!");
+                                    MessageBox.Show("При удалении данных произошла ошибка!");
                                 }
                             }
                             else
@@ -403,24 +399,21 @@ namespace NotesApp
 
         private void bttExit_Click(object sender, EventArgs e)
         {
-            messageBox.ReadOnly = false;
-            nameBox.ReadOnly = false;
-
                 if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
                 {
                     if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                     {
-                        this.Hide();
+                        this.Close();
                         LoginForm logF = new LoginForm();
-                        logF.Show();
+                        logF.ShowDialog();
                     }
                 }
                 else
                 {
-                    this.Hide();
+                    this.Close();
                     LoginForm logF = new LoginForm();
-                    logF.Show();
+                    logF.ShowDialog();
                 }
                        
         }
@@ -475,9 +468,6 @@ namespace NotesApp
             {
                 try
                 {
-                    bttSave.Visible = true;
-                    messageBox.ReadOnly = false;
-                    nameBox.ReadOnly = false;
                     if (dataGridView1.RowCount > 0)
                     {
                         int n = dataGridView1.CurrentCell.RowIndex;
@@ -507,21 +497,6 @@ namespace NotesApp
         {
             dataGridView1.Rows.Clear();
             LoadData();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

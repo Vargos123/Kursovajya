@@ -80,7 +80,6 @@ namespace NotesApp
             if (textBoxSearch.TextLength == 50)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 50!");
-                return;
             }
         }
         private void bttFind_Click(object sender, EventArgs e)
@@ -108,7 +107,6 @@ namespace NotesApp
             else
             {
                 MessageBox.Show("Нет записей для поиска. Добавьте записи!");
-                return;
             }
         }
 
@@ -145,28 +143,17 @@ namespace NotesApp
             }
         }
 
-        private void bttDelete_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.RowCount > 0)
-            {
-                if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    int index = dataGridView1.SelectedCells[0].RowIndex;
-                    dataGridView1.Rows.RemoveAt(index);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Нет записей для удаления!");
-                return;
-            }
-        }
-
         private void bttNew_Click(object sender, EventArgs e)
         {
-            nameBox.Clear();
-            messageBox.Clear();            
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
+            {
+                if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    nameBox.Clear();
+                    messageBox.Clear();
+                }
+            }
         }
 
         private void bttExit_Click(object sender, EventArgs e)
@@ -176,16 +163,16 @@ namespace NotesApp
                 if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    this.Hide();
+                    this.Close();
                     LoginForm logF = new LoginForm();
-                    logF.Show();
+                    logF.ShowDialog();
                 }
             }
             else
             {
-                this.Hide();
+                this.Close();
                 LoginForm logF = new LoginForm();
-                logF.Show();
+                logF.ShowDialog();
             }            
         }    
 
@@ -231,7 +218,6 @@ namespace NotesApp
             catch
             {
                 MessageBox.Show("Не удалось сохранить данные!");
-                return;
             }
         }
 
@@ -242,22 +228,28 @@ namespace NotesApp
                     if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                     {
-                        dataGridView1.Rows.Clear();
-                        SqlCommand command = new SqlCommand("TRUNCATE TABLE [Table]", sqlConnection);
-                        sqlConnection.Open();
-                        command.ExecuteNonQuery();
-                        sqlConnection.Close();
-                        MessageBox.Show("Все записи были успешно удаленны!");
+                        try
+                        {
+                            dataGridView1.Rows.Clear();
+                            SqlCommand command = new SqlCommand("TRUNCATE TABLE [Table]", sqlConnection);
+                            sqlConnection.Open();
+                            command.ExecuteNonQuery();
+                            sqlConnection.Close();
+                            MessageBox.Show("Все записи были успешно удаленны!");
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Произошла ошибка!");
+                        }
                     }
             }
             else
             {
                 MessageBox.Show("Нет записей для удаления!");
-                return;
             }
         }        
 
-        private void bttDelete_Click_1(object sender, EventArgs e)
+        private void bttDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.RowCount > 0)
             {
@@ -272,14 +264,21 @@ namespace NotesApp
                         if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
-                            SqlCommand command = new SqlCommand("DELETE FROM [Table] WHERE id = @Id", sqlConnection); // Удаляем строку по индексу
-                            string x = (string)dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
-                            command.Parameters.AddWithValue("Id", x);
-                            sqlConnection.Open();
-                            command.ExecuteNonQuery();
-                            sqlConnection.Close();
-                            ReloadData();
-                        }
+                            try
+                            {
+                                SqlCommand command = new SqlCommand("DELETE FROM [Table] WHERE id = @Id", sqlConnection); // Удаляем строку по индексу
+                                string x = (string)dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
+                                command.Parameters.AddWithValue("Id", x);
+                                sqlConnection.Open();
+                                command.ExecuteNonQuery();
+                                sqlConnection.Close();
+                                ReloadData();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Произошла ошибка!");
+                            }
+                        }           
                     }
                 }
                 catch
@@ -290,7 +289,6 @@ namespace NotesApp
             else
             {
                 MessageBox.Show("Нет записей для удаления!");
-                return;
             }
         }
 
@@ -303,7 +301,6 @@ namespace NotesApp
             if (messageBox.TextLength == 500)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 500");
-                return;
             }
         }
         private void MainFormNoLogin_Load(object sender, EventArgs e)
@@ -316,6 +313,9 @@ namespace NotesApp
             }
             catch
             {
+                this.Close();
+                LoginForm LogF = new LoginForm();
+                LogF.Show();
                 MessageBox.Show("Непредвиденная ошибка! Переустановите приложение!");
             }
         }

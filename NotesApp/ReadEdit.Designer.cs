@@ -42,7 +42,6 @@ namespace NotesApp
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.bttSave = new System.Windows.Forms.Button();
             this.bttEdit = new System.Windows.Forms.Button();
-            this.exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -219,27 +218,12 @@ namespace NotesApp
             this.bttEdit.UseVisualStyleBackColor = false;
             this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click_1);
             // 
-            // exit
-            // 
-            this.exit.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.exit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.exit.Location = new System.Drawing.Point(476, 82);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(104, 34);
-            this.exit.TabIndex = 41;
-            this.exit.TabStop = false;
-            this.exit.Text = "Выйти";
-            this.exit.UseVisualStyleBackColor = false;
-            this.exit.Click += new System.EventHandler(this.exit_Click);
-            // 
             // ReadEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(604, 350);
-            this.Controls.Add(this.exit);
             this.Controls.Add(this.bttSave);
             this.Controls.Add(this.bttEdit);
             this.Controls.Add(this.textBox3);
@@ -279,6 +263,5 @@ namespace NotesApp
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.Button bttEdit;
-        private System.Windows.Forms.Button exit;
     }
 }

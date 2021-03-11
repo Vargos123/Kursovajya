@@ -40,7 +40,6 @@ namespace NotesApp
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.bttSave = new System.Windows.Forms.Button();
             this.bttEdit = new System.Windows.Forms.Button();
-            this.exit = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -195,20 +194,6 @@ namespace NotesApp
             this.bttEdit.UseVisualStyleBackColor = false;
             this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click);
             // 
-            // exit
-            // 
-            this.exit.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.exit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.exit.Location = new System.Drawing.Point(476, 81);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(104, 35);
-            this.exit.TabIndex = 41;
-            this.exit.TabStop = false;
-            this.exit.Text = "Выйти";
-            this.exit.UseVisualStyleBackColor = false;
-            this.exit.Click += new System.EventHandler(this.exit_Click);
-            // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
@@ -241,7 +226,6 @@ namespace NotesApp
             this.ClientSize = new System.Drawing.Size(604, 350);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.exit);
             this.Controls.Add(this.bttSave);
             this.Controls.Add(this.bttEdit);
             this.Controls.Add(this.textBox3);
@@ -278,7 +262,6 @@ namespace NotesApp
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.Button bttEdit;
-        private System.Windows.Forms.Button exit;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
     }

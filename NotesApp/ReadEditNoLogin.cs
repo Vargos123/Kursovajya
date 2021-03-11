@@ -89,22 +89,6 @@ namespace NotesApp
             }
         }
 
-        private void exit_Click(object sender, EventArgs e)
-        {
-            if (name.ReadOnly == false)
-            {
-                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    this.Close();
-                }
-            }
-            else
-            {
-                this.Close();
-            }
-        }
-
         private void bttEdit_Click(object sender, EventArgs e)
         {
             name.ReadOnly = false;
@@ -154,17 +138,16 @@ namespace NotesApp
                     command.Parameters.AddWithValue("Title", name.Text);
                     command.Parameters.AddWithValue("Message", message.Text);
                     sqlConnection.Open();
-                if (command.ExecuteNonQuery() == 1)
-                {
-                    MessageBox.Show("Вы успешно обновлили данные!");
-                }
-                else
-                    MessageBox.Show("Вы не смогли обновить данные!");
-                sqlConnection.Close();
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Вы успешно обновлили данные!");
+                    }
+                    else
+                        MessageBox.Show("Вы не смогли обновить данные!");
+                    sqlConnection.Close();
             }
             catch
             {
-                this.Close();
                 MessageBox.Show("Произошла ошибка! Возможно потребуется переустановка приложения!");
             }
         }        

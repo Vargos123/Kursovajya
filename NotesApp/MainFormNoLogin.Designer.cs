@@ -341,7 +341,7 @@
             this.bttDelete.TabIndex = 53;
             this.bttDelete.Text = "Очистить";
             this.bttDelete.UseVisualStyleBackColor = false;
-            this.bttDelete.Click += new System.EventHandler(this.bttDelete_Click_1);
+            this.bttDelete.Click += new System.EventHandler(this.bttDelete_Click);
             // 
             // bttReload
             // 

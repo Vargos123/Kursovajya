@@ -28,8 +28,7 @@ namespace NotesApp
         int index;
 
         private void LoadData()
-        {
-            
+        {            
             name.ReadOnly = true;
             message.ReadOnly = true;           
             this.name.Cursor = Cursors.Default;
@@ -74,21 +73,6 @@ namespace NotesApp
             richTextBox1.Text = message.Text.Length.ToString();
         }
         private void CloseButton_Click(object sender, EventArgs e)
-        {
-            if (name.ReadOnly == false)
-            {
-                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    this.Close();
-                }
-            }
-            else
-            {
-                this.Close();
-            }
-        }
-        private void exit_Click(object sender, EventArgs e)
         {
             if (name.ReadOnly == false)
             {
@@ -156,7 +140,6 @@ namespace NotesApp
                 }
                 catch
                 {
-                    this.Close();
                     MessageBox.Show("Произошла ошибка!");
                 }
             }
