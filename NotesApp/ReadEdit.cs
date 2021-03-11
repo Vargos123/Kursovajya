@@ -77,7 +77,7 @@ namespace NotesApp
         {
             if (name.ReadOnly == false)
             {
-                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -92,7 +92,7 @@ namespace NotesApp
         {
             if (name.ReadOnly == false)
             {
-                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -121,47 +121,49 @@ namespace NotesApp
             this.message.Cursor = Cursors.IBeam;
         }
 
-        private void ReadEdit_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void bttSave_Click(object sender, EventArgs e)
         {
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                if (string.IsNullOrWhiteSpace(name.Text))
+                try
                 {
-                    MessageBox.Show("Название не может быть пустым!");
-                    return;
+                    if (string.IsNullOrWhiteSpace(name.Text))
+                    {
+                        MessageBox.Show("Название не может быть пустым!");
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(message.Text))
+                    {
+                        MessageBox.Show("Сообщение не может быть пустым!");
+                        return;
+                    }
+                    name.ReadOnly = true;
+                    message.ReadOnly = true;
+                    this.name.Cursor = Cursors.Default;
+                    this.message.Cursor = Cursors.Default;
+                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
+                    command.Parameters.AddWithValue("title", name.Text);
+                    command.Parameters.AddWithValue("message", message.Text);
+                    command.Parameters.AddWithValue("Id", index);
+                    db.openConn();
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Вы успешно обновлили данные!");
+                    }
+                    else
+                        MessageBox.Show("Вы не смогли обновить данные!");
+                    db.closeConn();
                 }
-                if (string.IsNullOrWhiteSpace(message.Text))
+                catch
                 {
-                    MessageBox.Show("Сообщение не может быть пустым!");
-                    return;
+                    this.Close();
+                    MessageBox.Show("Произошла ошибка!");
                 }
-                name.ReadOnly = true;
-                message.ReadOnly = true;
-                this.name.Cursor = Cursors.Default;
-                this.message.Cursor = Cursors.Default;
-                MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn()); // Удаляем выделенную строку по индексу
-                command.Parameters.AddWithValue("title", name.Text);
-                command.Parameters.AddWithValue("message", message.Text);
-                command.Parameters.AddWithValue("Id", index);
-                db.openConn();
-                if (command.ExecuteNonQuery() == 1)
-                {
-                    MessageBox.Show("Вы успешно обновлили данные!");
-                }
-                else
-                    MessageBox.Show("Вы не смогли обновить данные!");
-                db.closeConn();
             }
             else
             {
                 MessageBox.Show("Не удалось обновить данные. Проверьте доступ к интернету!");
-            }
-            
+            }            
         }
 
         private void hide_Click(object sender, EventArgs e)

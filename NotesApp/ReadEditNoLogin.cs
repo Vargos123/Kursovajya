@@ -77,7 +77,7 @@ namespace NotesApp
         {
             if (name.ReadOnly == false)
             {
-                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -93,7 +93,7 @@ namespace NotesApp
         {
             if (name.ReadOnly == false)
             {
-                if (MessageBox.Show("Вы действительно отменить редактирование? Проверьте данные на сохранение!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -120,37 +120,53 @@ namespace NotesApp
 
         private void ReadEditNoLogin_Load(object sender, EventArgs e)
         {
-            sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString);            
+            try
+            {
+                sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString);
+            }
+            catch
+            {
+                this.Close();
+                MessageBox.Show("Произошла ошибка! Возможно потребуется переустановка приложения! ");                
+            }
         }
 
         private void bttSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(name.Text))
+            try
             {
-                MessageBox.Show("Название не может быть пустым!");
-                return;
+                if (string.IsNullOrWhiteSpace(name.Text))
+                {
+                    MessageBox.Show("Название не может быть пустым!");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(message.Text))
+                {
+                    MessageBox.Show("Сообщение не может быть пустым!");
+                    return;
+                }
+                    name.ReadOnly = true;
+                    message.ReadOnly = true;
+                    this.name.Cursor = Cursors.Default;
+                    this.message.Cursor = Cursors.Default;
+                    SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
+                    command.Parameters.AddWithValue("Id", index);
+                    command.Parameters.AddWithValue("Title", name.Text);
+                    command.Parameters.AddWithValue("Message", message.Text);
+                    sqlConnection.Open();
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Вы успешно обновлили данные!");
+                }
+                else
+                    MessageBox.Show("Вы не смогли обновить данные!");
+                sqlConnection.Close();
             }
-            if (string.IsNullOrWhiteSpace(message.Text))
+            catch
             {
-                MessageBox.Show("Сообщение не может быть пустым!");
-                return;
+                this.Close();
+                MessageBox.Show("Произошла ошибка! Возможно потребуется переустановка приложения!");
             }
-            name.ReadOnly = true;
-            message.ReadOnly = true;
-            this.name.Cursor = Cursors.Default;
-            this.message.Cursor = Cursors.Default;
-            SqlCommand command = new SqlCommand("UPDATE [Table] SET [Title]=@Title, [Message]=@Message WHERE [Id]=@Id", sqlConnection);
-            command.Parameters.AddWithValue("Id", index);
-            command.Parameters.AddWithValue("Title", name.Text);
-            command.Parameters.AddWithValue("Message", message.Text);
-            sqlConnection.Open();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                MessageBox.Show("Вы успешно обновлили данные!");
-            }
-            else
-                MessageBox.Show("Вы не смогли обновить данные!");
-            sqlConnection.Close();
         }        
 
         private void hide_Click(object sender, EventArgs e)

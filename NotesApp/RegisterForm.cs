@@ -59,56 +59,64 @@ namespace NotesApp
         {
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                DataB db = new DataB();
+                try
+                { 
+                    DataB db = new DataB();
 
-                if (string.IsNullOrWhiteSpace(loginF.Text))
-                {
-                    MessageBox.Show("Вы не ввели Логин!");
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(passF.Text))
-                {
-                    MessageBox.Show("Вы не ввели Пароль!");
-                    return;
-                }
-                else if (loginF.TextLength < 4 || passF.TextLength < 4)
-                {
-                    MessageBox.Show("Длина Логина или Пароля меньше допустимой нормы. Минимальная длина 4 символа.");
-                    return;
-                }
+                    if (string.IsNullOrWhiteSpace(loginF.Text))
+                    {
+                        MessageBox.Show("Вы не ввели Логин!");
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(passF.Text))
+                    {
+                        MessageBox.Show("Вы не ввели Пароль!");
+                        return;
+                    }
+                    else if (loginF.TextLength < 4 || passF.TextLength < 4)
+                    {
+                        MessageBox.Show("Длина Логина или Пароля меньше допустимой нормы. Минимальная длина 4 символа.");
+                        return;
+                    }
 
                 
-                if (isUser())
-                    return;
+                    if (isUser())
+                        return;
 
-                try
-                {
-                    using (MySqlCommand crtdata = new MySqlCommand("CREATE TABLE `" + loginF.Text + "` LIKE PrimerTable", db.getConn()))
+                    try
                     {
-                        db.openConn();
-                        crtdata.ExecuteNonQuery();
-                        db.closeConn();
+                        using (MySqlCommand crtdata = new MySqlCommand("CREATE TABLE `" + loginF.Text + "` LIKE PrimerTable", db.getConn()))
+                        {
+                            db.openConn();
+                            crtdata.ExecuteNonQuery();
+                            db.closeConn();
+                        }
                     }
+                    catch
+                    {
+                        MessageBox.Show("Данный Логин не может быть использован!");
+                        return;
+                    }
+
+                    MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`) VALUES (@login, @pass)", db.getConn());
+
+                    command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginF.Text;
+                    command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = passF.Text;
+
+                    db.openConn();
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Вы успешно зарегистрировались!");
+                    }
+                    else
+                        MessageBox.Show("Вы не зарегистрировались, проверьте ввод даных!");
+                    db.closeConn();
                 }
                 catch
                 {
-                    MessageBox.Show("Данный Логин не может быть использован!");
-                    return;
+                    this.Close();
+                    MessageBox.Show("Произошла ошибка!");
                 }
-
-                MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`) VALUES (@login, @pass)", db.getConn());
-
-                command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginF.Text;
-                command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = passF.Text;
-
-                db.openConn();
-                if (command.ExecuteNonQuery() == 1)
-                {
-                    MessageBox.Show("Вы успешно зарегистрировались!");
-                }
-                else
-                    MessageBox.Show("Вы не зарегистрировались, проверьте ввод даных!");
-                db.closeConn();
             }
             else
             {
@@ -118,29 +126,37 @@ namespace NotesApp
 
         public Boolean isUser()
         {
-            try
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                DataB db = new DataB();
-
-                DataTable table = new DataTable();
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-                MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
-                command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text;
-                adapter.SelectCommand = command;
-                adapter.Fill(table);
-
-
-                if (table.Rows.Count > 0)
+                try
                 {
-                    MessageBox.Show("Даный Логин уже зарегистрирован!");
+                    DataB db = new DataB();
+
+                    DataTable table = new DataTable();
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
+                    command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text;
+                    adapter.SelectCommand = command;
+                    adapter.Fill(table);
+
+
+                    if (table.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Даный Логин уже зарегистрирован!");
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch
+                {
+                    MessageBox.Show("Произошла ошибка! Возможно потребуется переустановление программы!");
                     return true;
                 }
-                else
-                    return false;
             }
-            catch
+            else
             {
                 MessageBox.Show(" Проверьте доступ к интернету. Не удалось подключится к сети.");
                 return true;

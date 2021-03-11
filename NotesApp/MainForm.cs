@@ -65,56 +65,66 @@ namespace NotesApp
 
             private void bttSave_Click(object sender, EventArgs e)
             {            
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                if (dataGridView1.Rows.Count == 100)
+                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 {
-                    MessageBox.Show("Вы можете добавить не больше 100 записей!");
-                    return;
-                }
-                else if (string.IsNullOrWhiteSpace(nameBox.Text))
+                    try
                     {
-                    MessageBox.Show("Вы не ввели Название!");
-                    return;
-                }
-                else if (nameBox.TextLength > 50)
-                {
-                    MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
-                    return;
-                }
-                else if (string.IsNullOrWhiteSpace(messageBox.Text))
-                {
-                    MessageBox.Show("Вы не ввели Сообщение!");
-                    return;
+                        if (dataGridView1.Rows.Count == 100)
+                        {
+                            MessageBox.Show("Вы можете добавить не больше 100 записей!");
+                            return;
+                        }
+                        else if (string.IsNullOrWhiteSpace(nameBox.Text))
+                        {
+                            MessageBox.Show("Вы не ввели Название!");
+                            return;
+                        }
+                        else if (nameBox.TextLength > 50)
+                        {
+                            MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
+                            return;
+                        }
+                        else if (string.IsNullOrWhiteSpace(messageBox.Text))
+                        {
+                            MessageBox.Show("Вы не ввели Сообщение!");
+                            return;
+                        }
+                        else
+                        {
+                            int n = dataGridView1.Rows.Add();
+                            dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
+                            dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
+                        }
+
+                        MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn());
+
+                        command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
+                        command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;
+
+                        db.openConn();
+
+                        if (command.ExecuteNonQuery() == 1)
+                            MessageBox.Show("Вы успешно добавили данные");
+                        else
+                            MessageBox.Show("Не удалось добавить данные");
+
+                        db.closeConn();
+                        nameBox.Clear();
+                        messageBox.Clear();                
+                    }
+                    catch
+                    {
+                        this.Close();
+                        LoginForm logF = new LoginForm();
+                        logF.Show();
+                        MessageBox.Show("Произошла ошибка!");
+                    }
                 }
                 else
                 {
-                    int n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
-                    dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
-                }
-
-                MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn());
-
-                command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
-                command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;
-
-                db.openConn();
-
-                if (command.ExecuteNonQuery() == 1)
-                    MessageBox.Show("Вы успешно добавили данные");
-                else
-                    MessageBox.Show("Не удалось добавить данные");
-
-                db.closeConn();
-                nameBox.Clear();
-                messageBox.Clear();
+                    MessageBox.Show("Не удалось сохранить данные. Проверьте доступ к интернету!");
+                }            
             }
-            else
-            {
-                MessageBox.Show("Не удалось сохранить данные. Проверьте доступ к интернету!");
-            }            
-        }
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -178,7 +188,7 @@ namespace NotesApp
             }
             else
             {
-                if (MessageBox.Show("Вы действительно хотите создать запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     nameBox.Clear();
@@ -213,7 +223,6 @@ namespace NotesApp
                     {
                         MessageBox.Show("Произошла ошибка!");
                     }
-
                 }
                 else
                 {
@@ -292,18 +301,28 @@ namespace NotesApp
                         {
                             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                             {
-                                int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                                dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
+                                try
+                                { 
+                                    int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+                                    dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
 
-                                MySqlCommand comman2 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn()); // Удаляем выделенную строку по индексу
-                                MySqlCommand comman1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
-                                "ALTER TABLE `" + log + "`" +
-                                "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                                "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1
-                                db.openConn();
-                                comman2.ExecuteNonQuery();
-                                comman1.ExecuteNonQuery();
-                                db.closeConn();
+                                    MySqlCommand comman2 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn()); // Удаляем выделенную строку по индексу
+                                    MySqlCommand comman1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
+                                    "ALTER TABLE `" + log + "`" +
+                                    "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
+                                    "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1
+                                    db.openConn();
+                                    comman2.ExecuteNonQuery();
+                                    comman1.ExecuteNonQuery();
+                                    db.closeConn();
+                                }
+                                catch
+                                {
+                                    this.Close();
+                                    LoginForm logF = new LoginForm();
+                                    logF.Show();
+                                    MessageBox.Show("Произошла ошибка!");
+                                }
                             }
                             else
                             {
@@ -343,18 +362,31 @@ namespace NotesApp
                         if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
-                                
-                            
-                                dataGridView1.Rows.Clear();
-                                using (MySqlCommand commanS = new MySqlCommand("TRUNCATE TABLE `" + log + "`", db.getConn()))
-                                {
+                            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                            {
+                                try
+                                {                             
+                                    dataGridView1.Rows.Clear();
+                                    MySqlCommand command = new MySqlCommand("TRUNCATE TABLE `" + log + "`", db.getConn());
                                     db.openConn();
-                                    commanS.ExecuteNonQuery();
-                                    db.closeConn();
+                                    if(command.ExecuteNonQuery() == 1)
+                                        MessageBox.Show("Все записи были успешно удаленны!");
+                                    else
+                                        MessageBox.Show("Не удалсь удалить данные");
+                                    db.closeConn();                            
                                 }
-                                MessageBox.Show("Все записи были успешно удаленны!");
-                                
-                            
+                                catch
+                                {
+                                    this.Close();
+                                    LoginForm logF = new LoginForm();
+                                    logF.Show();
+                                    MessageBox.Show("Произошла ошибка!");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");
+                            }
                         }
                     }
                     else
@@ -405,19 +437,24 @@ namespace NotesApp
                     {
                         if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                         {
-                            MySqlCommand comman1 = new MySqlCommand(" DELETE FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
-                            MySqlCommand comman2 = new MySqlCommand(" DROP TABLE `" + log + "`", db.getConn());
-                            comman1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
-
-                            db.openConn();
-                            comman1.ExecuteNonQuery();
-                            comman2.ExecuteNonQuery();
-                            db.closeConn();
-
-                            this.Hide();
-                            LoginForm logF = new LoginForm();
-                            logF.Show();
-                            MessageBox.Show("Ваш аккаунт был успешно удален!");
+                            try
+                            {
+                                MySqlCommand command1 = new MySqlCommand(" DELETE FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
+                                MySqlCommand command2 = new MySqlCommand(" DROP TABLE `" + log + "`", db.getConn());
+                                command1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
+                                db.openConn();
+                                command1.ExecuteNonQuery();
+                                command2.ExecuteNonQuery();
+                                db.closeConn();
+                                this.Hide();
+                                LoginForm logF = new LoginForm();
+                                logF.Show();
+                                MessageBox.Show("Ваш аккаунт был успешно удален!");
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Произошла ошибка!");
+                            }
                         }
                         else
                         {
@@ -436,22 +473,29 @@ namespace NotesApp
         {
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                bttSave.Visible = true;
-                messageBox.ReadOnly = false;
-                nameBox.ReadOnly = false;
-                if (dataGridView1.RowCount > 0)
+                try
                 {
-                    int n = dataGridView1.CurrentCell.RowIndex;
-                    if (n > -1)
+                    bttSave.Visible = true;
+                    messageBox.ReadOnly = false;
+                    nameBox.ReadOnly = false;
+                    if (dataGridView1.RowCount > 0)
                     {
-                        nameBox.Text = (string)dataGridView1.Rows[n].Cells[0].Value;
-                        messageBox.Text = (string)dataGridView1.Rows[n].Cells[1].Value;                        
+                        int n = dataGridView1.CurrentCell.RowIndex;
+                        if (n > -1)
+                        {
+                            nameBox.Text = (string)dataGridView1.Rows[n].Cells[0].Value;
+                            messageBox.Text = (string)dataGridView1.Rows[n].Cells[1].Value;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Нет записей для редактирования. Добавьте записи!");
                     }
                 }
-                else
+                catch
                 {
-                    MessageBox.Show("Нет записей для редактирования. Добавьте записи!");
-                }                                          
+                    MessageBox.Show("Произошла ошибка!");
+                }
             }
             else
             {
