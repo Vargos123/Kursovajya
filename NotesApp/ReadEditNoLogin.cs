@@ -106,7 +106,8 @@ namespace NotesApp
         {
             try
             {
-                sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString);
+                String fullPath = AppDomain.CurrentDomain.BaseDirectory + "\\DataBase.mdf";
+                sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+ fullPath +";Integrated Security=True");
             }
             catch
             {

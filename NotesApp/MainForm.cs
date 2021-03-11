@@ -498,5 +498,10 @@ namespace NotesApp
             dataGridView1.Rows.Clear();
             LoadData();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

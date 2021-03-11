@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nxJ4be35ePFeCkHp8RTnAEfBfTpUyJrl85lt13xatbY=</dsig:DigestValue>
+        <dsig:DigestValue>RYkzzOe4kLuPzaW+8AccC8ZsGN6wrCrn9QPZBrkAcNg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -105,7 +105,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RBEAJqceCBEwZV0QombamU0woGqXbmPK0MyxgcRT2mw=</dsig:DigestValue>
+      <dsig:DigestValue>f43RVabNLSshK4X/JUTaQbJ/7+XNdCF9e55VlbBOaGo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="DataBase_log.ldf" size="8388608" writeableType="applicationData">
@@ -114,7 +114,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>nGmK2J+e4p+q4tiE3a38Od4NijPa58mLKqNnCuG+wEQ=</dsig:DigestValue>
+      <dsig:DigestValue>djWkSpCbGkONDaKXdHdTVTdTWgOvmnLL3dTYuKa1jQU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Icon.ico" size="67646">
@@ -126,13 +126,13 @@
       <dsig:DigestValue>MhxU3/YDFRTdmTF/Zx7ZSD4HpmS84IIYMF7UwYUmvfU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NotesApp.exe.config" size="388">
+  <file name="NotesApp.exe.config" size="186">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>HHgsHPCs9/s3RmP/LXLkXRFQmRoKAnubn9U31sS7nvA=</dsig:DigestValue>
+      <dsig:DigestValue>eSEJjkfolEEv39DK/g+IzGhJd0CZjqwXxowAEpBp2AM=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
