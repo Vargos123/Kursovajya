@@ -306,9 +306,8 @@ namespace NotesApp
         private void MainFormNoLogin_Load(object sender, EventArgs e)
         {
             try
-            {
-                String fullPath = Application.StartupPath.ToString() + "\\DataBase.mdf";
-                sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+ fullPath +";Integrated Security=True");
+            {         
+                sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True");
                 sqlConnection.Open();
                 LoadData();
             }

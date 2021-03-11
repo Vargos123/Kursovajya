@@ -167,5 +167,10 @@ namespace NotesApp
             MainFormNoLogin mainF = new MainFormNoLogin();
             mainF.Show();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

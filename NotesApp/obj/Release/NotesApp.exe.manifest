@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="830944">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="831456">
       <assemblyIdentity name="NotesApp" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RYkzzOe4kLuPzaW+8AccC8ZsGN6wrCrn9QPZBrkAcNg=</dsig:DigestValue>
+        <dsig:DigestValue>mLPYZl8KEkbB2uUIXJTW/rBCnuFEgbPpgcvz+cu9pDM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -105,7 +105,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>f43RVabNLSshK4X/JUTaQbJ/7+XNdCF9e55VlbBOaGo=</dsig:DigestValue>
+      <dsig:DigestValue>w5y7pPaui9dIFy1O0jKhABHZFR3cyLjP9/SGWR9k2f8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="DataBase_log.ldf" size="8388608" writeableType="applicationData">
@@ -114,7 +114,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>djWkSpCbGkONDaKXdHdTVTdTWgOvmnLL3dTYuKa1jQU=</dsig:DigestValue>
+      <dsig:DigestValue>TjHup+/LQUNzBeIAHTn5EdJH1qgzXdn5RGt0F86g6dw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Icon.ico" size="67646">
@@ -126,13 +126,13 @@
       <dsig:DigestValue>MhxU3/YDFRTdmTF/Zx7ZSD4HpmS84IIYMF7UwYUmvfU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NotesApp.exe.config" size="186">
+  <file name="NotesApp.exe.config" size="882">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eSEJjkfolEEv39DK/g+IzGhJd0CZjqwXxowAEpBp2AM=</dsig:DigestValue>
+      <dsig:DigestValue>JGtAlO9ls3xxNojRH7f0k0/rXpVcAo1/5NCesBrVFTM=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
