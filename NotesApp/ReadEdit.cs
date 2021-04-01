@@ -13,10 +13,14 @@ namespace NotesApp
 {
     public partial class ReadEdit : Form
     {
+        // Подключение к базе данных
         DataB db = new DataB();
+
         public ReadEdit(string nameBox, string messageBox, int index, string log)
         {
+            // Стартовая позиция по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
+            
             InitializeComponent();
             this.nameBox = nameBox;
             this.messageBox = messageBox;
@@ -27,6 +31,7 @@ namespace NotesApp
         string nameBox, messageBox, log;
         int index;
 
+        
         private void LoadData()
         {            
             name.ReadOnly = true;

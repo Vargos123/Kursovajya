@@ -14,55 +14,71 @@ namespace NotesApp
 {
     public partial class RegisterForm : Form
     {
+        // Подключаем базу данных
+        DataB db = new DataB();
+
         public RegisterForm()
         {
+            // Стартовая позиция по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            // Выход из приложения
             Application.Exit();
         }
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
-            CloseButton.ForeColor = Color.Black; // черный крестик при наводе мышкой
+            // Черный крестик при наводе мышкой на кнопку закрытия
+            CloseButton.ForeColor = Color.Black;
         }
         private void CloseButton_MouseLeave(object sender, EventArgs e)
         {
-            CloseButton.ForeColor = Color.White; // белый крестик
+            // Белый крестик закрытия при снятии мышки с кнопки
+            CloseButton.ForeColor = Color.White;
         }
         private void hide_MouseEnter(object sender, EventArgs e)
         {
-            hide.ForeColor = Color.Black; // черный - при наводе мышкой на 
+            // Смена цвета кнопки Свернуть на черный при наведении мышки
+            hide.ForeColor = Color.Black;
         }
         private void hide_MouseLeave(object sender, EventArgs e)
         {
-            hide.ForeColor = Color.White; // белый -
+            // Смена цвета кнопки Свернуть на белый при снятии мышки с кнопки
+            hide.ForeColor = Color.White; //
         }
-
+        private void label5_Click(object sender, EventArgs e)
+        {
+            // Свернуть приложения при нажатии на кнопку
+            this.WindowState = FormWindowState.Minimized;
+        }
         Point lastPoint;
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
+            // Проверяем нажата ли левая кнопка мышки
             if (e.Button == MouseButtons.Left)
             {
+                // Передвигаем форму за мышкой
                 this.Left += e.X - lastPoint.X;
                 this.Top += e.Y - lastPoint.Y;
             }
         }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
+            // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
         }
 
+        // Кнопка Регистрация 
         private void butRegister_Click(object sender, EventArgs e)
         {
+            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
-                { 
-                    DataB db = new DataB();
-
+                {
+                    // Проверяем введён ли логин и пароль и их длину
                     if (string.IsNullOrWhiteSpace(loginF.Text))
                     {
                         MessageBox.Show("Вы не ввели Логин!");
@@ -79,18 +95,17 @@ namespace NotesApp
                         return;
                     }
 
-                
+                    // Проверяем свободный ли логин. Если нет, выходим из функции 
                     if (isUser())
                         return;
 
                     try
                     {
-                        using (MySqlCommand crtdata = new MySqlCommand("CREATE TABLE `" + loginF.Text + "` LIKE PrimerTable", db.getConn()))
-                        {
-                            db.openConn();
-                            crtdata.ExecuteNonQuery();
-                            db.closeConn();
-                        }
+                        // Создаем таблицу в базе данных в которой будут хранится все записи пользователя
+                        MySqlCommand createT = new MySqlCommand("CREATE TABLE `" + loginF.Text + "` LIKE PrimerTable", db.getConn());
+                        db.openConn();  // Открываем соединение
+                        createT.ExecuteNonQuery();  // Выполняем комманду
+                        db.closeConn(); // Закрывем соединение           
                     }
                     catch
                     {
@@ -98,23 +113,30 @@ namespace NotesApp
                         return;
                     }
 
+                    // Добавляем Логин и Пароль пользователя в общую базу 
                     MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`) VALUES (@login, @pass)", db.getConn());
-
+                    // Снимаем заглушки
                     command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginF.Text;
                     command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = passF.Text;
 
-                    db.openConn();
+                    db.openConn();  // Открываем соединение
                     if (command.ExecuteNonQuery() == 1)
-                    {
                         MessageBox.Show("Вы успешно зарегистрировались!");
-                    }
                     else
+                    {
                         MessageBox.Show("Вы не зарегистрировались, проверьте ввод даных!");
-                    db.closeConn();
+
+                        // В случае неудачи удаляем созданную раннее таблицу
+                        MySqlCommand command1 = new MySqlCommand("DROP TABLE `" + loginF.Text + "`", db.getConn());
+                        command1.ExecuteNonQuery();
+                    }
+                    db.closeConn(); // Закрываем соединение
                 }
                 catch
                 {
-                    this.Close();
+                    this.Hide();
+                    LoginForm logF = new LoginForm();
+                    logF.Show();
                     MessageBox.Show("Произошла ошибка!");
                 }
             }
@@ -124,25 +146,27 @@ namespace NotesApp
             }            
         }
 
+        // Проверяем свободный ли логин
         public Boolean isUser()
         {
+            // Проверяем наличине интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
                 {
-                    DataB db = new DataB();
-
+                    // Создаем таблицу в которой будут проверяться данные
                     DataTable table = new DataTable();
-
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
 
+                    // Выбираем логин с базы данных и сравниваем с тем, который ввёл пользователь
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
-                    command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text;
-                    adapter.SelectCommand = command;
-                    adapter.Fill(table);
+                    command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text; 
+                    
+                    adapter.SelectCommand = command;    // Выполняем комманду
 
+                    adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
 
-                    if (table.Rows.Count > 0)
+                    if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
                     {
                         MessageBox.Show("Даный Логин уже зарегистрирован!");
                         return true;
@@ -163,6 +187,7 @@ namespace NotesApp
             }
         }
 
+        // Кнопка открытия формы авторизации
         private void goToLogin_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -172,7 +197,10 @@ namespace NotesApp
 
         private void loginF_TextChanged(object sender, EventArgs e)
         {
+            // Считываем количество символов и записываем снизу поля
             richTextBox2.Text = loginF.Text.Length.ToString();
+
+            // Проверяем количество введённых символов
             if (loginF.TextLength == 16)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 16");
@@ -182,17 +210,15 @@ namespace NotesApp
 
         private void passF_TextChanged(object sender, EventArgs e)
         {
+            // Считываем количество символов и записываем снизу поля
             richTextBox1.Text = passF.Text.Length.ToString();
+
+            // Проверяем количество введённых символов
             if (passF.TextLength == 32)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 32");
                 return;
             }
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

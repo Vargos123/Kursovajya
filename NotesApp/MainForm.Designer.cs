@@ -37,6 +37,8 @@
             this.bttDelete = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bttFind = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -50,8 +52,6 @@
             this.bttDelAcc = new System.Windows.Forms.Button();
             this.hide = new System.Windows.Forms.Label();
             this.bttUpdate = new System.Windows.Forms.Button();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -176,6 +176,21 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Название";
+            this.Title.MaxInputLength = 50;
+            this.Title.Name = "Title";
+            this.Title.ReadOnly = true;
+            // 
+            // Message
+            // 
+            this.Message.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Message.HeaderText = "Сообщение";
+            this.Message.MaxInputLength = 500;
+            this.Message.Name = "Message";
+            this.Message.ReadOnly = true;
             // 
             // bttFind
             // 
@@ -360,21 +375,6 @@
             this.bttUpdate.UseVisualStyleBackColor = false;
             this.bttUpdate.Click += new System.EventHandler(this.bttUpdate_Click);
             // 
-            // Title
-            // 
-            this.Title.HeaderText = "Название";
-            this.Title.MaxInputLength = 50;
-            this.Title.Name = "Title";
-            this.Title.ReadOnly = true;
-            // 
-            // Message
-            // 
-            this.Message.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Message.HeaderText = "Сообщение";
-            this.Message.MaxInputLength = 500;
-            this.Message.Name = "Message";
-            this.Message.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -408,7 +408,6 @@
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

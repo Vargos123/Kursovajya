@@ -201,7 +201,7 @@ namespace NotesApp
         }
         private void hide_Click(object sender, EventArgs e)
         {
-            // Сворачивание приложения при нажатии на кнопку
+            // Свернуть приложения при нажатии на кнопку
             this.WindowState = FormWindowState.Minimized;
         }
 
@@ -401,6 +401,7 @@ namespace NotesApp
 
                                     // Открываем соединение
                                     db.openConn();
+                                    // Выполняем комманды
                                     command1.ExecuteNonQuery();
                                     command2.ExecuteNonQuery();                                 
                                     // Закрываем соединение
@@ -438,6 +439,7 @@ namespace NotesApp
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {           
+            // Проверяем количество символов
             if (textBoxSearch.TextLength == 100)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 100!");                
@@ -461,9 +463,13 @@ namespace NotesApp
                             {
                                 try
                                 {                             
+                                    // Очищаем таблицу в базе данных
                                     MySqlCommand command = new MySqlCommand("TRUNCATE TABLE `" + log + "`", db.getConn());
+                                    // Открываем соединение
                                     db.openConn();
-                                    command.ExecuteNonQuery();                                    
+                                    // Выполняем комманду
+                                    command.ExecuteNonQuery();     
+                                    // Закрываем соединение
                                     db.closeConn();
                                 
                                     // Очищаем таблицу
@@ -493,47 +499,56 @@ namespace NotesApp
             
         }
 
+        // Закрываем приложение
         private void bttExit_Click(object sender, EventArgs e)
         {
-                if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
-                {
-                    if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                    {
-                        this.Close();
-                        LoginForm logF = new LoginForm();
-                        logF.ShowDialog();
-                    }
-                }
-                else
+            // Проверяем наличие текста в полях 'Название' и 'Сообщение'
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
+            {
+                if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
                     LoginForm logF = new LoginForm();
                     logF.ShowDialog();
                 }
-                       
+            }
+            else
+            {
+                this.Close();
+                LoginForm logF = new LoginForm();
+                logF.ShowDialog();
+            }
         }
 
+        // Удаление аккаунта
         private void bttDelAcc_Click(object sender, EventArgs e)
         {
+            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 if (MessageBox.Show("Вы действительно хотите удалить свой аккаунт? ", "Удаление", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    if (MessageBox.Show("Аккаунт восстановлению не принадлежит!                           Вы действительно хотите продолжить?! ", "Удаление", MessageBoxButtons.OKCancel,
+                    if (MessageBox.Show("Аккаунт восстановлению не принадлежит!\nВы действительно хотите продолжить?! ", "Удаление", MessageBoxButtons.OKCancel,
                      MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                     {
+                        // Снова проверяем наличие интернета
                         if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                         {
                             try
                             {
+                                // Удаляем аккаунт и таблицу пользователя из базы данных
                                 MySqlCommand command1 = new MySqlCommand(" DELETE FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
                                 MySqlCommand command2 = new MySqlCommand(" DROP TABLE `" + log + "`", db.getConn());
                                 command1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
+
+                                // Открываем соединени
                                 db.openConn();
+                                // Выполняем комманды
                                 command1.ExecuteNonQuery();
                                 command2.ExecuteNonQuery();
+                                // Закрываем соединение
                                 db.closeConn();
                                 this.Hide();
                                 LoginForm logF = new LoginForm();
@@ -556,54 +571,20 @@ namespace NotesApp
             {
                 MessageBox.Show("Не удалось удалить аккаунт. Проверьте доступ к интернету!");                
             }
-        }
+        }          
 
-        private void bttEdit_Click(object sender, EventArgs e)
-        {
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                try
-                {
-                    if (dataGridView1.RowCount > 0)
-                    {
-                        int n = dataGridView1.CurrentCell.RowIndex;
-                        if (n > -1)
-                        {
-                            nameBox.Text = (string)dataGridView1.Rows[n].Cells[0].Value;
-                            messageBox.Text = (string)dataGridView1.Rows[n].Cells[1].Value;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Нет записей для редактирования. Добавьте записи!");
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show("Произошла ошибка!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Не удалось редактировать данные. Проверьте доступ к интернету!");
-            }
-        }               
-
+        // Обновить записи
         private void bttUpdate_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
             LoadData();
         }
 
+        // Обновление записей при закрытии формы Чтения
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             dataGridView1.Rows.Clear();
-            LoadData();//Код для обновления
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
+            LoadData();
         }
     }
 }
