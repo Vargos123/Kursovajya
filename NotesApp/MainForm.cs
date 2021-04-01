@@ -17,8 +17,6 @@ namespace NotesApp
     public partial class MainForm : Form
     {
         // Подключение к базе данных
-        MySqlConnection connection = new MySqlConnection("server = remotemysql.com; port = 3306; Username = ed5dW7gcoL; Password = 0Gm5En5jkl; database = ed5dW7gcoL; charset = utf8");
-        
         DataB db = new DataB();
 
         public MainForm(string log)
@@ -32,6 +30,7 @@ namespace NotesApp
         }
         string log;
 
+        // Загрузка таблицы 
         private void LoadData()
         {
             // Проверяем наличие интернета
@@ -40,11 +39,11 @@ namespace NotesApp
                 try
                 {
                     // Открываем соединение
-                    connection.Open();
+                    db.openConn();
 
                     // Выбираем данные из таблицы пользователя сортированные по ID
                     string query = "SELECT * FROM  `" + log + "` ORDER BY `id`";
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlCommand command = new MySqlCommand(query, db.getConn());
 
                     // Считываем данные из базы данных
                     MySqlDataReader reader = command.ExecuteReader();
@@ -52,7 +51,7 @@ namespace NotesApp
                     // Создаем список строкового масива
                     List<string[]> data = new List<string[]>();
 
-                    // Вносим данные в таблицу
+                    // Получаем данные
                     while (reader.Read())
                     {
                         // Добавляем новую строку состоящую с двух елементов в список
@@ -68,13 +67,17 @@ namespace NotesApp
                     reader.Close();
 
                     // Закрываем соединение
-                    connection.Close();
+                    db.closeConn();
+
+                    // Выводим данные в таблицу
                     foreach (string[] s in data)
                         dataGridView1.Rows.Add(s);
                 }
                 catch 
                 {
+                    // Закрываем форму
                     this.Close();
+                    // Выводим форму авторизации
                     LoginForm logF = new LoginForm();
                     logF.Show();
                     MessageBox.Show("Непредвиденная ошибка!");
@@ -83,74 +86,85 @@ namespace NotesApp
             }
             else 
             {
+                // Закрываем форму
                 this.Close();
+                // Выводим форму авторизации
                 LoginForm logF = new LoginForm();
                 logF.Show();
                 MessageBox.Show("Проверьте доступ к интернету");
             }
         }
 
-            private void bttSave_Click(object sender, EventArgs e)
-            {            
-                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) // Проверяем наличие интернета
+        // Добавление данных
+        private void bttSave_Click(object sender, EventArgs e)
+        {
+            // Проверяем наличие интернета
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                    try
+                try
+                {
+                    // Проверяем ввод данных
+                    if (dataGridView1.Rows.Count == 100)
                     {
-                        if (dataGridView1.Rows.Count == 100)
+                        MessageBox.Show("Вы можете добавить не больше 100 записей!");
+                    }
+                    else if (string.IsNullOrWhiteSpace(nameBox.Text))
+                    {
+                        MessageBox.Show("Вы не ввели Название!");
+                    }
+                    else if (nameBox.TextLength > 50)
+                    {
+                        MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
+                    }
+                    else if (string.IsNullOrWhiteSpace(messageBox.Text))
+                    {
+                        MessageBox.Show("Вы не ввели Сообщение!");
+                    }
+                    else
+                    {
+                        // Вносим данные в базу данных
+                        MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn()); // Вносим данные в базу
+                        command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
+                        command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;
+
+                        // Открываем соединение к базе даннных
+                        db.openConn();
+
+                        // Проверяем удачно ли выполнилась команда
+                        if (command.ExecuteNonQuery() == 1)
                         {
-                            MessageBox.Show("Вы можете добавить не больше 100 записей!");
-                            return;
-                        }
-                        else if (string.IsNullOrWhiteSpace(nameBox.Text))
-                        {
-                            MessageBox.Show("Вы не ввели Название!");
-                            return;
-                        }
-                        else if (nameBox.TextLength > 50)
-                        {
-                            MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
-                            return;
-                        }
-                        else if (string.IsNullOrWhiteSpace(messageBox.Text))
-                        {
-                            MessageBox.Show("Вы не ввели Сообщение!");
-                            return;
+                            // Добавляем данные в таблицу из полей
+                            int n = dataGridView1.Rows.Add();
+                            dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
+                            dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
+                            MessageBox.Show("Вы успешно добавили данные");
+
+                            // Очищаем поля 'Название' и 'Сообщение'
+                            nameBox.Clear();
+                            messageBox.Clear();
                         }
                         else
-                        {
-                            MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn()); // Вносим данные в базу
-                            command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
-                            command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;                             
-                            
-                            db.openConn();
-                            if (command.ExecuteNonQuery() == 1) // Проверяем выполнилась ли команда
-                            {
-                                int n = dataGridView1.Rows.Add();
-                                dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
-                                dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
-                                MessageBox.Show("Вы успешно добавили данные");
-                            }
-                            else
-                                MessageBox.Show("Не удалось добавить данные");
-                            db.closeConn();
+                            MessageBox.Show("Не удалось добавить данные");
 
-                            nameBox.Clear(); 
-                            messageBox.Clear();
-                        }                                      
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Произошла ошибка!");
+                        // Закрываем соединение к базе даннных
+                        db.closeConn();
                     }
                 }
-                else
+                catch
                 {
-                    MessageBox.Show("Не удалось сохранить данные. Проверьте доступ к интернету!");
-                }            
+                    MessageBox.Show("Произошла ошибка!");
+                }
             }
+            else
+            {
+                MessageBox.Show("Не удалось сохранить данные. Проверьте доступ к интернету!");
+            }
+        }
 
+        // Закрытие приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
             {
                 if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
@@ -194,7 +208,7 @@ namespace NotesApp
         Point lastPoint;
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {           
-            // Проверяем зажата ли левая кнопка мышки
+            // Проверяем нажата ли левая кнопка мышки
             if (e.Button == MouseButtons.Left)
             {
                 // Передвигаем форму за мышкой
@@ -210,7 +224,7 @@ namespace NotesApp
 
         private void bttNew_Click(object sender, EventArgs e)
         {
-            // Проверка на наличие текста в полях Название и Сообщение
+            // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
             {   
                 if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
@@ -222,6 +236,7 @@ namespace NotesApp
             }          
         }
 
+        // Чтение и редактирование текста
         private void bttRead_Click(object sender, EventArgs e)
         {
             // Проверяем наличие интернета
@@ -254,7 +269,7 @@ namespace NotesApp
                             // Передаем данные на форму
                             ReadEdit readE = new ReadEdit(name, message, index, log);
 
-                            // После закрытия формы Просмотра обновляем основую форму
+                            // После закрытия формы 'Прочитать' обновляем основую форму
                             readE.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
 
                             // Показываем форму Просмотра
@@ -277,26 +292,40 @@ namespace NotesApp
             }
         }
 
+
+        // Поиск данных
         private void bttFind_Click_1(object sender, EventArgs e) // Ищем данные в таблице
         {
             // Проверяем наличие строк в таблице
             if (dataGridView1.RowCount > 0)
             {
+                // Проверяем наличие текста в строке поиска
                 if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
                 {
                     MessageBox.Show("Вы не ввели данные для поиска");
-                }
+                }           
+                
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
+                    // Придаем количество выделенных строк нулю
                     dataGridView1.Rows[i].Selected = false;
+
+                    // Ищем данные в таблице 
                     for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    {
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        {
+                            // Проверяем есть ли данные в таблице
                             if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBoxSearch.Text))
                             {
+                                // Выделяем строку с данными
                                 dataGridView1.Rows[i].Selected = true;
                                 break;
-                            }
-                }
+                            }                            
+                        }
+                    }
+                }   
+                
             }
             else
             {
@@ -334,13 +363,17 @@ namespace NotesApp
             }
         }
 
+        // Удаление данных
         private void bttDelete_Click(object sender, EventArgs e)
         {
+            // Проверяем наличине интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
+                // Проверяем наличие строк в таблице
                 if (dataGridView1.RowCount > 0)
                 {
-                    if (dataGridView1.SelectedCells.Count == 0) //поверяем выбрана ли запись
+                    //поверяем выбрана ли запись
+                    if (dataGridView1.SelectedCells.Count == 0)
                     {
                         MessageBox.Show("Вы не выбрали запись для удаления!");
                     }
@@ -349,22 +382,33 @@ namespace NotesApp
                         if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
+                            // Снова проверяем наличине интернета
                             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                             {
                                 try
-                                { 
+                                {
+                                    // Присваиваем значению номер строки
                                     int index = dataGridView1.SelectedCells[0].RowIndex + 1;
-                                    dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
 
-                                    MySqlCommand comman2 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn()); // Удаляем выделенную строку по индексу
-                                    MySqlCommand comman1 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
+                                    // Удаляем выделенную строку по индексу
+                                    MySqlCommand command1 = new MySqlCommand("DELETE FROM `" + log + "` WHERE id = " + index + "", db.getConn());
+
+                                    // Обновляем id в таблице базы данных
+                                    MySqlCommand command2 = new MySqlCommand("ALTER TABLE `" + log + "` DROP id;" +
                                     "ALTER TABLE `" + log + "`" +
                                     "ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST," +
-                                    "ADD PRIMARY KEY(id)", db.getConn()); // Обновляем ид от 1
+                                    "ADD PRIMARY KEY(id)", db.getConn());
+
+                                    // Открываем соединение
                                     db.openConn();
-                                    comman2.ExecuteNonQuery();
-                                    comman1.ExecuteNonQuery();
+                                    command1.ExecuteNonQuery();
+                                    command2.ExecuteNonQuery();                                 
+                                    // Закрываем соединение
                                     db.closeConn();
+
+                                    // Удаляем строку из таблицы
+                                    dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
+                                    MessageBox.Show("Вы успешно удалили данные");
                                 }
                                 catch
                                 {
@@ -393,34 +437,38 @@ namespace NotesApp
         }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxSearch.TextLength == 50)
+        {           
+            if (textBoxSearch.TextLength == 100)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 50!");                
-            }
+                MessageBox.Show("Достигнуто максимальное количество символов: 100!");                
+            }            
         }
 
+        // Удаление всех записей
         private void bttDelAll_Click(object sender, EventArgs e)
         {
+            // Проверка на наличие строк в таблице
             if (dataGridView1.RowCount > 0)
                 {
+                    // Проверяем наличие интернета
                     if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                     {
                         if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
+                            // Снова проверяем наличие интернета
                             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                             {
                                 try
                                 {                             
-                                    dataGridView1.Rows.Clear();
                                     MySqlCommand command = new MySqlCommand("TRUNCATE TABLE `" + log + "`", db.getConn());
                                     db.openConn();
-                                    if(command.ExecuteNonQuery() == 1)
-                                        MessageBox.Show("Все записи были успешно удаленны!");
-                                    else
-                                        MessageBox.Show("Не удалсь удалить данные");
-                                    db.closeConn();                            
+                                    command.ExecuteNonQuery();                                    
+                                    db.closeConn();
+                                
+                                    // Очищаем таблицу
+                                    dataGridView1.Rows.Clear();
+                                    MessageBox.Show("Все записи были успешно удаленны!");
                                 }
                                 catch
                                 {
