@@ -151,7 +151,7 @@ namespace NotesApp
             {
                 MessageBox.Show("Произошла ошибка! Возможно потребуется переустановка приложения!");
             }
-        }        
+        }
 
         private void hide_Click(object sender, EventArgs e)
         {

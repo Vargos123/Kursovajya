@@ -123,7 +123,6 @@
     <Compile Include="MainFormNoLogin.Designer.cs">
       <DependentUpon>MainFormNoLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="MySqlDataTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -386,6 +386,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainFormNoLogin";
             this.Text = "MainFormNoLogin";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormNoLogin_FormClosed);
             this.Load += new System.EventHandler(this.MainFormNoLogin_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainFormNoLogin_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainFormNoLogin_MouseMove);

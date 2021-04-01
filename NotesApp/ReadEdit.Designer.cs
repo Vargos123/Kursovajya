@@ -240,6 +240,7 @@ namespace NotesApp
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReadEdit";
             this.Text = "ReadEdit";
+            this.Load += new System.EventHandler(this.ReadEdit_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseDown_1);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

@@ -16,10 +16,10 @@ namespace NotesApp
 {
     public partial class MainForm : Form
     {
+        // Подключение к базе данных
         MySqlConnection connection = new MySqlConnection("server = remotemysql.com; port = 3306; Username = ed5dW7gcoL; Password = 0Gm5En5jkl; database = ed5dW7gcoL; charset = utf8");
+        
         DataB db = new DataB();
-        MySqlCommand command;
-        MySqlDataReader reader;
 
         public MainForm(string log)
         {
@@ -34,29 +34,45 @@ namespace NotesApp
 
         private void LoadData()
         {
+            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
                 {
+                    // Открываем соединение
                     connection.Open();
-                    string query = "SELECT * FROM  `" + log + "` ORDER BY `id`";
-                    command = new MySqlCommand(query, connection);
-                    reader = command.ExecuteReader();
 
+                    // Выбираем данные из таблицы пользователя сортированные по ID
+                    string query = "SELECT * FROM  `" + log + "` ORDER BY `id`";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    // Считываем данные из базы данных
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    // Создаем список строкового масива
                     List<string[]> data = new List<string[]>();
+
+                    // Вносим данные в таблицу
                     while (reader.Read())
                     {
+                        // Добавляем новую строку состоящую с двух елементов в список
                         data.Add(new string[2]);
+
+                        // Вносим первый елемент масива в Название
                         data[data.Count - 1][0] = reader[1].ToString();
+
+                        // Вносим второй елемент масива в Сообщение
                         data[data.Count - 1][1] = reader[2].ToString();
 
                     }
                     reader.Close();
+
+                    // Закрываем соединение
                     connection.Close();
                     foreach (string[] s in data)
                         dataGridView1.Rows.Add(s);
                 }
-                catch
+                catch 
                 {
                     this.Close();
                     LoginForm logF = new LoginForm();
@@ -65,7 +81,7 @@ namespace NotesApp
                 }
                 
             }
-            else
+            else 
             {
                 this.Close();
                 LoginForm logF = new LoginForm();
@@ -76,8 +92,8 @@ namespace NotesApp
 
             private void bttSave_Click(object sender, EventArgs e)
             {            
-                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-                {
+                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) // Проверяем наличие интернета
+            {
                     try
                     {
                         if (dataGridView1.Rows.Count == 100)
@@ -101,13 +117,13 @@ namespace NotesApp
                             return;
                         }
                         else
-                        {                            
-                            MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn());
+                        {
+                            MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn()); // Вносим данные в базу
                             command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
                             command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;                             
                             
                             db.openConn();
-                            if (command.ExecuteNonQuery() == 1)
+                            if (command.ExecuteNonQuery() == 1) // Проверяем выполнилась ли команда
                             {
                                 int n = dataGridView1.Rows.Add();
                                 dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
@@ -118,7 +134,7 @@ namespace NotesApp
                                 MessageBox.Show("Не удалось добавить данные");
                             db.closeConn();
 
-                            nameBox.Clear();
+                            nameBox.Clear(); 
                             messageBox.Clear();
                         }                                      
                     }
@@ -151,45 +167,52 @@ namespace NotesApp
 
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
-            CloseButton.ForeColor = Color.Black; // черный крестик при наводе мышкой
+            // Черный крестик при наводе мышкой на кнопку закрытия
+            CloseButton.ForeColor = Color.Black;
         }
         private void CloseButton_MouseLeave(object sender, EventArgs e)
         {
-            CloseButton.ForeColor = Color.White; // белый крестик
+            // Белый крестик закрытия при снятии мышки с кнопки
+            CloseButton.ForeColor = Color.White;
         }
         private void hide_MouseEnter(object sender, EventArgs e)
         {
-            hide.ForeColor = Color.Black; // черный - при наводе мышкой на 
+            // Смена цвета кнопки Свернуть на черный при наведении мышки
+            hide.ForeColor = Color.Black;
         }
         private void hide_MouseLeave(object sender, EventArgs e)
         {
-            hide.ForeColor = Color.White; // белый -
+            // Смена цвета кнопки Свернуть на белый при снятии мышки с кнопки
+            hide.ForeColor = Color.White;
         }
         private void hide_Click(object sender, EventArgs e)
         {
+            // Сворачивание приложения при нажатии на кнопку
             this.WindowState = FormWindowState.Minimized;
         }
 
-
         Point lastPoint;
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
-        {
+        {           
+            // Проверяем зажата ли левая кнопка мышки
             if (e.Button == MouseButtons.Left)
             {
+                // Передвигаем форму за мышкой
                 this.Left += e.X - lastPoint.X;
                 this.Top += e.Y - lastPoint.Y;
             }
         }
-
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
+            // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
         }
 
         private void bttNew_Click(object sender, EventArgs e)
         {
+            // Проверка на наличие текста в полях Название и Сообщение
             if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
-            {
+            {   
                 if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
@@ -201,23 +224,40 @@ namespace NotesApp
 
         private void bttRead_Click(object sender, EventArgs e)
         {
+            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
+                // Проверка на наличия строк в таблице
                 if (dataGridView1.RowCount > 0)
                 {
                     try
                     {
-                        if (dataGridView1.SelectedCells.Count == 0) //поверяю выбрана ли запись
+                        // Поверяем выбрана ли запись
+                        if (dataGridView1.SelectedCells.Count == 0)
                         {
                             MessageBox.Show("Вы не выбрали запись для чтения!");
                         }
                         else
                         {
+                            // Вносим выбранную строку по индексу
                             int n = dataGridView1.CurrentCell.RowIndex;
+
+                            // Вносим в name текст из Названия
                             string name = (string)dataGridView1.Rows[n].Cells[0].Value;
+
+                            // Вносим в message текст из Сообщение
                             string message = (string)dataGridView1.Rows[n].Cells[1].Value;
+
+                            // Вносим в index номер выделенной строки
                             int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+
+                            // Передаем данные на форму
                             ReadEdit readE = new ReadEdit(name, message, index, log);
+
+                            // После закрытия формы Просмотра обновляем основую форму
+                            readE.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
+
+                            // Показываем форму Просмотра
                             readE.ShowDialog();
                         }
                     }
@@ -237,14 +277,14 @@ namespace NotesApp
             }
         }
 
-        private void bttFind_Click_1(object sender, EventArgs e)
+        private void bttFind_Click_1(object sender, EventArgs e) // Ищем данные в таблице
         {
+            // Проверяем наличие строк в таблице
             if (dataGridView1.RowCount > 0)
             {
                 if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
                 {
                     MessageBox.Show("Вы не ввели данные для поиска");
-                    return;
                 }
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
@@ -266,10 +306,13 @@ namespace NotesApp
 
         private void messageBox_TextChanged(object sender, EventArgs e)
         {
+            // Добавляем Полоса прокрутки для Сообщения
             messageBox.ScrollBars = ScrollBars.Vertical;
 
+            // Считываем количество символов и записываем снизу поля
             richTextBox1.Text = messageBox.Text.Length.ToString();
 
+            // Проверяем количество введённых символов
             if (messageBox.TextLength == 500)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 500");                
@@ -278,8 +321,13 @@ namespace NotesApp
 
         private void nameBox_TextChanged(object sender, EventArgs e)
         {
+            // Добавляем Полоса прокрутки для Названия
             nameBox.ScrollBars = ScrollBars.Vertical;
+
+            // Считываем количество символов и записываем снизу поля
             richTextBox2.Text = nameBox.Text.Length.ToString();
+
+            // Проверяем количество введённых символов
             if (nameBox.TextLength == 50)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 50");                
@@ -497,6 +545,12 @@ namespace NotesApp
         {
             dataGridView1.Rows.Clear();
             LoadData();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            LoadData();//Код для обновления
         }
 
         private void MainForm_Load(object sender, EventArgs e)

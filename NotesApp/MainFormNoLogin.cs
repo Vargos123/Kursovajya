@@ -128,6 +128,7 @@ namespace NotesApp
                         string message = (string)dataGridView1.Rows[n].Cells[2].Value;
                         int index = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
                         ReadEditNoLogin readE = new ReadEditNoLogin(name, message, index);
+                        readE.FormClosed += new FormClosedEventHandler(MainFormNoLogin_FormClosed);
                         readE.ShowDialog();
                     }
                 }
@@ -139,7 +140,6 @@ namespace NotesApp
             else
             {
                 MessageBox.Show("Нет записей для чтения. Добавьте записи!");
-                return;
             }
         }
 
@@ -348,7 +348,7 @@ namespace NotesApp
                 MessageBox.Show("Непредвиденная ошибка! Возможно потребуеться переустановка приложения!");
             }
         }
-        public void ReloadData()
+        void ReloadData()
         {
             dataGridView1.Rows.Clear();
             sqlConnection.Open();
@@ -367,6 +367,11 @@ namespace NotesApp
         private void bttReload_Click(object sender, EventArgs e)
         {
             ReloadData();
+        }
+
+        private void MainFormNoLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.ReloadData();//Код для обновления
         }
     }
 }

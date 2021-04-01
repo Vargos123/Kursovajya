@@ -105,6 +105,11 @@ namespace NotesApp
             this.message.Cursor = Cursors.IBeam;
         }
 
+        private void ReadEdit_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void bttSave_Click(object sender, EventArgs e)
         {
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -121,14 +126,14 @@ namespace NotesApp
                         MessageBox.Show("Сообщение не может быть пустым!");
                         return;
                     }
-                    name.ReadOnly = true;
-                    message.ReadOnly = true;
-                    this.name.Cursor = Cursors.Default;
-                    this.message.Cursor = Cursors.Default;
-                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
-                    command.Parameters.AddWithValue("title", name.Text);
-                    command.Parameters.AddWithValue("message", message.Text);
-                    command.Parameters.AddWithValue("Id", index);
+                        name.ReadOnly = true;
+                        message.ReadOnly = true;
+                        this.name.Cursor = Cursors.Default;
+                        this.message.Cursor = Cursors.Default;
+                        MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
+                        command.Parameters.AddWithValue("title", name.Text);
+                        command.Parameters.AddWithValue("message", message.Text);
+                        command.Parameters.AddWithValue("Id", index);
                     db.openConn();
                     if (command.ExecuteNonQuery() == 1)
                     {
