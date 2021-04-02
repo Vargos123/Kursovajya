@@ -41,7 +41,6 @@ namespace NotesApp
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.bttSave = new System.Windows.Forms.Button();
-            this.bttEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -204,20 +203,6 @@ namespace NotesApp
             this.bttSave.UseVisualStyleBackColor = false;
             this.bttSave.Click += new System.EventHandler(this.bttSave_Click);
             // 
-            // bttEdit
-            // 
-            this.bttEdit.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.bttEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bttEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttEdit.Location = new System.Drawing.Point(322, 82);
-            this.bttEdit.Name = "bttEdit";
-            this.bttEdit.Size = new System.Drawing.Size(104, 34);
-            this.bttEdit.TabIndex = 39;
-            this.bttEdit.TabStop = false;
-            this.bttEdit.Text = "Редактировать";
-            this.bttEdit.UseVisualStyleBackColor = false;
-            this.bttEdit.Click += new System.EventHandler(this.bttEdit_Click_1);
-            // 
             // ReadEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,7 +210,6 @@ namespace NotesApp
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(604, 350);
             this.Controls.Add(this.bttSave);
-            this.Controls.Add(this.bttEdit);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox4);
@@ -240,7 +224,6 @@ namespace NotesApp
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReadEdit";
             this.Text = "ReadEdit";
-            this.Load += new System.EventHandler(this.ReadEdit_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseDown_1);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -263,6 +246,5 @@ namespace NotesApp
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Button bttSave;
-        private System.Windows.Forms.Button bttEdit;
     }
 }

@@ -13,114 +13,128 @@ namespace NotesApp
 {
     public partial class ReadEdit : Form
     {
+        private bool SaveButtonWasClicked = false;
+
         // Подключение к базе данных
         DataB db = new DataB();
+                
+        string log, nameB, messageB;
+        int index;
 
         public ReadEdit(string nameBox, string messageBox, int index, string log)
         {
             // Стартовая позиция по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
-            
+
             InitializeComponent();
-            this.nameBox = nameBox;
-            this.messageBox = messageBox;
+            name.Text = nameBox;
+            message.Text = messageBox;
             this.index = index;
             this.log = log;
-            LoadData();
-        }
-        string nameBox, messageBox, log;
-        int index;
+            nameB = nameBox;
+            messageB = messageBox;
+        }               
 
-        
-        private void LoadData()
-        {            
-            name.ReadOnly = true;
-            message.ReadOnly = true;           
-            this.name.Cursor = Cursors.Default;
-            this.message.Cursor = Cursors.Default;
-            name.Text = nameBox;
-            message.Text = messageBox;         
+        // Кнопка закрытия приложения
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            // Проверяем была ли нажата кнопка Сохранить. Если да, закрываем форму
+            if (SaveButtonWasClicked)
+            {
+                this.Close();
+            }
+            else // Если кнопка Сохранить не нажимали, но текст сменили - выдаем предупреждение
+            {
+                // Проверяем меняли ли текст в полях 'Название' и 'Сообщение' 
+                if (name.Text != nameB || message.Text != messageB)
+                {
+                    // При смене текста выдаем предупреждение
+                    if (MessageBox.Show("Возможно у вас есть несохранённые данные!\nВы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    {
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+        }
+        private void CloseButton_MouseEnter(object sender, EventArgs e)
+        {
+            // Черный крестик при наводе мышкой на кнопку закрытия
+            CloseButton.ForeColor = Color.Black;
+        }
+        private void CloseButton_MouseLeave(object sender, EventArgs e)
+        {
+            // Белый крестик закрытия при снятии мышки с кнопки
+            CloseButton.ForeColor = Color.White;
+        }
+
+        // Кнопка Свернуть приложение
+        private void hide_Click(object sender, EventArgs e)
+        {
+            // Свернуть приложения при нажатии на кнопку
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void hide_MouseEnter(object sender, EventArgs e)
+        {
+            // Смена цвета кнопки Свернуть на черный при наведении мышки
+            hide.ForeColor = Color.Black;
+        }
+        private void hide_MouseLeave(object sender, EventArgs e)
+        {
+            // Смена цвета кнопки Свернуть на белый при снятии мышки с кнопки
+            hide.ForeColor = Color.White;
         }
 
         Point lastPoint;
         private void ReadEdit_MouseMove(object sender, MouseEventArgs e)
         {
+            // Проверяем нажата ли левая кнопка мышки
             if (e.Button == MouseButtons.Left)
             {
+                // Передвигаем форму за мышкой
                 this.Left += e.X - lastPoint.X;
                 this.Top += e.Y - lastPoint.Y;
             }
         }
-        private void CloseButton_MouseEnter(object sender, EventArgs e)
-        {
-            CloseButton.ForeColor = Color.Black; // черный крестик при наводе мышкой
-        }
-        private void CloseButton_MouseLeave(object sender, EventArgs e)
-        {
-            CloseButton.ForeColor = Color.White; // белый крестик
-        }
-        private void hide_MouseEnter(object sender, EventArgs e)
-        {
-            hide.ForeColor = Color.Black; // черный - при наводе мышкой на 
-        }
-        private void hide_MouseLeave(object sender, EventArgs e)
-        {
-            hide.ForeColor = Color.White; // белый -
-        }
-        private void name_TextChanged(object sender, EventArgs e)
-        {
-            name.ScrollBars = ScrollBars.Vertical;
-            richTextBox1.Text = name.Text.Length.ToString();
-        }
-        private void message_TextChanged(object sender, EventArgs e)
-        {
-            message.ScrollBars = ScrollBars.Vertical;
-            richTextBox1.Text = message.Text.Length.ToString();
-        }
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            if (name.ReadOnly == false)
-            {
-                if (MessageBox.Show("Возможно у вас есть несохранённые данные! Вы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    this.Close();
-                }
-            }
-            else
-            {
-                this.Close();
-            }
-        }
-        private void bttEdit_Click(object sender, EventArgs e)
-        {
-            message.ReadOnly = false;
-            name.ReadOnly = false;
-        }
         private void ReadEdit_MouseDown_1(object sender, MouseEventArgs e)
         {
+            // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
         }
 
-        private void bttEdit_Click_1(object sender, EventArgs e)
+
+        private void name_TextChanged(object sender, EventArgs e)
         {
-            name.ReadOnly = false;
-            message.ReadOnly = false;
-            this.name.Cursor = Cursors.IBeam;
-            this.message.Cursor = Cursors.IBeam;
+            // Добавляем полосу прокрутки для поля 'Название'
+            name.ScrollBars = ScrollBars.Vertical;
+
+            // Считываем количество символов и записываем снизу поля
+            richTextBox1.Text = name.Text.Length.ToString();
         }
 
-        private void ReadEdit_Load(object sender, EventArgs e)
-        {
 
+        private void message_TextChanged(object sender, EventArgs e)
+        {
+            // Добавляем полосу прокрутки для поля 'Сообщение'
+            message.ScrollBars = ScrollBars.Vertical;
+
+            // Считываем количество символов и записываем снизу поля
+            richTextBox1.Text = message.Text.Length.ToString();
         }
 
+        // Кнопка Сохранить
         private void bttSave_Click(object sender, EventArgs e)
         {
+            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
                 {
+                    // Проверяем не пусты ли поля 'Название' и 'Сообщение' 
                     if (string.IsNullOrWhiteSpace(name.Text))
                     {
                         MessageBox.Show("Название не может быть пустым!");
@@ -131,22 +145,22 @@ namespace NotesApp
                         MessageBox.Show("Сообщение не может быть пустым!");
                         return;
                     }
-                        name.ReadOnly = true;
-                        message.ReadOnly = true;
-                        this.name.Cursor = Cursors.Default;
-                        this.message.Cursor = Cursors.Default;
-                        MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
-                        command.Parameters.AddWithValue("title", name.Text);
-                        command.Parameters.AddWithValue("message", message.Text);
-                        command.Parameters.AddWithValue("Id", index);
-                    db.openConn();
+
+                    // Обновляем таблицу внося новые данные вместо старых
+                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
+                    command.Parameters.AddWithValue("title", name.Text);
+                    command.Parameters.AddWithValue("message", message.Text);
+                    command.Parameters.AddWithValue("Id", index);
+
+                    db.openConn();  // Открываем соединени
                     if (command.ExecuteNonQuery() == 1)
                     {
+                        SaveButtonWasClicked = true;
                         MessageBox.Show("Вы успешно обновлили данные!");
                     }
                     else
                         MessageBox.Show("Вы не смогли обновить данные!");
-                    db.closeConn();
+                    db.closeConn(); // Закрываем соединени
                 }
                 catch
                 {
@@ -157,11 +171,6 @@ namespace NotesApp
             {
                 MessageBox.Show("Не удалось обновить данные. Проверьте доступ к интернету!");
             }            
-        }
-
-        private void hide_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

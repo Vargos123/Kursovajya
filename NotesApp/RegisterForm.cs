@@ -21,8 +21,11 @@ namespace NotesApp
         {
             // Стартовая позиция по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
+
             InitializeComponent();
         }
+
+        // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
             // Выход из приложения
@@ -38,6 +41,13 @@ namespace NotesApp
             // Белый крестик закрытия при снятии мышки с кнопки
             CloseButton.ForeColor = Color.White;
         }
+
+        // Кнопка Свернуть приложение
+        private void label5_Click(object sender, EventArgs e)
+        {
+            // Свернуть приложения при нажатии на кнопку
+            this.WindowState = FormWindowState.Minimized;
+        }
         private void hide_MouseEnter(object sender, EventArgs e)
         {
             // Смена цвета кнопки Свернуть на черный при наведении мышки
@@ -48,11 +58,7 @@ namespace NotesApp
             // Смена цвета кнопки Свернуть на белый при снятии мышки с кнопки
             hide.ForeColor = Color.White; //
         }
-        private void label5_Click(object sender, EventArgs e)
-        {
-            // Свернуть приложения при нажатии на кнопку
-            this.WindowState = FormWindowState.Minimized;
-        }
+
         Point lastPoint;
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -70,7 +76,7 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
-        // Кнопка Регистрация 
+        // Кнопка Зарегистрироваться 
         private void butRegister_Click(object sender, EventArgs e)
         {
             // Проверяем наличие интернета
@@ -134,6 +140,7 @@ namespace NotesApp
                 }
                 catch
                 {
+                    // В случае ошибки скрываем окно регистрации и открываем окно авторизации
                     this.Hide();
                     LoginForm logF = new LoginForm();
                     logF.Show();
@@ -156,9 +163,10 @@ namespace NotesApp
                 {
                     // Создаем таблицу в которой будут проверяться данные
                     DataTable table = new DataTable();
+
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-                    // Выбираем логин с базы данных и сравниваем с тем, который ввёл пользователь
+                    // Выбираем логины с базы данных и сравниваем с тем, который ввёл пользователь
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
                     command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text; 
                     
@@ -204,7 +212,6 @@ namespace NotesApp
             if (loginF.TextLength == 16)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 16");
-                return;
             }
         }
 
@@ -217,7 +224,6 @@ namespace NotesApp
             if (passF.TextLength == 32)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 32");
-                return;
             }
         }
     }

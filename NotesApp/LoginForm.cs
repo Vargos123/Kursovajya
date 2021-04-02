@@ -21,6 +21,7 @@ namespace NotesApp
             InitializeComponent();
         }
 
+        // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
             // Выход из приложения
@@ -36,6 +37,13 @@ namespace NotesApp
             // Белый крестик закрытия при снятии мышки с кнопки
             CloseButton.ForeColor = Color.White;
         }
+
+        // Кнопка Свернуть приложение
+        private void hide_Click(object sender, EventArgs e)
+        {
+            // Свернуть приложения при нажатии на кнопку
+            this.WindowState = FormWindowState.Minimized;
+        }
         private void hide_MouseEnter(object sender, EventArgs e)
         {
             // Смена цвета кнопки Свернуть на черный при наведении мышки
@@ -45,11 +53,6 @@ namespace NotesApp
         {
             // Смена цвета кнопки Свернуть на белый при снятии мышки с кнопки
             hide.ForeColor = Color.White;
-        }
-        private void hide_Click(object sender, EventArgs e)
-        {
-            // Свернуть приложения при нажатии на кнопку
-            this.WindowState = FormWindowState.Minimized;
         }
 
         Point lastPoint;
@@ -125,11 +128,11 @@ namespace NotesApp
 
                     }
                     else
-                        MessageBox.Show("Не правильный логин или пароль! Проверьте правильность ввода даных.");
+                        MessageBox.Show("Не правильный логин или пароль!\nПроверьте правильность ввода даных.");
                 }
                 catch
                 {
-                    MessageBox.Show("Не правильный логин или пароль! Проверьте правильность ввода даных.");
+                    MessageBox.Show("Не правильный логин или пароль!\nПроверьте правильность ввода даных.");
                 }
             }
             else
@@ -157,7 +160,6 @@ namespace NotesApp
             if (passF.TextLength == 32)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 32.");
-                return;
             }
         }
 
@@ -170,7 +172,6 @@ namespace NotesApp
             if (loginF.TextLength == 16)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 16.");
-                return;
             }
         }
 
