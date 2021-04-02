@@ -173,12 +173,12 @@ namespace NotesApp
                 if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    Application.Exit();
+                    Environment.Exit(1);
                 }
             }
             else
             {
-                Application.Exit();
+                Environment.Exit(1);
             }
         }
 
@@ -557,7 +557,7 @@ namespace NotesApp
                                 // Скрываем форму и открываем форму авторизации
                                 this.Hide();
                                 LoginForm logF = new LoginForm();
-                                logF.Show();
+                                logF.Show();                                
                             }
                             catch
                             {

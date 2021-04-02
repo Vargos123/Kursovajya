@@ -24,7 +24,7 @@ namespace NotesApp
             Frontscale.Width += 20;
 
             // Когда ползунок дойдёт до конца открываем форму логина
-            if (Frontscale.Width >= 595)
+            if (Frontscale.Width >= 590)
             {
                 timer.Stop();
                 LoginForm LF = new LoginForm();

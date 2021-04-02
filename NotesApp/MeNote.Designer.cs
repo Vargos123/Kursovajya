@@ -67,15 +67,17 @@ namespace NotesApp
             this.Frontscale.BackColor = System.Drawing.Color.Purple;
             this.Frontscale.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.Frontscale.BorderColor = System.Drawing.Color.MediumVioletRed;
-            this.Frontscale.Location = new System.Drawing.Point(12, 219);
+            this.Frontscale.CornerRadius = 6;
+            this.Frontscale.Location = new System.Drawing.Point(14, 221);
             this.Frontscale.Name = "Frontscale";
-            this.Frontscale.Size = new System.Drawing.Size(10, 19);
+            this.Frontscale.Size = new System.Drawing.Size(14, 15);
             // 
             // Backscale
             // 
             this.Backscale.BackColor = System.Drawing.Color.Violet;
             this.Backscale.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.Backscale.BorderColor = System.Drawing.Color.MediumVioletRed;
+            this.Backscale.CornerRadius = 9;
             this.Backscale.Location = new System.Drawing.Point(12, 219);
             this.Backscale.Name = "Backscale";
             this.Backscale.Size = new System.Drawing.Size(595, 19);

@@ -123,7 +123,7 @@ namespace NotesApp
                         // Скрываем форму авторизации
                         // Открывем основую форму и передаём в неё Логин пользователя
                         MainForm mainF = new MainForm(this.loginF.Text);
-                        this.Hide();
+                        this.Close();
                         mainF.Show();
 
                     }
