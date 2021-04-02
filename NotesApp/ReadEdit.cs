@@ -38,6 +38,7 @@ namespace NotesApp
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            // Проверяем была ли нажата кнопка Сохранения
             if (!SaveButtonWasClicked)
             {
                 // Проверяем меняли ли текст в полях 'Название' и 'Сообщение' 
@@ -106,7 +107,6 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
-
         private void name_TextChanged(object sender, EventArgs e)
         {
             // Добавляем полосу прокрутки для поля 'Название'
@@ -121,7 +121,6 @@ namespace NotesApp
                 SaveButtonWasClicked = false;
             }
         }
-
 
         private void message_TextChanged(object sender, EventArgs e)
         {

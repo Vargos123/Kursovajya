@@ -49,7 +49,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = global::NotesApp.Properties.Resources.Login1;
+            this.panel1.BackgroundImage = global::NotesApp.Properties.Resources.Login;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.hide);
@@ -196,7 +196,7 @@
             // butLogin
             // 
             this.butLogin.BackColor = System.Drawing.Color.Transparent;
-            this.butLogin.BackgroundImage = global::NotesApp.Properties.Resources.Вход1;
+            this.butLogin.BackgroundImage = global::NotesApp.Properties.Resources.Вход;
             this.butLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butLogin.FlatAppearance.BorderSize = 0;
             this.butLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(55)))), ((int)(((byte)(128)))));

@@ -73,16 +73,6 @@ namespace NotesApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Login1 {
-            get {
-                object obj = ResourceManager.GetObject("Login1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Main {
             get {
                 object obj = ResourceManager.GetObject("Main", resourceCulture);
@@ -93,9 +83,19 @@ namespace NotesApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Вход1 {
+        internal static System.Drawing.Bitmap Zastavka {
             get {
-                object obj = ResourceManager.GetObject("Вход1", resourceCulture);
+                object obj = ResourceManager.GetObject("Zastavka", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Вход {
+            get {
+                object obj = ResourceManager.GetObject("Вход", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

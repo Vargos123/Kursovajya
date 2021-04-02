@@ -204,9 +204,6 @@
     <None Include="Resources\Login.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Login1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7 %28x86 и x64%29</ProductName>
@@ -217,9 +214,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Вход1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Регистрация.png" />
@@ -233,6 +227,7 @@
   <ItemGroup>
     <Content Include="%24this.Icon.ico" />
     <Content Include="Icon.ico" />
+    <None Include="Resources\Zastavka.png" />
     <None Include="Resources\%24this.Icon.ico" />
     <None Include="Resources\Сообщение.png" />
     <None Include="Resources\Название.png" />
