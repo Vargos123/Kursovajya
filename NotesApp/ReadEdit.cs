@@ -17,7 +17,7 @@ namespace NotesApp
 
         // Подключение к базе данных
         DataB db = new DataB();
-                
+
         string log, nameB, messageB;
         int index;
 
@@ -33,22 +33,17 @@ namespace NotesApp
             this.log = log;
             nameB = nameBox;
             messageB = messageBox;
-        }               
+        }
 
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            // Проверяем была ли нажата кнопка Сохранить. Если да, закрываем форму
-            if (SaveButtonWasClicked)
-            {
-                this.Close();
-            }
-            else // Если кнопка Сохранить не нажимали, но текст сменили - выдаем предупреждение
+            if (!SaveButtonWasClicked)
             {
                 // Проверяем меняли ли текст в полях 'Название' и 'Сообщение' 
                 if (name.Text != nameB || message.Text != messageB)
                 {
-                    // При смене текста выдаем предупреждение
+                    // Если текст меняли - выдаем предупреждение
                     if (MessageBox.Show("Возможно у вас есть несохранённые данные!\nВы подтверждаете выход?", "Выход", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                     {
@@ -60,6 +55,11 @@ namespace NotesApp
                     this.Close();
                 }
             }
+            else
+            {
+                this.Close();
+            }
+
         }
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
@@ -113,7 +113,13 @@ namespace NotesApp
             name.ScrollBars = ScrollBars.Vertical;
 
             // Считываем количество символов и записываем снизу поля
-            richTextBox1.Text = name.Text.Length.ToString();
+            richTextBox2.Text = name.Text.Length.ToString();
+
+            // Проверяем, не писали ли текст после нажатия на кнопку Сохранить
+            if (name.Text.Length != 0)
+            {
+                SaveButtonWasClicked = false;
+            }
         }
 
 
@@ -124,53 +130,68 @@ namespace NotesApp
 
             // Считываем количество символов и записываем снизу поля
             richTextBox1.Text = message.Text.Length.ToString();
+
+            // Проверяем, не писали ли текст после нажатия на кнопку Сохранить
+            if (message.Text.Length != 0)
+            {
+                SaveButtonWasClicked = false;
+            }
         }
 
         // Кнопка Сохранить
         private void bttSave_Click(object sender, EventArgs e)
         {
-            // Проверяем наличие интернета
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            // Проверяем менял ли пользователь данные
+            if (name.Text != nameB || message.Text != messageB)
             {
-                try
+                // Проверяем наличие интернета
+                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 {
-                    // Проверяем не пусты ли поля 'Название' и 'Сообщение' 
-                    if (string.IsNullOrWhiteSpace(name.Text))
+                    try
                     {
-                        MessageBox.Show("Название не может быть пустым!");
-                        return;
-                    }
-                    if (string.IsNullOrWhiteSpace(message.Text))
-                    {
-                        MessageBox.Show("Сообщение не может быть пустым!");
-                        return;
-                    }
+                        // Проверяем не пусты ли поля 'Название' и 'Сообщение' 
+                        if (string.IsNullOrWhiteSpace(name.Text))
+                        {
+                            MessageBox.Show("Название не может быть пустым!");
+                            return;
+                        }
+                        if (string.IsNullOrWhiteSpace(message.Text))
+                        {
+                            MessageBox.Show("Сообщение не может быть пустым!");
+                            return;
+                        }
 
-                    // Обновляем таблицу внося новые данные вместо старых
-                    MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
-                    command.Parameters.AddWithValue("title", name.Text);
-                    command.Parameters.AddWithValue("message", message.Text);
-                    command.Parameters.AddWithValue("Id", index);
+                        // Обновляем таблицу внося новые данные вместо старых
+                        MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
+                        command.Parameters.AddWithValue("title", name.Text);
+                        command.Parameters.AddWithValue("message", message.Text);
+                        command.Parameters.AddWithValue("Id", index);
 
-                    db.openConn();  // Открываем соединени
-                    if (command.ExecuteNonQuery() == 1)
-                    {
-                        SaveButtonWasClicked = true;
-                        MessageBox.Show("Вы успешно обновлили данные!");
+                        db.openConn();  // Открываем соединени
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            SaveButtonWasClicked = true;
+                            MessageBox.Show("Вы успешно обновлили данные!");
+                        }
+
+                        else
+                            MessageBox.Show("Вы не смогли обновить данные!");
+                        db.closeConn(); // Закрываем соединени
                     }
-                    else
-                        MessageBox.Show("Вы не смогли обновить данные!");
-                    db.closeConn(); // Закрываем соединени
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка!");
+                    }
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Произошла ошибка!");
+                    MessageBox.Show("Не удалось обновить данные. Проверьте доступ к интернету!");
                 }
             }
             else
             {
-                MessageBox.Show("Не удалось обновить данные. Проверьте доступ к интернету!");
-            }            
+                MessageBox.Show("Вы не изменяли текст!");
+            }
         }
     }
 }

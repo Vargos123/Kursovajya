@@ -127,11 +127,11 @@ namespace NotesApp
             this.name.BackColor = System.Drawing.Color.HotPink;
             this.name.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.name.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.name.Location = new System.Drawing.Point(22, 68);
+            this.name.Location = new System.Drawing.Point(22, 60);
             this.name.MaxLength = 50;
             this.name.Multiline = true;
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(184, 35);
+            this.name.Size = new System.Drawing.Size(184, 43);
             this.name.TabIndex = 36;
             this.name.TabStop = false;
             this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
@@ -211,7 +211,7 @@ namespace NotesApp
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.BackgroundImage = global::NotesApp.Properties.Resources.Название;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox4.Location = new System.Drawing.Point(12, 28);
+            this.pictureBox4.Location = new System.Drawing.Point(12, 20);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(196, 34);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;

@@ -82,7 +82,7 @@ namespace NotesApp
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.BackgroundImage = global::NotesApp.Properties.Resources.Сообщение;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(212, 29);
+            this.pictureBox2.Location = new System.Drawing.Point(196, 37);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(412, 43);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -94,7 +94,7 @@ namespace NotesApp
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = global::NotesApp.Properties.Resources.Название;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 37);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(196, 34);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -136,11 +136,11 @@ namespace NotesApp
             this.message.BackColor = System.Drawing.Color.HotPink;
             this.message.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.message.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.message.Location = new System.Drawing.Point(22, 122);
+            this.message.Location = new System.Drawing.Point(22, 136);
             this.message.MaxLength = 500;
             this.message.Multiline = true;
             this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(558, 195);
+            this.message.Size = new System.Drawing.Size(558, 181);
             this.message.TabIndex = 3;
             this.message.TabStop = false;
             this.message.TextChanged += new System.EventHandler(this.message_TextChanged);
@@ -150,11 +150,11 @@ namespace NotesApp
             this.name.BackColor = System.Drawing.Color.HotPink;
             this.name.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.name.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.name.Location = new System.Drawing.Point(22, 68);
+            this.name.Location = new System.Drawing.Point(22, 79);
             this.name.MaxLength = 50;
             this.name.Multiline = true;
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(184, 35);
+            this.name.Size = new System.Drawing.Size(196, 37);
             this.name.TabIndex = 36;
             this.name.TabStop = false;
             this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
@@ -165,7 +165,7 @@ namespace NotesApp
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(184, 103);
+            this.textBox4.Location = new System.Drawing.Point(196, 116);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
@@ -180,7 +180,7 @@ namespace NotesApp
             this.richTextBox2.Cursor = System.Windows.Forms.Cursors.Default;
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.richTextBox2.Location = new System.Drawing.Point(158, 103);
+            this.richTextBox2.Location = new System.Drawing.Point(170, 116);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -194,9 +194,9 @@ namespace NotesApp
             this.bttSave.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttSave.Location = new System.Drawing.Point(212, 81);
+            this.bttSave.Location = new System.Drawing.Point(224, 79);
             this.bttSave.Name = "bttSave";
-            this.bttSave.Size = new System.Drawing.Size(104, 35);
+            this.bttSave.Size = new System.Drawing.Size(104, 37);
             this.bttSave.TabIndex = 40;
             this.bttSave.TabStop = false;
             this.bttSave.Text = "Сохранить";

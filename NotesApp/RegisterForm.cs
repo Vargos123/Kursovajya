@@ -198,6 +198,7 @@ namespace NotesApp
             this.Close();
             LoginForm logF = new LoginForm();
             logF.Show();
+            
         }
 
         private void loginF_TextChanged(object sender, EventArgs e)

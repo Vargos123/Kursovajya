@@ -26,7 +26,7 @@ namespace NotesApp
         private void CloseButton_Click(object sender, EventArgs e)
         {
             // Завершаем процесс и выходим
-            Environment.Exit(1);
+            Application.Exit();
         }
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
@@ -144,10 +144,11 @@ namespace NotesApp
         // Кнопка Создать аккаунт
         private void createAcc_Click(object sender, EventArgs e)
         {
-            // Закрываем форму авторизации и открываем форму регистрации
             this.Close();
+            // Закрываем форму авторизации и открываем форму регистрации            
             RegisterForm regF = new RegisterForm();            
             regF.Show();
+            
         }
 
 
