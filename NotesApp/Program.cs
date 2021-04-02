@@ -22,10 +22,11 @@ namespace NotesApp
                     MessageBox.Show("Программа уже запущена. Повторный запуск программы невозможен", "Внимение:");
                     return;
                 }
+                // Улучшение текста, стилей и т.д
                 GC.Collect();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new LoginForm());
+                Application.Run(new MeNote());
             }
         }
     }

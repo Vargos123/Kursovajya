@@ -108,21 +108,20 @@ namespace NotesApp
                 try
                 {
                     // Проверяем ввод данных
-                    if (dataGridView1.Rows.Count == 100)
+                    if (dataGridView1.Rows.Count == 500)
                     {
-                        MessageBox.Show("Вы можете добавить не больше 100 записей!");
+                        MessageBox.Show("Вы не можете добавить больше 500 записей!");
+                        return;
                     }
                     else if (string.IsNullOrWhiteSpace(nameBox.Text))
                     {
                         MessageBox.Show("Вы не ввели Название!");
-                    }
-                    else if (nameBox.TextLength > 50)
-                    {
-                        MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
+                        return;
                     }
                     else if (string.IsNullOrWhiteSpace(messageBox.Text))
                     {
                         MessageBox.Show("Вы не ввели Сообщение!");
+                        return;
                     }
                     else
                     {
@@ -241,7 +240,7 @@ namespace NotesApp
             }          
         }
 
-        // Чтение и редактирование текста
+        // Просмотр и редактирование текста
         private void bttRead_Click(object sender, EventArgs e)
         {
             // Проверяем наличие интернета
@@ -471,7 +470,7 @@ namespace NotesApp
                                 // Открываем соединение
                                 db.openConn();
                                 // Выполняем комманду
-                                command.ExecuteNonQuery();
+                                command.ExecuteNonQuery();                                    
                                 // Закрываем соединение
                                 db.closeConn();
 
@@ -508,7 +507,7 @@ namespace NotesApp
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
             {
-                if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Вы действительно хотите выйти?\nНесохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -541,10 +540,11 @@ namespace NotesApp
                         {
                             try
                             {
-                                // Удаляем аккаунт и таблицу пользователя с базы данных
+                                // Удаляем логин, пароль и таблицу пользователя с базы данных
                                 MySqlCommand command1 = new MySqlCommand(" DELETE FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
                                 MySqlCommand command2 = new MySqlCommand(" DROP TABLE `" + log + "`", db.getConn());
                                 command1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
+
 
                                 // Открываем соединени
                                 db.openConn();
@@ -554,16 +554,15 @@ namespace NotesApp
                                 // Закрываем соединение
                                 db.closeConn();
 
-                                // Закрываем форму и открываем форму авторизации
+                                // Скрываем форму и открываем форму авторизации
                                 this.Hide();
                                 LoginForm logF = new LoginForm();
                                 logF.Show();
-                                MessageBox.Show("Ваш аккаунт был успешно удален!");
                             }
                             catch
                             {
                                 MessageBox.Show("Произошла ошибка!");
-                            }
+                            }                            
                         }
                         else
                         {

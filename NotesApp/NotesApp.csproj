@@ -84,6 +84,8 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.21\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
@@ -92,6 +94,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -122,6 +125,12 @@
     </Compile>
     <Compile Include="MainFormNoLogin.Designer.cs">
       <DependentUpon>MainFormNoLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MeNote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MeNote.Designer.cs">
+      <DependentUpon>MeNote.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -155,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainFormNoLogin.resx">
       <DependentUpon>MainFormNoLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MeNote.resx">
+      <DependentUpon>MeNote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -220,13 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="%24this.Icon.ico" />
-    <Content Include="DataBase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataBase_log.ldf">
-      <DependentUpon>DataBase.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Icon.ico" />
     <None Include="Resources\%24this.Icon.ico" />
     <None Include="Resources\Сообщение.png" />

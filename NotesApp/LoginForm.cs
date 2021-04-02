@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,8 +25,8 @@ namespace NotesApp
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            // Выход из приложения
-            Application.Exit();
+            // Завершаем процесс и выходим
+            Environment.Exit(1);
         }
         private void CloseButton_MouseEnter(object sender, EventArgs e)
         {
@@ -104,7 +105,7 @@ namespace NotesApp
                 // ввод логина и пароля и сравнение логина с БД 
                 try
                 {
-                    // Выбираем Логин и Пароль из базы данных
+                    // Выбираем Логин и Пароль с базы данных
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL AND `pass` = @userP", db.getConn());       
                     // Расшифровка заглушек
                     command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = Login;
@@ -116,14 +117,13 @@ namespace NotesApp
                     // Записываем полученные данные в table 
                     adapter.Fill(table);
 
-                    // Проверяем количество рядов
+                    // Проверяем количество рядов (совпадений)
                     if (table.Rows.Count > 0)
                     {
                         // Скрываем форму авторизации
-                        this.Hide();
-
                         // Открывем основую форму и передаём в неё Логин пользователя
                         MainForm mainF = new MainForm(this.loginF.Text);
+                        this.Hide();
                         mainF.Show();
 
                     }
@@ -137,23 +137,23 @@ namespace NotesApp
             }
             else
             {
-                MessageBox.Show("Не удалось войти в аккаунт. Проверьте доступ к интернету!");
+                MessageBox.Show("Не удалось войти в аккаунт!\nПроверьте доступ к интернету!");
             }
         }
 
         // Кнопка Создать аккаунт
         private void createAcc_Click(object sender, EventArgs e)
         {
-            // Скрываем форму авторизации и открываем форму регистрации
-            this.Hide();
-            RegisterForm regF = new RegisterForm();
+            // Закрываем форму авторизации и открываем форму регистрации
+            this.Close();
+            RegisterForm regF = new RegisterForm();            
             regF.Show();
         }
 
 
         private void passF_TextChanged(object sender, EventArgs e)
         {
-            // Считываем количество символов и записываем снизу поля
+            // Считываем количество символов и записываем сверху поля
             richTextBox1.Text = passF.Text.Length.ToString();
 
             // Проверяем количество введённых символов
@@ -165,7 +165,7 @@ namespace NotesApp
 
         private void loginF_TextChanged(object sender, EventArgs e)
         {
-            // Считываем количество символов и записываем снизу поля
+            // Считываем количество символов и записываем сверху поля
             richTextBox2.Text = loginF.Text.Length.ToString();
 
             // Проверяем количество введённых символов
@@ -182,6 +182,11 @@ namespace NotesApp
             this.Hide();
             MainFormNoLogin mainF = new MainFormNoLogin();
             mainF.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

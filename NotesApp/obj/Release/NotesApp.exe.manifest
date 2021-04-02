@@ -67,6 +67,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.VisualBasic.PowerPacks.dll" size="352256">
+      <assemblyIdentity name="Microsoft.VisualBasic.PowerPacks" version="9.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ge3qaWpdQthkHqvQPFfRHEI2kVtIQVfVJ0MEY0RDClA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySql.Data.dll" size="1730048">
       <assemblyIdentity name="MySql.Data" version="8.0.21.0" publicKeyToken="C5687FC88969C44D" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -79,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="829920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="853472">
       <assemblyIdentity name="NotesApp" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SHXttGj+bNhWZL2Y7xak+ZQ91htNHJkILrHfbg2gBU8=</dsig:DigestValue>
+        <dsig:DigestValue>2M/PUbpITSPdfaB7/fHaahylmVvURdIAFnXfqJ3edqs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,24 +109,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>lzWwHTC2hfX5l9Zl9Y6Q8Q3H8MIyxRqzdmzJmRYj5Bc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="DataBase.mdf" size="8388608" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Rs1nAd0T9OyE0yA3IEkMmxjb/xOJNqGhrUdKAT1dlXo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="DataBase_log.ldf" size="8388608" writeableType="applicationData">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>OBnJpByGxBqcjDqik8t67IYGEbDzj2F5EunK8+aZ3rw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Icon.ico" size="67646">

@@ -140,15 +140,13 @@ namespace NotesApp
                 }
                 catch
                 {
-                    // В случае ошибки скрываем окно регистрации и открываем окно авторизации
-                    this.Hide();
-                    LoginForm logF = new LoginForm();
-                    logF.Show();
+                    // В случае ошибки выводим сообщение
                     MessageBox.Show("Произошла ошибка!");
                 }
             }
             else
             {
+                // В случае отсутствия интернета выводим сообщение
                 MessageBox.Show("Не удалось зарегистрироваться. Проверьте доступ к интернету!");
             }            
         }
@@ -164,16 +162,15 @@ namespace NotesApp
                     // Создаем таблицу в которой будут проверяться данные
                     DataTable table = new DataTable();
 
+                    // Получаем и Сохраняем данные в adapter
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-                    // Выбираем логины с базы данных и сравниваем с тем, который ввёл пользователь
+                    // Ищем в базе данных Логин который ввёл пользователь раннее
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
                     command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text; 
                     
                     adapter.SelectCommand = command;    // Выполняем комманду
-
                     adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
-
                     if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
                     {
                         MessageBox.Show("Даный Логин уже зарегистрирован!");
@@ -190,7 +187,7 @@ namespace NotesApp
             }
             else
             {
-                MessageBox.Show(" Проверьте доступ к интернету. Не удалось подключится к сети.");
+                MessageBox.Show("Проверьте доступ к интернету!\nНе удалось подключится к сети.");
                 return true;
             }
         }
@@ -198,7 +195,7 @@ namespace NotesApp
         // Кнопка открытия формы авторизации
         private void goToLogin_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             LoginForm logF = new LoginForm();
             logF.Show();
         }
