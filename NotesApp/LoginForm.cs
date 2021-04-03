@@ -25,7 +25,7 @@ namespace NotesApp
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            // Завершаем процесс и выходим
+            // Закрываем программу
             Application.Exit();
         }
         private void CloseButton_MouseEnter(object sender, EventArgs e)
@@ -119,11 +119,14 @@ namespace NotesApp
 
                     // Проверяем количество рядов (совпадений)
                     if (table.Rows.Count > 0)
-                    {
-                        // Скрываем форму авторизации
+                    {                        
                         // Открывем основую форму и передаём в неё Логин пользователя
                         MainForm mainF = new MainForm(this.loginF.Text);
+
+                        // Скрываем форму авторизации
                         this.Close();
+
+                        // Открываем главную форму
                         mainF.Show();
 
                     }
@@ -147,8 +150,7 @@ namespace NotesApp
             this.Close();
             // Закрываем форму авторизации и открываем форму регистрации            
             RegisterForm regF = new RegisterForm();            
-            regF.Show();
-            
+            regF.Show();            
         }
 
 
@@ -160,7 +162,7 @@ namespace NotesApp
             // Проверяем количество введённых символов
             if (passF.TextLength == 32)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 32.");
+                MessageBox.Show("Достигнуто максимальное количество символов: 32!");
             }
         }
 
@@ -172,7 +174,7 @@ namespace NotesApp
             // Проверяем количество введённых символов
             if (loginF.TextLength == 16)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 16.");
+                MessageBox.Show("Достигнуто максимальное количество символов: 16!");
             }
         }
 
@@ -180,14 +182,9 @@ namespace NotesApp
         private void label3_Click(object sender, EventArgs e)
         {
             // Скрываем форму авторизации и открываем главную форму
-            this.Hide();
+            this.Close();
             MainFormNoLogin mainF = new MainFormNoLogin();
             mainF.Show();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

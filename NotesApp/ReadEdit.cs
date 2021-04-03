@@ -13,7 +13,7 @@ namespace NotesApp
 {
     public partial class ReadEdit : Form
     {
-        private bool SaveButtonWasClicked = false;
+        private bool SaveButtonWasClicked;
 
         // Подключение к базе данных
         DataB db = new DataB();
@@ -23,16 +23,16 @@ namespace NotesApp
 
         public ReadEdit(string nameBox, string messageBox, int index, string log)
         {
-            // Стартовая позиция по центру экрана
-            this.StartPosition = FormStartPosition.CenterScreen;
 
             InitializeComponent();
-            name.Text = nameBox;
-            message.Text = messageBox;
-            this.index = index;
-            this.log = log;
-            nameB = nameBox;
-            messageB = messageBox;
+
+            // Получаем данные с главной формы и подставляем 
+            name.Text = nameBox; // В поле Название подставляем текст с поля таблицы 'Название'
+            message.Text = messageBox;  // В поле Сообщение подставляем текст с поля таблицы 'Сообщение'
+            this.index = index; // Подставляем номер выделенной строки. Её id
+            this.log = log; // Получаем Логин пользователя
+            nameB = nameBox; // Вносим в переменную данные с поля Название
+            messageB = messageBox;  // Вносим в переменную данные с поля Сообщение
         }
 
         // Кнопка закрытия приложения
@@ -115,7 +115,8 @@ namespace NotesApp
             // Считываем количество символов и записываем снизу поля
             richTextBox2.Text = name.Text.Length.ToString();
 
-            // Проверяем, не писали ли текст после нажатия на кнопку Сохранить
+            // Проверяем, не писали ли текст в поле Название.
+            // Если так - придаём значение нажатия кнопки Сохранить - false
             if (name.Text.Length != 0)
             {
                 SaveButtonWasClicked = false;
@@ -130,7 +131,8 @@ namespace NotesApp
             // Считываем количество символов и записываем снизу поля
             richTextBox1.Text = message.Text.Length.ToString();
 
-            // Проверяем, не писали ли текст после нажатия на кнопку Сохранить
+            // Проверяем, не писали ли текст в поле Название.
+            // Если так - придаём значение нажатия кнопки Сохранить - false
             if (message.Text.Length != 0)
             {
                 SaveButtonWasClicked = false;
@@ -172,7 +174,6 @@ namespace NotesApp
                             SaveButtonWasClicked = true;
                             MessageBox.Show("Вы успешно обновлили данные!");
                         }
-
                         else
                             MessageBox.Show("Вы не смогли обновить данные!");
                         db.closeConn(); // Закрываем соединени

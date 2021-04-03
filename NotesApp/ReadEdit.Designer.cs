@@ -223,6 +223,7 @@ namespace NotesApp
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReadEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReadEdit";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseDown_1);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReadEdit_MouseMove);

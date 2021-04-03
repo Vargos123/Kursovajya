@@ -19,7 +19,6 @@ namespace NotesApp
         SqlConnection sqlConnection;
         public ReadEditNoLogin(string nameBox, string messageBox, int index)
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
             this.nameBox = nameBox;
             this.messageBox = messageBox;

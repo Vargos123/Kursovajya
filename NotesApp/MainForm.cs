@@ -23,8 +23,6 @@ namespace NotesApp
 
         public MainForm(string log)
         {
-            // Стартовая позиция по центру экрана
-            this.StartPosition = FormStartPosition.CenterScreen;
 
             InitializeComponent();
 
@@ -33,7 +31,7 @@ namespace NotesApp
 
             // Загружаем таблицу
             LoadData();
-        }        
+        }
 
         // Загрузка таблицы 
         private void LoadData()
@@ -77,7 +75,7 @@ namespace NotesApp
                     foreach (string[] s in data)
                         dataGridView1.Rows.Add(s);
                 }
-                catch 
+                catch
                 {
                     // Закрываем форму
                     this.Close();
@@ -86,9 +84,9 @@ namespace NotesApp
                     logF.Show();
                     MessageBox.Show("Непредвиденная ошибка!");
                 }
-                
+
             }
-            else 
+            else
             {
                 // Закрываем форму
                 this.Close();
@@ -143,8 +141,7 @@ namespace NotesApp
                             MessageBox.Show("Вы успешно добавили данные");
 
                             // Очищаем поля 'Название' и 'Сообщение'
-                            nameBox.Clear();
-                            messageBox.Clear();
+                            ClearNameMessageBox();
                         }
                         else
                             MessageBox.Show("Не удалось добавить данные");
@@ -168,15 +165,15 @@ namespace NotesApp
         private void CloseButton_Click(object sender, EventArgs e)
         {
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
-            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {
-                if (MessageBox.Show("Вы действительно хотите выйти? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     Application.Exit();
                 }
             }
-            else
+            else // Если текста нет - Выходим
             {
                 Application.Exit();
             }
@@ -225,19 +222,29 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
+        // Очищаем поля 'Название' и 'Сообщение'
+        public void ClearNameMessageBox()
+        {
+            nameBox.Clear();
+            messageBox.Clear();
+        }
+
         private void bttNew_Click(object sender, EventArgs e)
         {
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
-            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {   
-                if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Создать новую запись?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создание записи", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     // Очищаем поля 'Название' и 'Сообщение'
-                    nameBox.Clear();
-                    messageBox.Clear();
+                    ClearNameMessageBox();
                 }
-            }          
+            }
+            else // Если текста нет тоже очищаем поля от возможных пробелов
+            {
+                ClearNameMessageBox();
+            }
         }
 
         // Просмотр и редактирование текста
@@ -505,9 +512,9 @@ namespace NotesApp
         private void bttExit_Click(object sender, EventArgs e)
         {
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
-            if (!string.IsNullOrWhiteSpace(nameBox.Text) || !string.IsNullOrWhiteSpace(messageBox.Text))
+            if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {
-                if (MessageBox.Show("Вы действительно хотите выйти?\nНесохранённые данные будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.Close();
@@ -515,7 +522,7 @@ namespace NotesApp
                     logF.Show();
                 }
             }
-            else
+            else // Если текста нет - Выходим
             {
                 this.Close();
                 LoginForm logF = new LoginForm();
@@ -554,12 +561,15 @@ namespace NotesApp
                                 // Закрываем соединение
                                 db.closeConn();
 
-                                // Скрываем форму и открываем форму авторизации
 
+                                // Скрываем форму и открываем форму авторизации
+                                // Освобождаем память и закрываем
                                 this.Dispose();
-                                LoginForm logF = new LoginForm();
-                                logF.Show();
                                 this.Close();
+
+                                // Открываем форму авторизации
+                                LoginForm logF = new LoginForm();
+                                logF.Show();                         
                             }
                             catch
                             {
@@ -579,18 +589,23 @@ namespace NotesApp
             }
         }          
 
-        // Кнопка Обновить ( Обновляет записи в таблице )
+        // Кнопка 'Обновить' ( Обновляет записи в таблице )
         private void bttUpdate_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear(); // Очищаем таблицу
             LoadData(); // Снова добавляем данные с базы данных
         }
 
-        // Обновление записей при закрытии формы Чтения
+        // Обновление записей при закрытии формы 'Прочитать'
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             dataGridView1.Rows.Clear(); // Очищаем таблицу
             LoadData(); // Снова данные с базы данных
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

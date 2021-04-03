@@ -66,11 +66,11 @@
             this.panel1.Controls.Add(this.CloseButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.panel1.ForeColor = System.Drawing.Color.Transparent;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(474, 605);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
@@ -162,7 +162,7 @@
             // 
             this.createAcc.AutoSize = true;
             this.createAcc.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.createAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.createAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.createAcc.ForeColor = System.Drawing.Color.White;
             this.createAcc.Location = new System.Drawing.Point(173, 532);
             this.createAcc.Name = "createAcc";
@@ -196,7 +196,7 @@
             // butLogin
             // 
             this.butLogin.BackColor = System.Drawing.Color.Transparent;
-            this.butLogin.BackgroundImage = global::NotesApp.Properties.Resources.Вход;
+            this.butLogin.BackgroundImage = global::NotesApp.Properties.Resources.Вход1;
             this.butLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butLogin.FlatAppearance.BorderSize = 0;
             this.butLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(55)))), ((int)(((byte)(128)))));

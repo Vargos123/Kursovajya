@@ -23,7 +23,6 @@ namespace NotesApp
 
         public MainFormNoLogin()
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }  
         
@@ -304,10 +303,13 @@ namespace NotesApp
                 MessageBox.Show("Достигнуто максимальное количество символов: 500");
             }
         }
+
+
         private void MainFormNoLogin_Load(object sender, EventArgs e)
         {
             try
             {         
+
                 sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True");
                 sqlConnection.Open();
                 LoadData();

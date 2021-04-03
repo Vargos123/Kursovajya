@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,16 +13,13 @@ namespace NotesApp
 {
     public partial class RegisterForm : Form
     {
-        // Подключаем базу данных
-        DataB db = new DataB();
-
         public RegisterForm()
         {
-            // Стартовая позиция по центру экрана
-            this.StartPosition = FormStartPosition.CenterScreen;
-
             InitializeComponent();
         }
+
+        // Подключаем базу данных
+        DataB db = new DataB();
 
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
@@ -43,11 +39,12 @@ namespace NotesApp
         }
 
         // Кнопка Свернуть приложение
-        private void label5_Click(object sender, EventArgs e)
+        private void hide_Click(object sender, EventArgs e)
         {
             // Свернуть приложения при нажатии на кнопку
             this.WindowState = FormWindowState.Minimized;
         }
+
         private void hide_MouseEnter(object sender, EventArgs e)
         {
             // Смена цвета кнопки Свернуть на черный при наведении мышки
@@ -60,7 +57,7 @@ namespace NotesApp
         }
 
         Point lastPoint;
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        private void RF_MouseMove(object sender, MouseEventArgs e)
         {
             // Проверяем нажата ли левая кнопка мышки
             if (e.Button == MouseButtons.Left)
@@ -70,7 +67,7 @@ namespace NotesApp
                 this.Top += e.Y - lastPoint.Y;
             }
         }
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void RF_MouseDown(object sender, MouseEventArgs e)
         {
             // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
@@ -148,7 +145,7 @@ namespace NotesApp
             {
                 // В случае отсутствия интернета выводим сообщение
                 MessageBox.Show("Не удалось зарегистрироваться. Проверьте доступ к интернету!");
-            }            
+            }
         }
 
         // Проверяем свободный ли логин
@@ -167,8 +164,8 @@ namespace NotesApp
 
                     // Ищем в базе данных Логин который ввёл пользователь раннее
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
-                    command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text; 
-                    
+                    command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text;
+
                     adapter.SelectCommand = command;    // Выполняем комманду
                     adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
                     if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
@@ -181,7 +178,7 @@ namespace NotesApp
                 }
                 catch
                 {
-                    MessageBox.Show("Произошла ошибка! Возможно потребуется переустановление программы!");
+                    MessageBox.Show("Произошла ошибка!");
                     return true;
                 }
             }
@@ -195,10 +192,10 @@ namespace NotesApp
         // Кнопка открытия формы авторизации
         private void goToLogin_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Close()
             LoginForm logF = new LoginForm();
             logF.Show();
-            
+
         }
 
         private void loginF_TextChanged(object sender, EventArgs e)
@@ -209,7 +206,7 @@ namespace NotesApp
             // Проверяем количество введённых символов
             if (loginF.TextLength == 16)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 16");
+                MessageBox.Show("Достигнуто максимальное количество символов: 16!");
             }
         }
 
@@ -221,8 +218,9 @@ namespace NotesApp
             // Проверяем количество введённых символов
             if (passF.TextLength == 32)
             {
-                MessageBox.Show("Достигнуто максимальное количество символов: 32");
+                MessageBox.Show("Достигнуто максимальное количество символов: 32!");
             }
         }
     }
 }
+

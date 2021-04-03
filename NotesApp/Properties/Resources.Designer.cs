@@ -93,9 +93,9 @@ namespace NotesApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Вход {
+        internal static System.Drawing.Bitmap Вход1 {
             get {
-                object obj = ResourceManager.GetObject("Вход", resourceCulture);
+                object obj = ResourceManager.GetObject("Вход1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

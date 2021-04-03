@@ -32,5 +32,10 @@ namespace NotesApp
                 this.Hide();
             }
         }
+
+        private void MeNote_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
