@@ -192,7 +192,7 @@ namespace NotesApp
         // Кнопка открытия формы авторизации
         private void goToLogin_Click(object sender, EventArgs e)
         {
-            this.Close()
+            this.Close();
             LoginForm logF = new LoginForm();
             logF.Show();
 
