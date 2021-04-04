@@ -162,11 +162,13 @@ namespace NotesApp
                             return;
                         }
 
+                        DateTime registrationDate = DateTime.Now;
                         // Обновляем таблицу внося новые данные вместо старых
-                        MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message WHERE id = @Id", db.getConn());
+                        MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message, DataChange = @DataChange WHERE id = @Id", db.getConn());
                         command.Parameters.AddWithValue("title", name.Text);
                         command.Parameters.AddWithValue("message", message.Text);
                         command.Parameters.AddWithValue("Id", index);
+                        command.Parameters.AddWithValue("@DataChange", registrationDate);
 
                         db.openConn();  // Открываем соединени
                         if (command.ExecuteNonQuery() == 1)

@@ -52,6 +52,7 @@
             this.bttDelAcc = new System.Windows.Forms.Button();
             this.hide = new System.Windows.Forms.Label();
             this.bttUpdate = new System.Windows.Forms.Button();
+            this.InfoData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -132,7 +133,7 @@
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(654, 325);
+            this.bttDelete.Location = new System.Drawing.Point(654, 357);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(89, 26);
             this.bttDelete.TabIndex = 6;
@@ -176,6 +177,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Title
             // 
@@ -375,12 +377,27 @@
             this.bttUpdate.UseVisualStyleBackColor = false;
             this.bttUpdate.Click += new System.EventHandler(this.bttUpdate_Click);
             // 
+            // InfoData
+            // 
+            this.InfoData.BackColor = System.Drawing.Color.PaleVioletRed;
+            this.InfoData.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.InfoData.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.InfoData.Location = new System.Drawing.Point(654, 325);
+            this.InfoData.Name = "InfoData";
+            this.InfoData.Size = new System.Drawing.Size(89, 26);
+            this.InfoData.TabIndex = 31;
+            this.InfoData.TabStop = false;
+            this.InfoData.Text = "Информация";
+            this.InfoData.UseVisualStyleBackColor = false;
+            this.InfoData.Click += new System.EventHandler(this.InfoData_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(785, 463);
+            this.Controls.Add(this.InfoData);
             this.Controls.Add(this.bttUpdate);
             this.Controls.Add(this.hide);
             this.Controls.Add(this.bttDelAcc);
@@ -444,5 +461,6 @@
         private System.Windows.Forms.Button bttUpdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Message;
+        private System.Windows.Forms.Button InfoData;
     }
 }

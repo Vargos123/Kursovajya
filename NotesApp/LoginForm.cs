@@ -98,7 +98,7 @@ namespace NotesApp
                 // Подключаем базу данных
                 DataB db = new DataB();
 
-                // Создаем таблицу для хранения введённыъ данных
+                // Создаем таблицу для хранения введённых данных
                 DataTable table = new DataTable();
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
 

@@ -123,23 +123,27 @@ namespace NotesApp
                     }
                     else
                     {
+                        // 
+                        DateTime registrationDate = DateTime.Now;
                         // Вносим данные в базу данных
-                        MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`) VALUES (@Title, @Message)", db.getConn()); // Вносим данные в базу
+                        MySqlCommand command = new MySqlCommand("INSERT INTO `" + log + "` (`Title`, `Message`, `DataCreate`, `DataChange`) VALUES (@Title, @Message, @DataCreate, @DataChange)", db.getConn()); // Вносим данные в базу
+                        // Добавляем параметры.          Добавляем тип данных строку
                         command.Parameters.Add("@Title", MySqlDbType.VarChar).Value = nameBox.Text;
                         command.Parameters.Add("@Message", MySqlDbType.VarChar).Value = messageBox.Text;
+                        command.Parameters.AddWithValue("@DataCreate", registrationDate);
+                        command.Parameters.AddWithValue("@DataChange", registrationDate);
 
                         // Открываем соединение к базе даннных
                         db.openConn();
 
+
                         // Проверяем удачно ли выполнилась команда
                         if (command.ExecuteNonQuery() == 1)
                         {
-                            // Добавляем данные в таблицу с полей
-                            int n = dataGridView1.Rows.Add();
-                            dataGridView1.Rows[n].Cells[0].Value = nameBox.Text;
-                            dataGridView1.Rows[n].Cells[1].Value = messageBox.Text;
+                            // Обновляем таблицу
+                            dataGridView1.Rows.Clear(); // Очищаем таблицу
+                            LoadData(); // Снова добавляем данные с базы данных
                             MessageBox.Show("Вы успешно добавили данные");
-
                             // Очищаем поля 'Название' и 'Сообщение'
                             ClearNameMessageBox();
                         }
@@ -167,8 +171,8 @@ namespace NotesApp
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {
-                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Application.Exit();
                 }
@@ -234,8 +238,8 @@ namespace NotesApp
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {   
-                if (MessageBox.Show("Создать новую запись?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создание записи", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show("Создать новую запись?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создание записи", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     // Очищаем поля 'Название' и 'Сообщение'
                     ClearNameMessageBox();
@@ -391,8 +395,8 @@ namespace NotesApp
                     }
                     else
                     {
-                        if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                        if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             // Снова проверяем наличине интернета
                             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -464,8 +468,8 @@ namespace NotesApp
                 // Проверка на наличие строк в таблице
                 if (dataGridView1.RowCount > 0)
                 {
-                    if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         // Снова проверяем наличие интернета
                         if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -514,8 +518,8 @@ namespace NotesApp
             // Проверяем наличие текста в полях 'Название' и 'Сообщение'
             if (!string.IsNullOrWhiteSpace(nameBox.Text) && !string.IsNullOrWhiteSpace(messageBox.Text))
             {
-                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show("Вы действительно хотите выйти ?\nНесохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Выход", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     this.Close();
                     LoginForm logF = new LoginForm();
@@ -536,11 +540,11 @@ namespace NotesApp
             // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                if (MessageBox.Show("Вы действительно хотите удалить свой аккаунт? ", "Удаление", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show("Вы действительно хотите удалить свой аккаунт? ", "Удаление", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("Аккаунт восстановлению не принадлежит!\nВы действительно хотите продолжить?! ", "Удаление", MessageBoxButtons.OKCancel,
-                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    if (MessageBox.Show("Аккаунт восстановлению не принадлежит!\nВы действительно хотите продолжить?! ", "Удаление", MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         // Снова проверяем наличие интернета
                         if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -604,6 +608,23 @@ namespace NotesApp
         }
 
         private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        
+        // Смотрим информацию о записи
+        private void InfoData_Click(object sender, EventArgs e)
+        {
+            // Вносим в index номер выделенной строки
+            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+
+            // Передаем данные на форму чтения и редактирования
+            Information readE = new Information(index, log);
+            // Показываем форму 'Прочитать'
+            readE.ShowDialog();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
