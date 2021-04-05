@@ -68,5 +68,10 @@ namespace NotesApp
         {
             this.Close();
         }
+
+        private void Information_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

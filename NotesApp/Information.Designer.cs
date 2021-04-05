@@ -37,6 +37,7 @@ namespace NotesApp
             this.DCreate = new System.Windows.Forms.Label();
             this.DChange = new System.Windows.Forms.Label();
             this.CloseBttn = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -101,10 +102,20 @@ namespace NotesApp
             this.CloseBttn.UseVisualStyleBackColor = true;
             this.CloseBttn.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(65, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "label5";
+            // 
             // Information
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(304, 119);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.CloseBttn);
             this.Controls.Add(this.DChange);
             this.Controls.Add(this.DCreate);
@@ -119,6 +130,7 @@ namespace NotesApp
             this.Name = "Information";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Information";
+            this.Load += new System.EventHandler(this.Information_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +145,6 @@ namespace NotesApp
         private System.Windows.Forms.Label DCreate;
         private System.Windows.Forms.Label DChange;
         private System.Windows.Forms.Button CloseBttn;
+        private System.Windows.Forms.Label label5;
     }
 }

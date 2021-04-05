@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,9 @@ namespace NotesApp
 {
     public partial class RegisterForm : Form
     {
+        // Переходим на сайт который показывает ip. Считываем и записываем его в IP
+        string IP = new WebClient().DownloadString("http://icanhazip.com/");
+
         public RegisterForm()
         {
             InitializeComponent();
@@ -98,6 +102,10 @@ namespace NotesApp
                         return;
                     }
 
+                    // Проверяем сколько зарегистрировано аккаунтов. Больше 100 - не регистрируем
+                    if (CheckIp())
+                        return;
+
                     // Проверяем свободный ли логин. Если нет, выходим из функции 
                     if (isUser())
                         return;
@@ -117,14 +125,16 @@ namespace NotesApp
                     }
 
                     // Добавляем Логин и Пароль пользователя в общую базу 
-                    MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`) VALUES (@login, @pass)", db.getConn());
+                    MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`, `ip`) VALUES (@login, @pass, @ip)", db.getConn());
+
                     // Снимаем заглушки
                     command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginF.Text;
                     command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = passF.Text;
+                    command.Parameters.Add("@ip", MySqlDbType.VarChar).Value = IP;
 
                     db.openConn();  // Открываем соединение
                     if (command.ExecuteNonQuery() == 1)
-                        MessageBox.Show("Вы успешно зарегистрировались!");
+                        MessageBox.Show("Вы успешно зарегистрировались!\nОбязательно запомните свой Логин и пароль!\nВы не сможете создать больше 100 аккаунтов!");
                     else
                     {
                         MessageBox.Show("Вы не зарегистрировались, проверьте ввод даных!");
@@ -145,6 +155,46 @@ namespace NotesApp
             {
                 // В случае отсутствия интернета выводим сообщение
                 MessageBox.Show("Не удалось зарегистрироваться. Проверьте доступ к интернету!");
+            }
+        }
+
+        public Boolean CheckIp()
+        {
+            // Проверяем наличине интернета
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                try
+                {
+                    // Создаем таблицу в которой будут проверяться данные
+                    DataTable table = new DataTable();
+
+                    // Получаем и Сохраняем данные в adapter
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    
+                    // Ищем в базе данных Логин который ввёл пользователь раннее
+                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `ip` = @IP", db.getConn());
+                    command.Parameters.Add("@IP", MySqlDbType.VarChar).Value = IP;
+
+                    adapter.SelectCommand = command;    // Выполняем комманду
+                    adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
+                    if (table.Rows.Count > 99)   // Проверяем сколько зарегистрировано аккаунтов
+                    {
+                        MessageBox.Show("Вы не можете зарегистрировать больше 100 аккаунтов с одного IP");
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch
+                {
+                    MessageBox.Show("Произошла ошибка!");
+                    return true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Проверьте доступ к интернету!\nНе удалось подключится к сети.");
+                return true;
             }
         }
 
