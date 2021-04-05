@@ -34,9 +34,9 @@ namespace NotesApp
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Close = new System.Windows.Forms.Button();
             this.DCreate = new System.Windows.Forms.Label();
             this.DChange = new System.Windows.Forms.Label();
+            this.CloseBttn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,41 +73,41 @@ namespace NotesApp
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 5;
             // 
-            // Close
-            // 
-            this.Close.Location = new System.Drawing.Point(217, 84);
-            this.Close.Name = "Close";
-            this.Close.Size = new System.Drawing.Size(75, 23);
-            this.Close.TabIndex = 4;
-            this.Close.Text = "ОК";
-            this.Close.UseVisualStyleBackColor = true;
-            this.Close.Click += new System.EventHandler(this.Close_Click);
-            // 
             // DCreate
             // 
             this.DCreate.AutoSize = true;
             this.DCreate.Location = new System.Drawing.Point(189, 24);
             this.DCreate.Name = "DCreate";
-            this.DCreate.Size = new System.Drawing.Size(35, 13);
+            this.DCreate.Size = new System.Drawing.Size(106, 13);
             this.DCreate.TabIndex = 7;
-            this.DCreate.Text = "label5";
+            this.DCreate.Text = "00.00.0000 00:00:00";
             // 
             // DChange
             // 
             this.DChange.AutoSize = true;
             this.DChange.Location = new System.Drawing.Point(189, 48);
             this.DChange.Name = "DChange";
-            this.DChange.Size = new System.Drawing.Size(35, 13);
+            this.DChange.Size = new System.Drawing.Size(106, 13);
             this.DChange.TabIndex = 8;
-            this.DChange.Text = "label6";
+            this.DChange.Text = "00.00.0000 00:00:00";
+            // 
+            // CloseBttn
+            // 
+            this.CloseBttn.Location = new System.Drawing.Point(217, 84);
+            this.CloseBttn.Name = "CloseBttn";
+            this.CloseBttn.Size = new System.Drawing.Size(75, 23);
+            this.CloseBttn.TabIndex = 9;
+            this.CloseBttn.Text = "OK";
+            this.CloseBttn.UseVisualStyleBackColor = true;
+            this.CloseBttn.Click += new System.EventHandler(this.button1_Click);
             // 
             // Information
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(304, 119);
+            this.Controls.Add(this.CloseBttn);
             this.Controls.Add(this.DChange);
             this.Controls.Add(this.DCreate);
-            this.Controls.Add(this.Close);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -130,8 +130,8 @@ namespace NotesApp
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button Close;
         private System.Windows.Forms.Label DCreate;
         private System.Windows.Forms.Label DChange;
+        private System.Windows.Forms.Button CloseBttn;
     }
 }

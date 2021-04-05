@@ -27,10 +27,11 @@ namespace NotesApp
             Info();
         }
 
-        private void Info()
+        public void Info()
         {
             try
             {
+                // Получаем дату создания и изменения записи из базы данных
                 MySqlCommand command1 = new MySqlCommand("SELECT `DataCreate` FROM `" + log + "` WHERE id = @id", db.getConn());
                 MySqlCommand command2 = new MySqlCommand("SELECT `DataChange` FROM `" + log + "` WHERE id = @id", db.getConn());
                 command1.Parameters.AddWithValue("@id", index);
@@ -39,29 +40,31 @@ namespace NotesApp
                 // Открываем соединение к базе даннных
                 db.openConn();
 
-                // Проверяем удачно ли выполнилась команда
+                // Вносим в переменную значения полученные с базы данных
                 string DataCreate = command1.ExecuteScalar().ToString();
                 string DataChange = command2.ExecuteScalar().ToString();
+
+                // Закрываем соединение к базе даннных
+                db.closeConn();
+
+                // Проверяем наличие данных
                 if (DataCreate != null && DataChange != null)
                 {
                     DCreate.Text = DataCreate;
                     DChange.Text = DataChange;
-
                 }
                 else
                 {
                     MessageBox.Show("Произошла ошибка");
-                }
-                // Закрываем соединение к базе даннных
-                db.closeConn();
+                }                            
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка");
+                MessageBox.Show("Произошла ошибка");          
             }
         }
 
-        private void Close_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
