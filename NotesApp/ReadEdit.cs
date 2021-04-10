@@ -123,6 +123,11 @@ namespace NotesApp
             }
         }
 
+        private void ReadEdit_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void message_TextChanged(object sender, EventArgs e)
         {
             // Добавляем полосу прокрутки для поля 'Сообщение'
@@ -162,7 +167,9 @@ namespace NotesApp
                             return;
                         }
 
+                        // Текущая дата изменения данных
                         DateTime registrationDate = DateTime.Now;
+
                         // Обновляем таблицу внося новые данные вместо старых
                         MySqlCommand command = new MySqlCommand("UPDATE `" + log + "` SET Title = @title, Message = @message, DataChange = @DataChange WHERE id = @Id", db.getConn());
                         command.Parameters.AddWithValue("title", name.Text);

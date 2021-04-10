@@ -6,7 +6,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,16 +16,16 @@ namespace NotesApp
 {
     public partial class RegisterForm : Form
     {
-        // Переходим на сайт который показывает ip. Считываем и записываем его в IP
-        string IP = new WebClient().DownloadString("http://icanhazip.com/");
+        // Подключаем базу данных
+        DataB db = new DataB();
 
         public RegisterForm()
         {
-            InitializeComponent();
-        }
+            // Форма по центру экрана
+            this.StartPosition = FormStartPosition.CenterScreen;
 
-        // Подключаем базу данных
-        DataB db = new DataB();
+            InitializeComponent();
+        }        
 
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
@@ -84,8 +86,18 @@ namespace NotesApp
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
-                {
-                    // Проверяем введён ли логин и пароль и их длину
+                {          
+                    // Проверяем введён ли  email, логин и пароль
+                    if (string.IsNullOrWhiteSpace(emailF.Text))
+                    {
+                        MessageBox.Show("Вы не ввели Email!");
+                        return;
+                    }
+                    if (!IsValid(emailF.Text))
+                    {
+                        MessageBox.Show("Вы ввели не верный Email!");
+                        return;
+                    }
                     if (string.IsNullOrWhiteSpace(loginF.Text))
                     {
                         MessageBox.Show("Вы не ввели Логин!");
@@ -102,21 +114,24 @@ namespace NotesApp
                         return;
                     }
 
-                    // Проверяем сколько зарегистрировано аккаунтов. Больше 100 - не регистрируем
-                    if (CheckIp())
+                    // Проверяем свободный ли Email. Если нет, выходим из функции 
+                    if (isEmail())
                         return;
 
                     // Проверяем свободный ли логин. Если нет, выходим из функции 
                     if (isUser())
                         return;
 
+                    // Проверяем возможно ли создать таблицу с следующим названием и удаляем её
                     try
                     {
                         // Создаем таблицу в базе данных в которой будут хранится все записи пользователя
                         MySqlCommand createT = new MySqlCommand("CREATE TABLE `" + loginF.Text + "` LIKE PrimerTable", db.getConn());
+                        MySqlCommand dellT = new MySqlCommand("DROP TABLE `" + loginF.Text + "`", db.getConn());
                         db.openConn();  // Открываем соединение
                         createT.ExecuteNonQuery();  // Выполняем комманду
-                        db.closeConn(); // Закрывем соединение           
+                        dellT.ExecuteNonQuery();
+                        db.closeConn(); // Закрывем соединение                                      
                     }
                     catch
                     {
@@ -124,32 +139,24 @@ namespace NotesApp
                         return;
                     }
 
-                    // Добавляем Логин и Пароль пользователя в общую базу 
-                    MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`login`, `pass`, `ip`) VALUES (@login, @pass, @ip)", db.getConn());
+                    Random m = new Random();
+                    int x = m.Next(1000, 9999);
 
-                    // Снимаем заглушки
-                    command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginF.Text;
-                    command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = passF.Text;
-                    command.Parameters.Add("@ip", MySqlDbType.VarChar).Value = IP;
+                    SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
+                    sm.UseDefaultCredentials = false;
+                    sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
+                    sm.EnableSsl = true;
+                    sm.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
 
-                    db.openConn();  // Открываем соединение
-                    if (command.ExecuteNonQuery() == 1)
-                        MessageBox.Show("Вы успешно зарегистрировались!\nОбязательно запомните свой Логин и пароль!\nВы не сможете создать больше 100 аккаунтов!");
-                    else
-                    {
-                        MessageBox.Show("Вы не зарегистрировались, проверьте ввод даных!");
-
-                        // В случае неудачи удаляем созданную раннее таблицу
-                        MySqlCommand command1 = new MySqlCommand("DROP TABLE `" + loginF.Text + "`", db.getConn());
-                        command1.ExecuteNonQuery();
-                    }
-                    db.closeConn(); // Закрываем соединение
+                    EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
+                    EC.ShowDialog();
                 }
                 catch
                 {
-                    // В случае ошибки выводим сообщение
-                    MessageBox.Show("Произошла ошибка!");
+                    MessageBox.Show("Произошла ошибка! Проверьте правильность ввода данных!");
                 }
+
             }
             else
             {
@@ -158,7 +165,8 @@ namespace NotesApp
             }
         }
 
-        public Boolean CheckIp()
+
+        public Boolean isEmail()
         {
             // Проверяем наличине интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -170,16 +178,16 @@ namespace NotesApp
 
                     // Получаем и Сохраняем данные в adapter
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    
+
                     // Ищем в базе данных Логин который ввёл пользователь раннее
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `ip` = @IP", db.getConn());
-                    command.Parameters.Add("@IP", MySqlDbType.VarChar).Value = IP;
+                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `email` = @email", db.getConn());
+                    command.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailF.Text;
 
                     adapter.SelectCommand = command;    // Выполняем комманду
                     adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
-                    if (table.Rows.Count > 99)   // Проверяем сколько зарегистрировано аккаунтов
+                    if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
                     {
-                        MessageBox.Show("Вы не можете зарегистрировать больше 100 аккаунтов с одного IP");
+                        MessageBox.Show("Даный Email уже зарегистрирован!");
                         return true;
                     }
                     else
@@ -269,6 +277,29 @@ namespace NotesApp
             if (passF.TextLength == 32)
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 32!");
+            }
+        }
+
+        // Проверка на емейл
+        public bool IsValid(string emailaddress)
+        {
+            Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+            Match match = regex.Match(emailaddress);
+            if (match.Success)
+                return true;
+            else
+                return false;
+        }
+
+        private void emailF_TextChanged(object sender, EventArgs e)
+        {
+            // Считываем количество символов и записываем снизу поля
+            richTextBox3.Text = emailF.Text.Length.ToString();
+
+            // Проверяем количество введённых символов
+            if (emailF.TextLength == 200)
+            {
+                MessageBox.Show("Достигнуто максимальное количество символов: 200!");
             }
         }
     }

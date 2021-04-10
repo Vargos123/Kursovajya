@@ -16,7 +16,7 @@ namespace NotesApp
     {
         public LoginForm()
         {
-            // Стартовая позиция по центру экрана
+            // Форма по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
 
             InitializeComponent();
@@ -185,6 +185,11 @@ namespace NotesApp
             this.Close();
             MainFormNoLogin mainF = new MainFormNoLogin();
             mainF.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -43,6 +43,10 @@ namespace NotesApp
             this.goToLogin = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.butRegister = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.emailF = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // hide
@@ -83,7 +87,7 @@ namespace NotesApp
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Cambria", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(82)))), ((int)(((byte)(222)))));
-            this.label2.Location = new System.Drawing.Point(128, 327);
+            this.label2.Location = new System.Drawing.Point(124, 331);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 34);
             this.label2.TabIndex = 32;
@@ -95,7 +99,7 @@ namespace NotesApp
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Cambria", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(82)))), ((int)(((byte)(222)))));
-            this.label1.Location = new System.Drawing.Point(128, 217);
+            this.label1.Location = new System.Drawing.Point(123, 249);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 34);
             this.label1.TabIndex = 31;
@@ -104,10 +108,10 @@ namespace NotesApp
             // passF
             // 
             this.passF.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.passF.Location = new System.Drawing.Point(134, 364);
+            this.passF.Location = new System.Drawing.Point(128, 368);
             this.passF.MaxLength = 32;
             this.passF.Name = "passF";
-            this.passF.Size = new System.Drawing.Size(245, 39);
+            this.passF.Size = new System.Drawing.Size(270, 39);
             this.passF.TabIndex = 34;
             this.passF.TabStop = false;
             this.passF.UseSystemPasswordChar = true;
@@ -116,11 +120,11 @@ namespace NotesApp
             // loginF
             // 
             this.loginF.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.loginF.Location = new System.Drawing.Point(134, 254);
+            this.loginF.Location = new System.Drawing.Point(128, 286);
             this.loginF.MaxLength = 16;
             this.loginF.Multiline = true;
             this.loginF.Name = "loginF";
-            this.loginF.Size = new System.Drawing.Size(245, 37);
+            this.loginF.Size = new System.Drawing.Size(270, 39);
             this.loginF.TabIndex = 33;
             this.loginF.TabStop = false;
             this.loginF.TextChanged += new System.EventHandler(this.loginF_TextChanged);
@@ -130,7 +134,7 @@ namespace NotesApp
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(356, 352);
+            this.textBox1.Location = new System.Drawing.Point(375, 356);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(22, 13);
@@ -144,7 +148,7 @@ namespace NotesApp
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.richTextBox1.Location = new System.Drawing.Point(330, 352);
+            this.richTextBox1.Location = new System.Drawing.Point(349, 356);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -158,7 +162,7 @@ namespace NotesApp
             this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(356, 242);
+            this.textBox4.Location = new System.Drawing.Point(375, 274);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
@@ -172,7 +176,7 @@ namespace NotesApp
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.richTextBox2.Location = new System.Drawing.Point(330, 242);
+            this.richTextBox2.Location = new System.Drawing.Point(349, 274);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -188,7 +192,7 @@ namespace NotesApp
             this.goToLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.goToLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.goToLogin.ForeColor = System.Drawing.Color.White;
-            this.goToLogin.Location = new System.Drawing.Point(273, 533);
+            this.goToLogin.Location = new System.Drawing.Point(282, 528);
             this.goToLogin.Name = "goToLogin";
             this.goToLogin.Size = new System.Drawing.Size(55, 18);
             this.goToLogin.TabIndex = 41;
@@ -202,7 +206,7 @@ namespace NotesApp
             this.label3.Cursor = System.Windows.Forms.Cursors.Default;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(156, 533);
+            this.label3.Location = new System.Drawing.Point(161, 529);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 18);
             this.label3.TabIndex = 40;
@@ -218,13 +222,65 @@ namespace NotesApp
             this.butRegister.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(97)))), ((int)(((byte)(186)))));
             this.butRegister.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butRegister.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRegister.Location = new System.Drawing.Point(149, 471);
+            this.butRegister.Location = new System.Drawing.Point(150, 470);
             this.butRegister.Name = "butRegister";
             this.butRegister.Size = new System.Drawing.Size(192, 53);
             this.butRegister.TabIndex = 39;
             this.butRegister.TabStop = false;
             this.butRegister.UseVisualStyleBackColor = false;
             this.butRegister.Click += new System.EventHandler(this.butRegister_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(368, 195);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(29, 13);
+            this.textBox2.TabIndex = 45;
+            this.textBox2.TabStop = false;
+            this.textBox2.Text = "/200";
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox3.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.richTextBox3.Location = new System.Drawing.Point(343, 195);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.ReadOnly = true;
+            this.richTextBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.richTextBox3.Size = new System.Drawing.Size(25, 13);
+            this.richTextBox3.TabIndex = 44;
+            this.richTextBox3.TabStop = false;
+            this.richTextBox3.Text = "0";
+            // 
+            // emailF
+            // 
+            this.emailF.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.emailF.Location = new System.Drawing.Point(129, 207);
+            this.emailF.MaxLength = 200;
+            this.emailF.Multiline = true;
+            this.emailF.Name = "emailF";
+            this.emailF.Size = new System.Drawing.Size(269, 39);
+            this.emailF.TabIndex = 43;
+            this.emailF.TabStop = false;
+            this.emailF.TextChanged += new System.EventHandler(this.emailF_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Cambria", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(82)))), ((int)(((byte)(222)))));
+            this.label4.Location = new System.Drawing.Point(124, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 34);
+            this.label4.TabIndex = 42;
+            this.label4.Text = "Email";
             // 
             // RegisterForm
             // 
@@ -233,6 +289,10 @@ namespace NotesApp
             this.BackgroundImage = global::NotesApp.Properties.Resources.Регистрация;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(474, 605);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.richTextBox3);
+            this.Controls.Add(this.emailF);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.goToLogin);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.butRegister);
@@ -273,5 +333,9 @@ namespace NotesApp
         private System.Windows.Forms.Label goToLogin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button butRegister;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.TextBox emailF;
+        private System.Windows.Forms.Label label4;
     }
 }

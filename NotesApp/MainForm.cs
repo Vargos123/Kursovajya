@@ -143,12 +143,12 @@ namespace NotesApp
                             // Обновляем таблицу
                             dataGridView1.Rows.Clear(); // Очищаем таблицу
                             LoadData(); // Снова добавляем данные с базы данных
-                            MessageBox.Show("Вы успешно добавили данные");
+                            MessageBox.Show("Вы успешно добавили данные!");
                             // Очищаем поля 'Название' и 'Сообщение'
                             ClearNameMessageBox();
                         }
                         else
-                            MessageBox.Show("Не удалось добавить данные");
+                            MessageBox.Show("Не удалось добавить данные!");
 
                         // Закрываем соединение к базе даннных
                         db.closeConn();
@@ -265,7 +265,7 @@ namespace NotesApp
                         // Поверяем выбрана ли запись
                         if (dataGridView1.SelectedCells.Count == 0)
                         {
-                            MessageBox.Show("Вы не выбрали запись для чтения!");
+                            MessageBox.Show("Вы не выбрали запись для отрытия!");
                         }
                         else
                         {
@@ -298,12 +298,12 @@ namespace NotesApp
                 }
                 else
                 {
-                    MessageBox.Show("Нет записей для чтения. Добавьте записи!");
+                    MessageBox.Show("Нет записей для открытия. Добавьте записи!");
                 }
             }
             else
             {
-                MessageBox.Show("Не удалось удалить данные. Проверьте доступ к интернету!");                
+                MessageBox.Show("Не удалось открыть данные. Проверьте доступ к интернету!");                
             }
         }
 
@@ -425,7 +425,7 @@ namespace NotesApp
 
                                     // Удаляем выеделнную строку из таблицы
                                     dataGridView1.Rows.RemoveAt(dataGridView1.SelectedCells[0].RowIndex);
-                                    MessageBox.Show("Вы успешно удалили данные");
+                                    MessageBox.Show("Вы успешно удалили данные!");
                                 }
                                 catch
                                 {
@@ -606,27 +606,48 @@ namespace NotesApp
             dataGridView1.Rows.Clear(); // Очищаем таблицу
             LoadData(); // Снова данные с базы данных
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
         
         // Смотрим информацию о записи
         private void InfoData_Click(object sender, EventArgs e)
         {
-            // Вносим в index номер выделенной строки
-            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
+            // Проверяем наличие интернета
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                // Проверяем наличие строк в таблице
+                if (dataGridView1.RowCount > 0)
+                {
+                    try
+                    {
+                        // Поверяем выбрана ли запись
+                        if (dataGridView1.SelectedCells.Count == 0)
+                        {
+                            MessageBox.Show("Вы не выбрали запись для просмотра Информации!");
+                        }
+                        else
+                        {
+                            // Вносим в index номер выделенной строки
+                            int index = dataGridView1.SelectedCells[0].RowIndex + 1;
 
-            // Передаем данные на форму чтения и редактирования
-            Information readE = new Information(index, log);
-            // Показываем форму 'Прочитать'
-            readE.ShowDialog();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+                            // Передаем данные на форму чтения и редактирования
+                            Information readE = new Information(index, log);
+                            // Показываем форму 'Прочитать'
+                            readE.ShowDialog();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Нет записей для просмотра Информации. Добавьте записи!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не удалось загрузить информацию. Проверьте доступ к интернету!");
+            }            
         }
     }
 }

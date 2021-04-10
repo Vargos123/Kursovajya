@@ -79,3 +79,4 @@ D:\Notes\NotesApp\bin\Release\Microsoft.VisualBasic.PowerPacks.dll
 D:\Notes\NotesApp\bin\Release\Microsoft.VisualBasic.PowerPacks.xml
 D:\Notes\NotesApp\obj\Release\NotesApp.csprojAssemblyReference.cache
 D:\Notes\NotesApp\obj\Release\NotesApp.Information.resources
+D:\Notes\NotesApp\obj\Release\NotesApp.EmailConf.resources

@@ -119,9 +119,9 @@
             this.bttRead.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttRead.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttRead.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttRead.Location = new System.Drawing.Point(639, 283);
+            this.bttRead.Location = new System.Drawing.Point(641, 273);
             this.bttRead.Name = "bttRead";
-            this.bttRead.Size = new System.Drawing.Size(104, 36);
+            this.bttRead.Size = new System.Drawing.Size(102, 26);
             this.bttRead.TabIndex = 5;
             this.bttRead.TabStop = false;
             this.bttRead.Text = "Прочитать";
@@ -133,9 +133,9 @@
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(654, 357);
+            this.bttDelete.Location = new System.Drawing.Point(669, 336);
             this.bttDelete.Name = "bttDelete";
-            this.bttDelete.Size = new System.Drawing.Size(89, 26);
+            this.bttDelete.Size = new System.Drawing.Size(76, 25);
             this.bttDelete.TabIndex = 6;
             this.bttDelete.TabStop = false;
             this.bttDelete.Text = "Очистить";
@@ -177,7 +177,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Title
             // 
@@ -201,7 +200,7 @@
             this.bttFind.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bttFind.Location = new System.Drawing.Point(639, 241);
             this.bttFind.Name = "bttFind";
-            this.bttFind.Size = new System.Drawing.Size(104, 36);
+            this.bttFind.Size = new System.Drawing.Size(104, 26);
             this.bttFind.TabIndex = 11;
             this.bttFind.TabStop = false;
             this.bttFind.Text = "Найти";
@@ -310,7 +309,7 @@
             this.bttDelAll.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelAll.Location = new System.Drawing.Point(516, 432);
+            this.bttDelAll.Location = new System.Drawing.Point(516, 430);
             this.bttDelAll.Name = "bttDelAll";
             this.bttDelAll.Size = new System.Drawing.Size(87, 26);
             this.bttDelAll.TabIndex = 20;
@@ -382,9 +381,9 @@
             this.InfoData.BackColor = System.Drawing.Color.PaleVioletRed;
             this.InfoData.Cursor = System.Windows.Forms.Cursors.Hand;
             this.InfoData.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.InfoData.Location = new System.Drawing.Point(654, 325);
+            this.InfoData.Location = new System.Drawing.Point(654, 305);
             this.InfoData.Name = "InfoData";
-            this.InfoData.Size = new System.Drawing.Size(89, 26);
+            this.InfoData.Size = new System.Drawing.Size(89, 25);
             this.InfoData.TabIndex = 31;
             this.InfoData.TabStop = false;
             this.InfoData.Text = "Информация";
@@ -426,7 +425,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
