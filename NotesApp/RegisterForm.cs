@@ -19,13 +19,15 @@ namespace NotesApp
         // Подключаем базу данных
         DataB db = new DataB();
 
+        Timer t = new Timer() { Interval = 15000 };
+
         public RegisterForm()
         {
             // Форма по центру экрана
             this.StartPosition = FormStartPosition.CenterScreen;
 
             InitializeComponent();
-        }        
+        }
 
         // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
@@ -79,14 +81,15 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
+
         // Кнопка Зарегистрироваться 
         private void butRegister_Click(object sender, EventArgs e)
-        {
+        {            
             // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
-                {          
+                {                   
                     // Проверяем введён ли  email, логин и пароль
                     if (string.IsNullOrWhiteSpace(emailF.Text))
                     {
@@ -139,18 +142,26 @@ namespace NotesApp
                         return;
                     }
 
-                    Random m = new Random();
-                    int x = m.Next(1000, 9999);
+                    try
+                    {
+                        Random m = new Random();
+                        int x = m.Next(1000, 9999);
+                        SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
+                        sm.UseDefaultCredentials = false;
+                        sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
+                        sm.EnableSsl = true;
+                        sm.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
 
-                    SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-                    sm.UseDefaultCredentials = false;
-                    sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-                    sm.EnableSsl = true;
-                    sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
-
-                    EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
-                    EC.ShowDialog();
+                        // Открываем форму подтверждения емейла и регистрируем пользователя там
+                        EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
+                        MessageBox.Show("На вашу почту был выслан код для подтверждения Email!\nВведите его для подтверждения регистрации!");
+                        EC.ShowDialog();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка!");
+                    }
                 }
                 catch
                 {
@@ -166,6 +177,17 @@ namespace NotesApp
         }
 
 
+        // Проверка на емейл
+        public bool IsValid(string emailaddress)
+        {
+            // Проверяем емейл на правильность ввода символов
+            Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+            Match match = regex.Match(emailaddress);
+            if (match.Success)
+                return true;
+            else
+                return false;
+        }
         public Boolean isEmail()
         {
             // Проверяем наличине интернета
@@ -253,7 +275,6 @@ namespace NotesApp
             this.Close();
             LoginForm logF = new LoginForm();
             logF.Show();
-
         }
 
         private void loginF_TextChanged(object sender, EventArgs e)
@@ -278,17 +299,6 @@ namespace NotesApp
             {
                 MessageBox.Show("Достигнуто максимальное количество символов: 32!");
             }
-        }
-
-        // Проверка на емейл
-        public bool IsValid(string emailaddress)
-        {
-            Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
-            Match match = regex.Match(emailaddress);
-            if (match.Success)
-                return true;
-            else
-                return false;
         }
 
         private void emailF_TextChanged(object sender, EventArgs e)

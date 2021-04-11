@@ -8,23 +8,61 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading;
+using Excel = Microsoft.Office.Interop.Excel;
+
+
 
 namespace NotesApp
 {
     public partial class MainFormNoLogin : Form
     {
-        SqlConnection sqlConnection;
-        SqlDataReader reader;
+        int update;
+        string fullPath;
+
 
         public MainFormNoLogin()
         {
+            // Форма по центру экрана
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+
             InitializeComponent();
+            OpenFile();
         }  
+
+        private void OpenFile()
+        {
+                if (File.Exists(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data"))
+                {
+                    fullPath = @"" + Application.StartupPath.ToString() + "\\DataBaze.Data";
+                }
+                else
+                {
+                    StreamWriter file = new StreamWriter(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data");
+                    MessageBox.Show("К сожалению, ваш файл был повреждён или удалён. Мы успешно создали новый файл. \nК сожалению, все данные былы удалены. Проверьте корзину!");
+
+                    fullPath = @"" + Application.StartupPath.ToString() + "\\DataBaze.Data";
+                }
+
+            string[] lines = File.ReadAllLines(fullPath);
+            string[] values;
+
+            for(int i = 0; i < lines.Length; i++)
+            {
+                values = lines[i].ToString().Split('|');
+                string[] row = new string[values.Length];
+                for(int j=0; j<values.Length; j++)
+                {
+                    row[j] = values[j].Trim();
+                }
+                dataGridView1.Rows.Add(row);
+
+            }
+        }
         
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -122,14 +160,12 @@ namespace NotesApp
                     }
                     else
                     {
-                        
-                        int n = dataGridView1.CurrentCell.RowIndex;
-                        string name = (string)dataGridView1.Rows[n].Cells[1].Value;
-                        string message = (string)dataGridView1.Rows[n].Cells[2].Value;
-                        int index = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
-                        ReadEditNoLogin readE = new ReadEditNoLogin(name, message, index);
-                        readE.FormClosed += new FormClosedEventHandler(MainFormNoLogin_FormClosed);
-                        readE.ShowDialog();
+                        // Вносим индекс выделенной строки в переменную и добавляем +1 т.к может быть выделена нулевая строка
+                        update = dataGridView1.CurrentCell.RowIndex + 1;
+
+                        // Выносим данные в Текстбоксы
+                        nameBox.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                        messageBox.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                     }
                 }
                 catch
@@ -150,10 +186,12 @@ namespace NotesApp
                 if (MessageBox.Show("Создать новую запись? Несохранённые данные в полях 'Название' и 'Сообщение' будут утеряны!", "Создать", MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    nameBox.Clear();
-                    messageBox.Clear();
+                    update = 0; // Присваиваем 0 количество выделенных строк
+                    ClearBox();
                 }
             }
+            else
+                update = 0; // Присваиваем 0 количество выделенных строк
         }
 
         private void bttExit_Click(object sender, EventArgs e)
@@ -176,43 +214,54 @@ namespace NotesApp
             }            
         }    
 
+        private void ClearBox()
+        {
+            nameBox.Clear();
+            messageBox.Clear();
+        }
+
         private void bttSave_Click(object sender, EventArgs e)
         {          
             try
             {
-                if (dataGridView1.Rows.Count == 100)
+                if (dataGridView1.Rows.Count == 500)
                 {
-                    MessageBox.Show("Вы не можете добавить больше 100 записей!");
-                    return;
+                    MessageBox.Show("Вы не можете добавить больше 500 записей!");
                 }
                 else if (string.IsNullOrWhiteSpace(nameBox.Text))
                 {
-                    MessageBox.Show("Вы не ввели Название!");
-                    return;
-                }
+                    MessageBox.Show("Вы не ввели Название!");    
+                 }
                 else if (nameBox.TextLength > 50)
                 {
                     MessageBox.Show("Длина Названия превышает допустимую норму. Максимальная длина 50 символов.");
-                    return;
                 }
                 else if (string.IsNullOrWhiteSpace(messageBox.Text))
                 {
                     MessageBox.Show("Вы не ввели Сообщение!");
-                    return;
+                }
+                else if ((nameBox.Text.Contains("|")) || (messageBox.Text.Contains("|"))) // Проверяем наличие символа |
+                {
+                    MessageBox.Show("К сожалению, вы не можете добавить символ: |");
+                }
+                else if (update > 0)  // Проверяем была ли нажата кнопка прочитать и выбралась ли строка
+                {
+                    // Заменяем данные в таблице
+                    dataGridView1.Rows[update - 1].Cells[0].Value = nameBox.Text;
+                    dataGridView1.Rows[update - 1].Cells[1].Value = messageBox.Text;
+                    ClearBox();
+                    ConnectToTable();
+                    MessageBox.Show("Вы успешно обновили данные");
+
+                    // Присваиваем переменной значение 0 - значит строка и кнопка Прочитать ещё не нажаты
+                    update = 0;
                 }
                 else
                 {
-
-                    SqlCommand command = new SqlCommand("INSERT INTO [Table] (Title, Message) VALUES (@Title, @Message)", sqlConnection);
-                    command.Parameters.AddWithValue("Title", nameBox.Text);
-                    command.Parameters.AddWithValue("Message", messageBox.Text);
-                    sqlConnection.Open();
-                    command.ExecuteNonQuery();
-                    sqlConnection.Close();
+                    dataGridView1.Rows.Add(nameBox.Text, messageBox.Text);
+                    ClearBox();
+                    ConnectToTable();
                     MessageBox.Show("Вы успешно добавили данные");
-                    ReloadData();
-                    nameBox.Clear();
-                    messageBox.Clear();
                 }
             }
             catch
@@ -225,23 +274,22 @@ namespace NotesApp
         {
             if (dataGridView1.RowCount > 0)
             {
-                    if (MessageBox.Show("Вы действительно хотите удалить все записи?", "Удаление", MessageBoxButtons.OKCancel,
+                if (MessageBox.Show("Вы действительно хотите удалить все записи? \nПоля Название и Сообщение так же будут очищены!", "Удаление", MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    try
                     {
-                        try
-                        {
-                            dataGridView1.Rows.Clear();
-                            SqlCommand command = new SqlCommand("TRUNCATE TABLE [Table]", sqlConnection);
-                            sqlConnection.Open();
-                            command.ExecuteNonQuery();
-                            sqlConnection.Close();
-                            MessageBox.Show("Все записи были успешно удаленны!");
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Произошла ошибка!");
-                        }
+                        update = 0; // Присваиваем 0 количество выделенных строк
+                        dataGridView1.Rows.Clear();
+                        MessageBox.Show("Вы успешно очистили таблицу!");
+                        ClearBox();
+                        ConnectToTable();
                     }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка!");
+                    }
+                }
             }
             else
             {
@@ -261,18 +309,17 @@ namespace NotesApp
                     }
                     else
                     {
-                        if (MessageBox.Show("Вы действительно хотите удалить выделенную запись?", "Удаление", MessageBoxButtons.OKCancel,
+                        if (MessageBox.Show("Вы действительно хотите удалить выделенную запись? \nПоля Название и Сообщение так же будут очищены!", "Удаление", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                         {
                             try
                             {
-                                SqlCommand command = new SqlCommand("DELETE FROM [Table] WHERE id = @Id", sqlConnection); // Удаляем строку по индексу
-                                string x = (string)dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value;
-                                command.Parameters.AddWithValue("Id", x);
-                                sqlConnection.Open();
-                                command.ExecuteNonQuery();
-                                sqlConnection.Close();
-                                ReloadData();
+                                update = 0; // Присваиваем 0 количество выделенных строк
+                                int delet = dataGridView1.SelectedCells[0].RowIndex;
+                                dataGridView1.Rows.RemoveAt(delet);
+                                MessageBox.Show("Вы успешно удалили данные.");
+                                ClearBox();
+                                ConnectToTable();
                             }
                             catch
                             {
@@ -307,56 +354,9 @@ namespace NotesApp
 
         private void MainFormNoLogin_Load(object sender, EventArgs e)
         {
-            try
-            {         
 
-                sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True");
-                sqlConnection.Open();
-                LoadData();
-            }
-            catch
-            {
-                this.Close();
-                LoginForm LogF = new LoginForm();
-                LogF.Show();
-                MessageBox.Show("Непредвиденная ошибка! Переустановите приложение!");
-            }
         }
-        public void LoadData()
-        {
-            try
-            {
-                SqlCommand command = new SqlCommand("SELECT * FROM [Table] ORDER BY id", sqlConnection);
-                reader = command.ExecuteReader();
 
-                List<string[]> data = new List<string[]>();
-                while (reader.Read())
-                {
-                    data.Add(new string[3]);
-                    data[data.Count - 1][0] = reader[0].ToString();
-                    data[data.Count - 1][1] = reader[1].ToString();
-                    data[data.Count - 1][2] = reader[2].ToString();
-
-                }
-                reader.Close();
-                sqlConnection.Close();
-                foreach (string[] s in data)
-                    dataGridView1.Rows.Add(s);
-            }
-            catch
-            {
-                this.Close();
-                LoginForm logF = new LoginForm();
-                logF.Show();
-                MessageBox.Show("Непредвиденная ошибка! Возможно потребуеться переустановка приложения!");
-            }
-        }
-        void ReloadData()
-        {
-            dataGridView1.Rows.Clear();
-            sqlConnection.Open();
-            LoadData();
-        }
         private void nameBox_TextChanged(object sender, EventArgs e)
         {
             nameBox.ScrollBars = ScrollBars.Vertical;
@@ -367,14 +367,55 @@ namespace NotesApp
             }
         }
 
-        private void bttReload_Click(object sender, EventArgs e)
+        private void ConnectToTable()
         {
-            ReloadData();
+            try
+            {
+                StreamWriter file = new StreamWriter(fullPath);
+                string DataLine = "";
+                for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
+                {
+                    for (int j = 0; j <= dataGridView1.Columns.Count - 1; j++)
+                    {
+                        DataLine = DataLine + dataGridView1.Rows[i].Cells[j].Value;
+                        if (j != dataGridView1.Columns.Count - 1)
+                        {
+                            DataLine = "\t" + DataLine + "\t" + "|" + "\t";
+                        }
+                    }
+                    file.WriteLine(DataLine);
+                    DataLine = "";
+                }
+                file.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка!");
+            }
         }
 
-        private void MainFormNoLogin_FormClosed(object sender, FormClosedEventArgs e)
+        private void bttReload_Click(object sender, EventArgs e)
         {
-            this.ReloadData();//Код для обновления
+            try
+            {
+                ConnectToTable();
+                MessageBox.Show("Вы успешно обновили данные!");
+            }
+            catch
+            {
+                MessageBox.Show("Вы не смогли обновить данные!");
+            }
+        }
+
+        private void nameBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 124)
+            {
+                e.Handled = true;
+                MessageBox.Show("К сожалению, вы не можете использовать символ: |");
+            }
+
         }
     }
 }
+

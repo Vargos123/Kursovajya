@@ -151,12 +151,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReadEditNoLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReadEditNoLogin.Designer.cs">
-      <DependentUpon>ReadEditNoLogin.cs</DependentUpon>
-    </Compile>
     <Compile Include="ReadEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,9 +185,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReadEditNoLogin.resx">
-      <DependentUpon>ReadEditNoLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReadEdit.resx">
       <DependentUpon>ReadEdit.cs</DependentUpon>

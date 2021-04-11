@@ -18,7 +18,6 @@ namespace NotesApp
     {
         string email, login, pass;
         int confirm, Random;
-        
 
         DataB db = new DataB();       
 
@@ -43,11 +42,11 @@ namespace NotesApp
             }
         }
 
-        int click1 = -1;
+        int click1 = 0;
         private void goToLogin_Click(object sender, EventArgs e)
         {
             click1++;
-            if (click1 >= 3)
+            if (click1 >= 4)
             {
                 MessageBox.Show("Вы не смогли подтвердить почту. Попробуйте позже!");
                 this.Close();
@@ -82,14 +81,14 @@ namespace NotesApp
         {
             // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
-        }
+        }        
 
         // Переменные для подсчета количества нажатий на кнопку.
-        int click = -1, quantity = 2;
+        int click = 0, quantity = 2;
         private void button1_Click(object sender, EventArgs e)
         {
             click++;
-            if (click >= 3)
+            if (click >= 4)
             {
                 MessageBox.Show("Не удалось подтвердить Email. Проверьте правильность ввода данных!");
                 this.Close();

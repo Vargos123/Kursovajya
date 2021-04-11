@@ -47,11 +47,10 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.bttSave = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bttDelete = new System.Windows.Forms.Button();
             this.bttReload = new System.Windows.Forms.Button();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -271,6 +270,7 @@
             this.nameBox.Size = new System.Drawing.Size(196, 36);
             this.nameBox.TabIndex = 32;
             this.nameBox.TextChanged += new System.EventHandler(this.nameBox_TextChanged);
+            this.nameBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameBox_KeyPress);
             // 
             // bttSave
             // 
@@ -295,7 +295,6 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
             this.Title,
             this.Message});
             this.dataGridView1.Location = new System.Drawing.Point(53, 210);
@@ -306,29 +305,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 30;
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            this.Id.Width = 25;
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Название";
-            this.Title.MaxInputLength = 50;
-            this.Title.Name = "Title";
-            this.Title.ReadOnly = true;
-            // 
-            // Message
-            // 
-            this.Message.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Message.HeaderText = "Сообщение";
-            this.Message.MaxInputLength = 500;
-            this.Message.Name = "Message";
-            this.Message.ReadOnly = true;
             // 
             // bttDelete
             // 
@@ -355,6 +331,21 @@
             this.bttReload.Text = "Обновить";
             this.bttReload.UseVisualStyleBackColor = false;
             this.bttReload.Click += new System.EventHandler(this.bttReload_Click);
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Название";
+            this.Title.MaxInputLength = 50;
+            this.Title.Name = "Title";
+            this.Title.ReadOnly = true;
+            // 
+            // Message
+            // 
+            this.Message.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Message.HeaderText = "Сообщение";
+            this.Message.MaxInputLength = 500;
+            this.Message.Name = "Message";
+            this.Message.ReadOnly = true;
             // 
             // MainFormNoLogin
             // 
@@ -386,7 +377,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainFormNoLogin";
             this.Text = "MainFormNoLogin";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormNoLogin_FormClosed);
             this.Load += new System.EventHandler(this.MainFormNoLogin_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainFormNoLogin_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainFormNoLogin_MouseMove);
@@ -420,7 +410,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button bttDelete;
         private System.Windows.Forms.Button bttReload;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Message;
     }

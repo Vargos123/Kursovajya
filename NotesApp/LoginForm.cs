@@ -66,13 +66,13 @@ namespace NotesApp
                 this.Left += e.X - lastPoint.X;
                 this.Top += e.Y - lastPoint.Y;
             }
-        }
-        
+        }        
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             // Записываем координаты курсора мышки
             lastPoint = new Point(e.X, e.Y);
         }
+
 
         // Кнопка Ввойти
         private void butLogin_Click(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace NotesApp
                     MessageBox.Show("Вы не ввели Логин!");
                     return;
                 }
-                if(string.IsNullOrWhiteSpace(passF.Text))
+                if (string.IsNullOrWhiteSpace(passF.Text))
                 {
                     MessageBox.Show("Вы не ввели Пароль!");
                     return;
@@ -106,11 +106,11 @@ namespace NotesApp
                 try
                 {
                     // Выбираем Логин и Пароль с базы данных
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL AND `pass` = @userP", db.getConn());       
+                    MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL AND `pass` = @userP", db.getConn());
                     // Расшифровка заглушек
                     command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = Login;
-                    command.Parameters.Add("@userP", MySqlDbType.VarChar).Value = Pass;   
-                    
+                    command.Parameters.Add("@userP", MySqlDbType.VarChar).Value = Pass;
+
                     // Выполняем комманду
                     adapter.SelectCommand = command;
 
@@ -119,7 +119,7 @@ namespace NotesApp
 
                     // Проверяем количество рядов (совпадений)
                     if (table.Rows.Count > 0)
-                    {                        
+                    {
                         // Открывем основую форму и передаём в неё Логин пользователя
                         MainForm mainF = new MainForm(this.loginF.Text);
 
@@ -182,14 +182,9 @@ namespace NotesApp
         private void label3_Click(object sender, EventArgs e)
         {
             // Скрываем форму авторизации и открываем главную форму
-            this.Close();
             MainFormNoLogin mainF = new MainFormNoLogin();
             mainF.Show();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            this.Close();
         }
     }
 }
