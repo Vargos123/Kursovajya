@@ -13,15 +13,13 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading;
 using Excel = Microsoft.Office.Interop.Excel;
-
-
+using System.Diagnostics;
 
 namespace NotesApp
 {
     public partial class MainFormNoLogin : Form
     {
         int update;
-        string fullPath;
 
 
         public MainFormNoLogin()
@@ -31,24 +29,22 @@ namespace NotesApp
 
 
             InitializeComponent();
-            OpenFile();
+
+            if (File.Exists(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data"))
+            {
+                OpenFile();
+            }
+            else
+            {
+                MessageBox.Show("К сожалению, ваш файл был повреждён или удалён. Мы успешно создали новый файл. \nК сожалению, все данные былы удалены. Проверьте корзину!");
+                ConnectToTable();
+            }            
         }  
 
         private void OpenFile()
         {
-                if (File.Exists(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data"))
-                {
-                    fullPath = @"" + Application.StartupPath.ToString() + "\\DataBaze.Data";
-                }
-                else
-                {
-                    StreamWriter file = new StreamWriter(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data");
-                    MessageBox.Show("К сожалению, ваш файл был повреждён или удалён. Мы успешно создали новый файл. \nК сожалению, все данные былы удалены. Проверьте корзину!");
 
-                    fullPath = @"" + Application.StartupPath.ToString() + "\\DataBaze.Data";
-                }
-
-            string[] lines = File.ReadAllLines(fullPath);
+            string[] lines = File.ReadAllLines(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data");
             string[] values;
 
             for(int i = 0; i < lines.Length; i++)
@@ -132,14 +128,23 @@ namespace NotesApp
                 }
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
+                    // Придаем количество выделенных строк нулю
                     dataGridView1.Rows[i].Selected = false;
+
+                    // Ищем данные в таблице 
                     for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    {
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        {
+                            // Проверяем есть ли данные в таблице
                             if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBoxSearch.Text))
                             {
+                                // Выделяем строку с данными
                                 dataGridView1.Rows[i].Selected = true;
                                 break;
                             }
+                        }
+                    }
                 }
             }
             else
@@ -371,7 +376,7 @@ namespace NotesApp
         {
             try
             {
-                StreamWriter file = new StreamWriter(fullPath);
+                StreamWriter file = new StreamWriter(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data");
                 string DataLine = "";
                 for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
                 {
@@ -391,19 +396,6 @@ namespace NotesApp
             catch
             {
                 MessageBox.Show("Произошла ошибка!");
-            }
-        }
-
-        private void bttReload_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ConnectToTable();
-                MessageBox.Show("Вы успешно обновили данные!");
-            }
-            catch
-            {
-                MessageBox.Show("Вы не смогли обновить данные!");
             }
         }
 

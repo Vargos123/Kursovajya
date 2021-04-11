@@ -47,10 +47,9 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.bttSave = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.bttDelete = new System.Windows.Forms.Button();
-            this.bttReload = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bttDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -306,32 +305,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 30;
             // 
-            // bttDelete
-            // 
-            this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(654, 325);
-            this.bttDelete.Name = "bttDelete";
-            this.bttDelete.Size = new System.Drawing.Size(89, 26);
-            this.bttDelete.TabIndex = 53;
-            this.bttDelete.Text = "Очистить";
-            this.bttDelete.UseVisualStyleBackColor = false;
-            this.bttDelete.Click += new System.EventHandler(this.bttDelete_Click);
-            // 
-            // bttReload
-            // 
-            this.bttReload.BackColor = System.Drawing.Color.PaleVioletRed;
-            this.bttReload.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bttReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttReload.Location = new System.Drawing.Point(178, 117);
-            this.bttReload.Name = "bttReload";
-            this.bttReload.Size = new System.Drawing.Size(71, 23);
-            this.bttReload.TabIndex = 54;
-            this.bttReload.Text = "Обновить";
-            this.bttReload.UseVisualStyleBackColor = false;
-            this.bttReload.Click += new System.EventHandler(this.bttReload_Click);
-            // 
             // Title
             // 
             this.Title.HeaderText = "Название";
@@ -347,13 +320,25 @@
             this.Message.Name = "Message";
             this.Message.ReadOnly = true;
             // 
+            // bttDelete
+            // 
+            this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
+            this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bttDelete.Location = new System.Drawing.Point(654, 325);
+            this.bttDelete.Name = "bttDelete";
+            this.bttDelete.Size = new System.Drawing.Size(89, 26);
+            this.bttDelete.TabIndex = 53;
+            this.bttDelete.Text = "Очистить";
+            this.bttDelete.UseVisualStyleBackColor = false;
+            this.bttDelete.Click += new System.EventHandler(this.bttDelete_Click);
+            // 
             // MainFormNoLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
             this.ClientSize = new System.Drawing.Size(785, 463);
-            this.Controls.Add(this.bttReload);
             this.Controls.Add(this.bttDelete);
             this.Controls.Add(this.hide);
             this.Controls.Add(this.bttExit);
@@ -409,7 +394,6 @@
         private System.Windows.Forms.Button bttSave;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button bttDelete;
-        private System.Windows.Forms.Button bttReload;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Message;
     }
