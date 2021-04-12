@@ -125,10 +125,10 @@
             this.bttRead.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bttRead.Location = new System.Drawing.Point(639, 282);
             this.bttRead.Name = "bttRead";
-            this.bttRead.Size = new System.Drawing.Size(104, 26);
+            this.bttRead.Size = new System.Drawing.Size(104, 25);
             this.bttRead.TabIndex = 5;
             this.bttRead.TabStop = false;
-            this.bttRead.Text = "Прочитать";
+            this.bttRead.Text = "Открыть";
             this.bttRead.UseVisualStyleBackColor = false;
             this.bttRead.Click += new System.EventHandler(this.bttRead_Click);
             // 
@@ -137,7 +137,7 @@
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(669, 345);
+            this.bttDelete.Location = new System.Drawing.Point(669, 344);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(76, 25);
             this.bttDelete.TabIndex = 6;
@@ -385,7 +385,7 @@
             this.InfoData.BackColor = System.Drawing.Color.PaleVioletRed;
             this.InfoData.Cursor = System.Windows.Forms.Cursors.Hand;
             this.InfoData.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.InfoData.Location = new System.Drawing.Point(654, 314);
+            this.InfoData.Location = new System.Drawing.Point(656, 313);
             this.InfoData.Name = "InfoData";
             this.InfoData.Size = new System.Drawing.Size(89, 25);
             this.InfoData.TabIndex = 31;
