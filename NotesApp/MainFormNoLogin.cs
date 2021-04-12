@@ -116,35 +116,67 @@ namespace NotesApp
                 MessageBox.Show("Достигнуто максимальное количество символов: 50!");
             }
         }
+
+        // Удаляем выделенные строки с таблицы
+        private void CleadCellData()
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+        // Значение для проверки удалось ли найти данные
+        bool IsSelected;
         private void bttFind_Click(object sender, EventArgs e)
         {
             if (dataGridView1.RowCount > 0)
             {
-
-                if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
+                try
                 {
-                    MessageBox.Show("Вы не ввели данные для поиска.");
-                    return;
-                }
-                for (int i = 0; i < dataGridView1.RowCount; i++)
-                {
-                    // Придаем количество выделенных строк нулю
-                    dataGridView1.Rows[i].Selected = false;
-
-                    // Ищем данные в таблице 
-                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    // Убираем выделенные строки
+                    CleadCellData();
+                    if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
                     {
-                        if (dataGridView1.Rows[i].Cells[j].Value != null)
-                        {
-                            // Проверяем есть ли данные в таблице
-                            if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBoxSearch.Text))
+                        MessageBox.Show("Вы не ввели данные для поиска.");
+                        return;
+                    }
+
+                    IsSelected = false;
+                    // Идём по строкам
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    {
+                        // Убираем выделение строки
+                        dataGridView1.Rows[i].Selected = false;
+                        // Идем по количеству столбцам
+                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                            if (dataGridView1.Rows[i].Cells[j].Value != null)
                             {
-                                // Выделяем строку с данными
-                                dataGridView1.Rows[i].Selected = true;
-                                break;
+                                if (dataGridView1.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxSearch.Text.ToLower()))
+                                {
+                                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.MediumOrchid;
+                                    break;
+                                }                                
                             }
+                    }
+
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    {
+                        // Проверяем есть ли строка с данным цветом текста. Если есть значит данные успешно были найдены - выходим
+                        if (dataGridView1.Rows[i].DefaultCellStyle.BackColor == Color.MediumOrchid) // Если нашли строку с цветом MediumOrchid - придаем значение TRUE
+                        {
+                            IsSelected = true;
+                            break;
                         }
                     }
+                    
+                    if (!IsSelected)
+                    {
+                        MessageBox.Show("Вы не смоги найти данные: " + textBoxSearch.Text);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("При попытке поиска данных произошла ошибка!");
                 }
             }
             else
@@ -192,11 +224,15 @@ namespace NotesApp
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     update = 0; // Присваиваем 0 количество выделенных строк
-                    ClearBox();
+                    ClearBox(); // Очищаем поля Название и Сообщение
+                    CleadCellData(); // Убираем выделенные строки
                 }
             }
             else
-                update = 0; // Присваиваем 0 количество выделенных строк
+            {
+                update = 0; // Присваиваем 0 количество выделенных строк                            
+                CleadCellData();    // Убираем выделенные строки
+            }
         }
 
         private void bttExit_Click(object sender, EventArgs e)
@@ -256,6 +292,7 @@ namespace NotesApp
                     dataGridView1.Rows[update - 1].Cells[1].Value = messageBox.Text;
                     ClearBox();
                     ConnectToTable();
+                    CleadCellData(); // Убираем выделенные строки
                     MessageBox.Show("Вы успешно обновили данные");
 
                     // Присваиваем переменной значение 0 - значит строка и кнопка Прочитать ещё не нажаты
@@ -266,6 +303,7 @@ namespace NotesApp
                     dataGridView1.Rows.Add(nameBox.Text, messageBox.Text);
                     ClearBox();
                     ConnectToTable();
+                    CleadCellData(); // Убираем выделенные строки
                     MessageBox.Show("Вы успешно добавили данные");
                 }
             }
@@ -325,6 +363,7 @@ namespace NotesApp
                                 MessageBox.Show("Вы успешно удалили данные.");
                                 ClearBox();
                                 ConnectToTable();
+
                             }
                             catch
                             {
@@ -407,6 +446,36 @@ namespace NotesApp
                 MessageBox.Show("К сожалению, вы не можете использовать символ: |");
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            pictureBox3.Show();
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Hide();
+        }
+
+        private void pictureBox4_MouseMove(object sender, MouseEventArgs e)
+        {
+            pictureBox3.Show();
+        }
+
+        private void pictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Hide();
         }
     }
 }

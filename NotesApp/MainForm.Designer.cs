@@ -53,9 +53,13 @@
             this.hide = new System.Windows.Forms.Label();
             this.bttUpdate = new System.Windows.Forms.Button();
             this.InfoData = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // bttSave
@@ -119,9 +123,9 @@
             this.bttRead.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttRead.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttRead.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttRead.Location = new System.Drawing.Point(641, 273);
+            this.bttRead.Location = new System.Drawing.Point(639, 282);
             this.bttRead.Name = "bttRead";
-            this.bttRead.Size = new System.Drawing.Size(102, 26);
+            this.bttRead.Size = new System.Drawing.Size(104, 26);
             this.bttRead.TabIndex = 5;
             this.bttRead.TabStop = false;
             this.bttRead.Text = "Прочитать";
@@ -133,7 +137,7 @@
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(669, 336);
+            this.bttDelete.Location = new System.Drawing.Point(669, 345);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(76, 25);
             this.bttDelete.TabIndex = 6;
@@ -200,7 +204,7 @@
             this.bttFind.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bttFind.Location = new System.Drawing.Point(639, 241);
             this.bttFind.Name = "bttFind";
-            this.bttFind.Size = new System.Drawing.Size(104, 26);
+            this.bttFind.Size = new System.Drawing.Size(104, 35);
             this.bttFind.TabIndex = 11;
             this.bttFind.TabStop = false;
             this.bttFind.Text = "Найти";
@@ -309,7 +313,7 @@
             this.bttDelAll.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelAll.Location = new System.Drawing.Point(516, 430);
+            this.bttDelAll.Location = new System.Drawing.Point(516, 432);
             this.bttDelAll.Name = "bttDelAll";
             this.bttDelAll.Size = new System.Drawing.Size(87, 26);
             this.bttDelAll.TabIndex = 20;
@@ -381,7 +385,7 @@
             this.InfoData.BackColor = System.Drawing.Color.PaleVioletRed;
             this.InfoData.Cursor = System.Windows.Forms.Cursors.Hand;
             this.InfoData.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.InfoData.Location = new System.Drawing.Point(654, 305);
+            this.InfoData.Location = new System.Drawing.Point(654, 314);
             this.InfoData.Name = "InfoData";
             this.InfoData.Size = new System.Drawing.Size(89, 25);
             this.InfoData.TabIndex = 31;
@@ -390,12 +394,40 @@
             this.InfoData.UseVisualStyleBackColor = false;
             this.InfoData.Click += new System.EventHandler(this.InfoData_Click);
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.BackgroundImage = global::NotesApp.Properties.Resources.InfoIcon;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Location = new System.Drawing.Point(12, 432);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(25, 19);
+            this.pictureBox4.TabIndex = 59;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.MouseLeave += new System.EventHandler(this.pictureBox4_MouseLeave);
+            this.pictureBox4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox4_MouseMove);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.BackgroundImage = global::NotesApp.Properties.Resources.informationLogin;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Location = new System.Drawing.Point(37, 173);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(489, 259);
+            this.pictureBox3.TabIndex = 60;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::NotesApp.Properties.Resources.Main;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(785, 463);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.InfoData);
             this.Controls.Add(this.bttUpdate);
             this.Controls.Add(this.hide);
@@ -430,6 +462,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -460,5 +494,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Message;
         private System.Windows.Forms.Button InfoData;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

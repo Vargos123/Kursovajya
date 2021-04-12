@@ -276,5 +276,14 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\informationNoLogin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\informationLogin.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -307,7 +307,8 @@ namespace NotesApp
             }
         }
 
-
+        // Значение для проверки нашли данные или нет
+        private bool isSelected;
         // Поиск данных
         private void bttFind_Click_1(object sender, EventArgs e) // Ищем данные в таблице
         {
@@ -319,8 +320,9 @@ namespace NotesApp
                 {
                     MessageBox.Show("Вы не ввели данные для поиска");
                     return;
-                }           
-                
+                }
+                isSelected = false;
+
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     // Придаем количество выделенных строк нулю
@@ -340,8 +342,21 @@ namespace NotesApp
                             }                            
                         }
                     }
-                }   
-                
+                }
+
+                for (int i = 0; i < dataGridView1.RowCount; i++)
+                {
+                    if (dataGridView1.Rows[i].Selected == true)
+                    {
+                        isSelected = true;
+                        break;
+                    }
+                }
+                if (!isSelected)
+                {
+                    MessageBox.Show("Не удалось найти запись: " + textBoxSearch.Text);
+                }
+
             }
             else
             {
@@ -598,6 +613,7 @@ namespace NotesApp
         {
             dataGridView1.Rows.Clear(); // Очищаем таблицу
             LoadData(); // Снова добавляем данные с базы данных
+            MessageBox.Show("Вы успешно обновили данные!");
         }
 
         // Обновление записей при закрытии формы 'Прочитать'
@@ -648,6 +664,16 @@ namespace NotesApp
             {
                 MessageBox.Show("Не удалось загрузить информацию. Проверьте доступ к интернету!");
             }            
+        }
+
+        private void pictureBox4_MouseMove(object sender, MouseEventArgs e)
+        {
+            pictureBox3.Show();
+        }
+
+        private void pictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Hide();
         }
     }
 }
