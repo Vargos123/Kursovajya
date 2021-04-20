@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -549,6 +551,25 @@ namespace NotesApp
             }
         }
 
+
+        // Уведомление на емейл об удалении аккаунта
+        private void DellAccEmailMessage()
+        {
+            MySqlCommand command3 = new MySqlCommand("SELECT `email` FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
+            command3.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
+            db.openConn();
+            MySqlDataReader reader = command3.ExecuteReader();
+            reader.Read();
+            string emailname = reader[0].ToString();
+            db.closeConn();
+            SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
+            sm.UseDefaultCredentials = false;
+            sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
+            sm.EnableSsl = true;
+            sm.DeliveryMethod = SmtpDeliveryMethod.Network;
+            sm.Send("menoteapp@gmail.com", "" + emailname + "", "MeNote - Удаление аккаунт", "Ваш аккаунт с ником: " + log + " , был успешно удалён! \nВсе данные были успешно удалены!");
+        }
+
         // Удаление аккаунта
         private void bttDelAcc_Click(object sender, EventArgs e)
         {
@@ -566,21 +587,21 @@ namespace NotesApp
                         {
                             try
                             {
-                                // Удаляем логин, пароль и таблицу пользователя с базы данных
                                 MySqlCommand command1 = new MySqlCommand(" DELETE FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
                                 MySqlCommand command2 = new MySqlCommand(" DROP TABLE `" + log + "`", db.getConn());
                                 command1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
 
+                                // Отправляем смс на емейл, об удалении аккаунта
+                                DellAccEmailMessage();
 
                                 // Открываем соединени
                                 db.openConn();
-                                // Выполняем комманды
+                                // Выполняем комманды                                
                                 command1.ExecuteNonQuery();
                                 command2.ExecuteNonQuery();
                                 // Закрываем соединение
                                 db.closeConn();
-
-
+                                
                                 // Скрываем форму и открываем форму авторизации
                                 // Освобождаем память и закрываем
                                 this.Dispose();
@@ -588,7 +609,8 @@ namespace NotesApp
 
                                 // Открываем форму авторизации
                                 LoginForm logF = new LoginForm();
-                                logF.Show();                         
+                                logF.Show();
+                                MessageBox.Show("Вы успешно удалили аккаунт!");
                             }
                             catch
                             {
@@ -674,6 +696,12 @@ namespace NotesApp
         private void pictureBox4_MouseLeave(object sender, EventArgs e)
         {
             pictureBox3.Hide();
+        }
+
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+           
         }
     }
 }

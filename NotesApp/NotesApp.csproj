@@ -290,10 +290,10 @@
     <None Include="Resources\InfoIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\informationNoLogin.png" />
+    <None Include="Resources\informationLogin.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\informationLogin.png" />
+    <None Include="Resources\informationNoLogin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

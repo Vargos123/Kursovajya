@@ -125,7 +125,7 @@ namespace NotesApp
                     if (isUser())
                         return;
 
-                    // Проверяем возможно ли создать таблицу с следующим названием и удаляем её
+                    // Проверяем возможно ли создать таблицу с введённыи логином и удаляем её. Сделано для проверки т.к некоторые ники не пропускает!
                     try
                     {
                         // Создаем таблицу в базе данных в которой будут хранится все записи пользователя
@@ -133,7 +133,7 @@ namespace NotesApp
                         MySqlCommand dellT = new MySqlCommand("DROP TABLE `" + loginF.Text + "`", db.getConn());
                         db.openConn();  // Открываем соединение
                         createT.ExecuteNonQuery();  // Выполняем комманду
-                        dellT.ExecuteNonQuery();
+                        dellT.ExecuteNonQuery();    // Выполняем комманду
                         db.closeConn(); // Закрывем соединение                                      
                     }
                     catch
