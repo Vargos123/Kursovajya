@@ -108,9 +108,9 @@ namespace NotesApp
                 try
                 {
                     // Проверяем ввод данных
-                    if (dataGridView1.Rows.Count == 500)
+                    if (dataGridView1.Rows.Count == 1000)
                     {
-                        MessageBox.Show("Вы не можете добавить больше 500 записей!");
+                        MessageBox.Show("Вы не можете добавить больше 1000 записей!");
                         return;
                     }
                     else if (string.IsNullOrWhiteSpace(nameBox.Text))

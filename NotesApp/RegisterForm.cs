@@ -209,7 +209,7 @@ namespace NotesApp
                     adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
                     if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
                     {
-                        MessageBox.Show("Даный Email уже зарегистрирован!");
+                        MessageBox.Show("Данный Email уже зарегистрирован!");
                         return true;
                     }
                     else
@@ -250,7 +250,7 @@ namespace NotesApp
                     adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
                     if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
                     {
-                        MessageBox.Show("Даный Логин уже зарегистрирован!");
+                        MessageBox.Show("Данный Логин уже зарегистрирован!");
                         return true;
                     }
                     else

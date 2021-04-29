@@ -265,9 +265,9 @@ namespace NotesApp
         {          
             try
             {
-                if (dataGridView1.Rows.Count == 500)
+                if (dataGridView1.Rows.Count == 1000)
                 {
-                    MessageBox.Show("Вы не можете добавить больше 500 записей!");
+                    MessageBox.Show("Вы не можете добавить больше 1000 записей!");
                 }
                 else if (string.IsNullOrWhiteSpace(nameBox.Text))
                 {
@@ -302,7 +302,7 @@ namespace NotesApp
                 {
                     dataGridView1.Rows.Add(nameBox.Text, messageBox.Text);
                     ClearBox();
-                    ConnectToTable();
+                    ConnectToTable(); // Обновляем данные в базе данных, 
                     CleadCellData(); // Убираем выделенные строки
                     MessageBox.Show("Вы успешно добавили данные");
                 }
@@ -411,6 +411,7 @@ namespace NotesApp
             }
         }
 
+        // Добавление данных в БД. Открываем файл снова
         private void ConnectToTable()
         {
             try
@@ -446,26 +447,6 @@ namespace NotesApp
                 MessageBox.Show("К сожалению, вы не можете использовать символ: |");
             }
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_MouseMove(object sender, MouseEventArgs e)
-        {
-            pictureBox3.Show();
-        }
-
-        private void button1_MouseLeave(object sender, EventArgs e)
-        {
-            pictureBox3.Hide();
         }
 
         private void pictureBox4_MouseMove(object sender, MouseEventArgs e)
