@@ -83,7 +83,7 @@
             this.bttExit.Location = new System.Drawing.Point(667, 401);
             this.bttExit.Name = "bttExit";
             this.bttExit.Size = new System.Drawing.Size(76, 25);
-            this.bttExit.TabIndex = 47;
+            this.bttExit.TabIndex = 8;
             this.bttExit.Text = "Выйти";
             this.bttExit.UseVisualStyleBackColor = false;
             this.bttExit.Click += new System.EventHandler(this.bttExit_Click);
@@ -96,7 +96,7 @@
             this.bttDelAll.Location = new System.Drawing.Point(516, 432);
             this.bttDelAll.Name = "bttDelAll";
             this.bttDelAll.Size = new System.Drawing.Size(87, 26);
-            this.bttDelAll.TabIndex = 46;
+            this.bttDelAll.TabIndex = 9;
             this.bttDelAll.Text = "Очистить все";
             this.bttDelAll.UseVisualStyleBackColor = false;
             this.bttDelAll.Click += new System.EventHandler(this.bttDelAll_Click);
@@ -112,6 +112,7 @@
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(22, 13);
             this.textBox4.TabIndex = 45;
+            this.textBox4.TabStop = false;
             this.textBox4.Text = "/50";
             // 
             // richTextBox2
@@ -127,6 +128,7 @@
             this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox2.Size = new System.Drawing.Size(26, 13);
             this.richTextBox2.TabIndex = 44;
+            this.richTextBox2.TabStop = false;
             this.richTextBox2.Text = "0";
             // 
             // textBox3
@@ -140,6 +142,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(32, 13);
             this.textBox3.TabIndex = 43;
+            this.textBox3.TabStop = false;
             this.textBox3.Text = "/500";
             // 
             // richTextBox1
@@ -155,6 +158,7 @@
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.richTextBox1.Size = new System.Drawing.Size(26, 13);
             this.richTextBox1.TabIndex = 42;
+            this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "0";
             // 
             // pictureBox2
@@ -190,7 +194,7 @@
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(134, 25);
-            this.textBoxSearch.TabIndex = 39;
+            this.textBoxSearch.TabIndex = 4;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // bttFind
@@ -201,7 +205,7 @@
             this.bttFind.Location = new System.Drawing.Point(639, 241);
             this.bttFind.Name = "bttFind";
             this.bttFind.Size = new System.Drawing.Size(104, 35);
-            this.bttFind.TabIndex = 38;
+            this.bttFind.TabIndex = 5;
             this.bttFind.Text = "Найти";
             this.bttFind.UseVisualStyleBackColor = false;
             this.bttFind.Click += new System.EventHandler(this.bttFind_Click);
@@ -230,7 +234,7 @@
             this.bttRead.Location = new System.Drawing.Point(639, 282);
             this.bttRead.Name = "bttRead";
             this.bttRead.Size = new System.Drawing.Size(104, 26);
-            this.bttRead.TabIndex = 35;
+            this.bttRead.TabIndex = 6;
             this.bttRead.Text = "Открыть";
             this.bttRead.UseVisualStyleBackColor = false;
             this.bttRead.Click += new System.EventHandler(this.bttRead_Click);
@@ -243,7 +247,7 @@
             this.bttNew.Location = new System.Drawing.Point(53, 104);
             this.bttNew.Name = "bttNew";
             this.bttNew.Size = new System.Drawing.Size(119, 36);
-            this.bttNew.TabIndex = 34;
+            this.bttNew.TabIndex = 2;
             this.bttNew.Text = "Создать";
             this.bttNew.UseVisualStyleBackColor = false;
             this.bttNew.Click += new System.EventHandler(this.bttNew_Click);
@@ -258,7 +262,7 @@
             this.messageBox.Multiline = true;
             this.messageBox.Name = "messageBox";
             this.messageBox.Size = new System.Drawing.Size(412, 120);
-            this.messageBox.TabIndex = 33;
+            this.messageBox.TabIndex = 1;
             this.messageBox.TextChanged += new System.EventHandler(this.messageBox_TextChanged);
             // 
             // nameBox
@@ -271,7 +275,7 @@
             this.nameBox.Multiline = true;
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(196, 36);
-            this.nameBox.TabIndex = 32;
+            this.nameBox.TabIndex = 0;
             this.nameBox.TextChanged += new System.EventHandler(this.nameBox_TextChanged);
             this.nameBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameBox_KeyPress);
             // 
@@ -283,7 +287,7 @@
             this.bttSave.Location = new System.Drawing.Point(53, 146);
             this.bttSave.Name = "bttSave";
             this.bttSave.Size = new System.Drawing.Size(119, 36);
-            this.bttSave.TabIndex = 31;
+            this.bttSave.TabIndex = 3;
             this.bttSave.Text = "Добавить";
             this.bttSave.UseVisualStyleBackColor = false;
             this.bttSave.Click += new System.EventHandler(this.bttSave_Click);
@@ -308,6 +312,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(550, 216);
             this.dataGridView1.TabIndex = 30;
+            this.dataGridView1.TabStop = false;
             // 
             // Title
             // 
@@ -332,7 +337,7 @@
             this.bttDelete.Location = new System.Drawing.Point(667, 314);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(76, 26);
-            this.bttDelete.TabIndex = 53;
+            this.bttDelete.TabIndex = 7;
             this.bttDelete.Text = "Очистить";
             this.bttDelete.UseVisualStyleBackColor = false;
             this.bttDelete.Click += new System.EventHandler(this.bttDelete_Click);
