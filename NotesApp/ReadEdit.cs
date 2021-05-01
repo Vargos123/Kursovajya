@@ -123,11 +123,6 @@ namespace NotesApp
             }
         }
 
-        private void ReadEdit_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void message_TextChanged(object sender, EventArgs e)
         {
             // Добавляем полосу прокрутки для поля 'Сообщение'
@@ -146,6 +141,11 @@ namespace NotesApp
 
         // Кнопка Сохранить
         private void bttSave_Click(object sender, EventArgs e)
+        {
+            SaveData();
+        }
+
+        private void SaveData()
         {
             // Проверяем менял ли пользователь данные
             if (name.Text != nameB || message.Text != messageB)

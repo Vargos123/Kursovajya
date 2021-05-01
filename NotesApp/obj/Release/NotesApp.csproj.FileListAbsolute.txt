@@ -74,7 +74,6 @@ D:\Notes\NotesApp\obj\Release\NotesApp.exe
 D:\Notes\NotesApp\obj\Release\NotesApp.pdb
 D:\Notes\NotesApp\obj\Release\NotesApp.ReadEdit.resources
 D:\Notes\NotesApp\obj\Release\NotesApp.MeNote.resources
-D:\Notes\NotesApp\bin\Release\Microsoft.VisualBasic.PowerPacks.xml
 D:\Notes\NotesApp\obj\Release\NotesApp.Information.resources
 D:\Notes\NotesApp\obj\Release\NotesApp.EmailConf.resources
 D:\Notes\NotesApp\obj\Release\NotesApp.TrustInfo.xml

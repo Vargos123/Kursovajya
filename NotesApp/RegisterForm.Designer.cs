@@ -112,8 +112,7 @@ namespace NotesApp
             this.passF.MaxLength = 32;
             this.passF.Name = "passF";
             this.passF.Size = new System.Drawing.Size(270, 39);
-            this.passF.TabIndex = 34;
-            this.passF.TabStop = false;
+            this.passF.TabIndex = 2;
             this.passF.UseSystemPasswordChar = true;
             this.passF.TextChanged += new System.EventHandler(this.passF_TextChanged);
             // 
@@ -125,8 +124,7 @@ namespace NotesApp
             this.loginF.Multiline = true;
             this.loginF.Name = "loginF";
             this.loginF.Size = new System.Drawing.Size(270, 39);
-            this.loginF.TabIndex = 33;
-            this.loginF.TabStop = false;
+            this.loginF.TabIndex = 1;
             this.loginF.TextChanged += new System.EventHandler(this.loginF_TextChanged);
             // 
             // textBox1
@@ -195,7 +193,7 @@ namespace NotesApp
             this.goToLogin.Location = new System.Drawing.Point(282, 528);
             this.goToLogin.Name = "goToLogin";
             this.goToLogin.Size = new System.Drawing.Size(55, 18);
-            this.goToLogin.TabIndex = 41;
+            this.goToLogin.TabIndex = 4;
             this.goToLogin.Text = "Войти";
             this.goToLogin.Click += new System.EventHandler(this.goToLogin_Click);
             // 
@@ -225,8 +223,7 @@ namespace NotesApp
             this.butRegister.Location = new System.Drawing.Point(150, 470);
             this.butRegister.Name = "butRegister";
             this.butRegister.Size = new System.Drawing.Size(192, 53);
-            this.butRegister.TabIndex = 39;
-            this.butRegister.TabStop = false;
+            this.butRegister.TabIndex = 3;
             this.butRegister.UseVisualStyleBackColor = false;
             this.butRegister.Click += new System.EventHandler(this.butRegister_Click);
             // 
@@ -260,14 +257,13 @@ namespace NotesApp
             // 
             // emailF
             // 
-            this.emailF.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.emailF.Font = new System.Drawing.Font("Times New Roman", 20.25F);
             this.emailF.Location = new System.Drawing.Point(129, 207);
             this.emailF.MaxLength = 200;
-            this.emailF.Multiline = true;
             this.emailF.Name = "emailF";
+            this.emailF.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.emailF.Size = new System.Drawing.Size(269, 39);
-            this.emailF.TabIndex = 43;
-            this.emailF.TabStop = false;
+            this.emailF.TabIndex = 0;
             this.emailF.TextChanged += new System.EventHandler(this.emailF_TextChanged);
             // 
             // label4

@@ -207,8 +207,7 @@
             this.butLogin.Name = "butLogin";
             this.butLogin.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.butLogin.Size = new System.Drawing.Size(186, 53);
-            this.butLogin.TabIndex = 3;
-            this.butLogin.TabStop = false;
+            this.butLogin.TabIndex = 2;
             this.butLogin.UseVisualStyleBackColor = false;
             this.butLogin.Click += new System.EventHandler(this.butLogin_Click);
             // 
@@ -219,8 +218,7 @@
             this.passF.MaxLength = 32;
             this.passF.Name = "passF";
             this.passF.Size = new System.Drawing.Size(245, 39);
-            this.passF.TabIndex = 2;
-            this.passF.TabStop = false;
+            this.passF.TabIndex = 1;
             this.passF.UseSystemPasswordChar = true;
             this.passF.TextChanged += new System.EventHandler(this.passF_TextChanged);
             // 
@@ -233,8 +231,7 @@
             this.loginF.Multiline = true;
             this.loginF.Name = "loginF";
             this.loginF.Size = new System.Drawing.Size(245, 39);
-            this.loginF.TabIndex = 1;
-            this.loginF.TabStop = false;
+            this.loginF.TabIndex = 0;
             this.loginF.TextChanged += new System.EventHandler(this.loginF_TextChanged);
             // 
             // CloseButton

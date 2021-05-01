@@ -52,11 +52,14 @@ namespace NotesApp
                 this.Close();
                 return;
             }
+            EmailCode();
+        }
 
+        private void EmailCode()
+        {
             Random m = new Random();
             int xEE = m.Next(1000, 9999);
             Random = xEE;
-
             SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
             sm.UseDefaultCredentials = false;
             sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
@@ -95,19 +98,24 @@ namespace NotesApp
                 return;
             }
 
+            EmailConfirm();
+        }
+        private void EmailConfirm()
+        {
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 if (confirms.Text == Convert.ToString(confirm) || confirms.Text == Convert.ToString(Random))
                 {
-                    // Добавляем Логин и Пароль пользователя в общую базу 
-                    MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`email`, `login`, `pass`) VALUES (@email, @login, @pass)", db.getConn());
-                    MySqlCommand createT = new MySqlCommand("CREATE TABLE `" + login + "` LIKE PrimerTable", db.getConn());
-                    // Снимаем заглушки
-                    command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
-                    command.Parameters.Add("@login", MySqlDbType.VarChar).Value = login;
-                    command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass;
                     try
-                    { 
+                    {
+                        // Добавляем Логин и Пароль пользователя в общую базу 
+                        MySqlCommand command = new MySqlCommand("INSERT INTO `AllUsersLogPass` (`email`, `login`, `pass`) VALUES (@email, @login, @pass)", db.getConn());
+                        MySqlCommand createT = new MySqlCommand("CREATE TABLE `" + login + "` LIKE PrimerTable", db.getConn());
+                        // Снимаем заглушки
+                        command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+                        command.Parameters.Add("@login", MySqlDbType.VarChar).Value = login;
+                        command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass;
+
                         db.openConn();  // Открываем соединение
                         createT.ExecuteNonQuery();
                         command.ExecuteNonQuery();
@@ -120,23 +128,28 @@ namespace NotesApp
                         sm.Send("menoteapp@gmail.com", "" + email + "", "MeNote", " Спасибо за регистрацию!\n Ваш Логин: " + login + "\n Ваш Пароль: " + pass + " \n Используйте их, для авторизации в приложении!");
                         MessageBox.Show("Вы успешно зарегистрировались!\nНа вашу почту был отправлен Логин и Пароль.\nНе забудьте их запомнить!");
                         this.Close();
+                        Application.Restart();
                     }
                     catch
                     {
 
                         MessageBox.Show("Вы не смогли зарегистрироваться! Проверьте ввод данных!");
                         this.Close();
-                    }                    
+                    }
                 }
                 else
                 {
-                    if(quantity == 0)
+                    if (quantity == 0)
                     {
                         MessageBox.Show("Вы ввели не верный код. У вас не осталось попыток!");
                     }
                     else
-                        MessageBox.Show("Вы ввели не верный код. У вас осталось: "+ quantity-- +" попытки");
+                        MessageBox.Show("Вы ввели не верный код. У вас осталось: " + quantity-- + " попытки");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Проверьте доступ к интернету!");
             }
         }
     }

@@ -119,7 +119,6 @@ namespace NotesApp
             this.Name = "Information";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Information";
-            this.Load += new System.EventHandler(this.Information_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

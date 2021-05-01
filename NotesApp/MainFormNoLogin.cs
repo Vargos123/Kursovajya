@@ -19,6 +19,7 @@ namespace NotesApp
 {
     public partial class MainFormNoLogin : Form
     {
+        // Переменная для определения была ли нажата кнопка Открытия
         int update;
 
 
@@ -29,17 +30,21 @@ namespace NotesApp
 
 
             InitializeComponent();
+            CheckFile();
+        }  
 
+        private void CheckFile()
+        {
             if (File.Exists(@"" + Application.StartupPath.ToString() + "\\DataBaze.Data"))
             {
                 OpenFile();
             }
             else
             {
-                MessageBox.Show("К сожалению, ваш файл был повреждён или удалён. Мы успешно создали новый файл. \nК сожалению, все данные былы удалены. Проверьте корзину!");
+                MessageBox.Show("К сожалению, ваш файл был повреждён или удалён. Мы успешно создали новый файл.\nК сожалению, все данные былы удалены. Проверьте корзину!");
                 ConnectToTable();
-            }            
-        }  
+            }
+        }
 
         private void OpenFile()
         {
@@ -265,9 +270,9 @@ namespace NotesApp
         {          
             try
             {
-                if (dataGridView1.Rows.Count == 1000)
+                if (dataGridView1.Rows.Count == 100000)
                 {
-                    MessageBox.Show("Вы не можете добавить больше 1000 записей!");
+                    MessageBox.Show("Вы не можете добавить больше 100000 записей!");
                 }
                 else if (string.IsNullOrWhiteSpace(nameBox.Text))
                 {
@@ -295,7 +300,7 @@ namespace NotesApp
                     CleadCellData(); // Убираем выделенные строки
                     MessageBox.Show("Вы успешно обновили данные");
 
-                    // Присваиваем переменной значение 0 - значит строка и кнопка Прочитать ещё не нажаты
+                    // Присваиваем переменной значение 0 - значит строка и кнопка Открыть ещё не нажата
                     update = 0;
                 }
                 else

@@ -73,11 +73,8 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
-
-        // Кнопка Ввойти
-        private void butLogin_Click(object sender, EventArgs e)
+        private void Login()
         {
-            // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 // Проверяем введён ли логин и пароль
@@ -144,16 +141,20 @@ namespace NotesApp
             }
         }
 
+        // Кнопка Ввойти
+        private void butLogin_Click(object sender, EventArgs e)
+        {
+            Login();
+        }
+
         // Кнопка Создать аккаунт
         private void createAcc_Click(object sender, EventArgs e)
         {
-            this.Close();
-            // Закрываем форму авторизации и открываем форму регистрации            
+            // Закрываем форму авторизации и открываем форму регистрации   
+            this.Close();                     
             RegisterForm regF = new RegisterForm();            
             regF.Show();            
         }
-
-
         private void passF_TextChanged(object sender, EventArgs e)
         {
             // Считываем количество символов и записываем сверху поля
@@ -165,7 +166,6 @@ namespace NotesApp
                 MessageBox.Show("Достигнуто максимальное количество символов: 32!");
             }
         }
-
         private void loginF_TextChanged(object sender, EventArgs e)
         {
             // Считываем количество символов и записываем сверху поля
@@ -177,7 +177,6 @@ namespace NotesApp
                 MessageBox.Show("Достигнуто максимальное количество символов: 16!");
             }
         }
-
         // Вход без Логина
         private void label3_Click(object sender, EventArgs e)
         {

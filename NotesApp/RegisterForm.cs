@@ -1,15 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NotesApp
@@ -18,8 +13,6 @@ namespace NotesApp
     {
         // Подключаем базу данных
         DataB db = new DataB();
-
-        Timer t = new Timer() { Interval = 15000 };
 
         public RegisterForm()
         {
@@ -81,15 +74,29 @@ namespace NotesApp
             lastPoint = new Point(e.X, e.Y);
         }
 
+        private void Email()
+        {
+            Random m = new Random();
+            int x = m.Next(1000, 9999);
+            SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
+            sm.UseDefaultCredentials = false;
+            sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
+            sm.EnableSsl = true;
+            sm.DeliveryMethod = SmtpDeliveryMethod.Network;
+            sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
+            // Открываем форму подтверждения емейла и регистрируем пользователя там
+            EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
+            MessageBox.Show("На вашу почту был выслан код для подтверждения Email!\nВведите его для подтверждения регистрации!");
+            EC.ShowDialog();
+        }
 
-        // Кнопка Зарегистрироваться 
-        private void butRegister_Click(object sender, EventArgs e)
-        {            
+        private void Register()
+        {
             // Проверяем наличие интернета
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 try
-                {                   
+                {
                     // Проверяем введён ли  email, логин и пароль
                     if (string.IsNullOrWhiteSpace(emailF.Text))
                     {
@@ -144,19 +151,8 @@ namespace NotesApp
 
                     try
                     {
-                        Random m = new Random();
-                        int x = m.Next(1000, 9999);
-                        SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-                        sm.UseDefaultCredentials = false;
-                        sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-                        sm.EnableSsl = true;
-                        sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
-
-                        // Открываем форму подтверждения емейла и регистрируем пользователя там
-                        EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
-                        MessageBox.Show("На вашу почту был выслан код для подтверждения Email!\nВведите его для подтверждения регистрации!");
-                        EC.ShowDialog();
+                        // Отправляем код продтверждения Емейл на почту
+                        Email();
                     }
                     catch
                     {
@@ -174,6 +170,12 @@ namespace NotesApp
                 // В случае отсутствия интернета выводим сообщение
                 MessageBox.Show("Не удалось зарегистрироваться. Проверьте доступ к интернету!");
             }
+        }
+
+        // Кнопка Зарегистрироваться 
+        private void butRegister_Click(object sender, EventArgs e)
+        {
+            Register();            
         }
 
 
