@@ -556,24 +556,6 @@ namespace NotesApp
                 logF.Show();
             }
         }
-
-        // ---------------------- Уведомление на емейл об удалении аккаунта -------------------- \\
-        private void DellAccEmailMessage()
-        {
-            MySqlCommand command3 = new MySqlCommand("SELECT `email` FROM `AllUsersLogPass` WHERE `login` = @log", db.getConn());
-            command3.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
-            db.openConn();
-            MySqlDataReader reader = command3.ExecuteReader();
-            reader.Read();
-            string emailname = reader[0].ToString();
-            db.closeConn();
-            SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-            sm.UseDefaultCredentials = false;
-            sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-            sm.EnableSsl = true;
-            sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-            sm.Send("menoteapp@gmail.com", "" + emailname + "", "MeNote - Удаление аккаунт", "Ваш аккаунт с ником: " + log + " , был успешно удалён! \nВсе данные были успешно удалены!");
-        }
         // ------------------------------------------------------------------------------------------------- \\
         // -------------------------------- Удаление аккаунта с базы --------------------------------------- \\
         private void DeleteAccount()
@@ -587,7 +569,8 @@ namespace NotesApp
                     command1.Parameters.Add("@log", MySqlDbType.VarChar).Value = log;
 
                     // Отправляем смс на емейл, об удалении аккаунта
-                    DellAccEmailMessage();
+                    SendEmail SE = new SendEmail();
+                    SE.DeleteAccount(this.log);
 
                     // Открываем соединени
                     db.openConn();
@@ -708,6 +691,16 @@ namespace NotesApp
         private void pictureBox4_MouseLeave(object sender, EventArgs e)
         {
             pictureBox3.Hide();
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

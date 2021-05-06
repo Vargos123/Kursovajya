@@ -46,12 +46,13 @@ namespace NotesApp
         private void goToLogin_Click(object sender, EventArgs e)
         {
             click1++;
-            if (click1 >= 4)
+            if (click1 >= 3)
             {
                 MessageBox.Show("Вы не смогли подтвердить почту. Попробуйте позже!");
                 this.Close();
                 return;
             }
+
             EmailCode();
         }
 
@@ -59,13 +60,10 @@ namespace NotesApp
         {
             Random m = new Random();
             int xEE = m.Next(1000, 9999);
-            Random = xEE;
-            SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-            sm.UseDefaultCredentials = false;
-            sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-            sm.EnableSsl = true;
-            sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-            sm.Send("menoteapp@gmail.com", "" + email + "", "MeNote - Подтверждение Email", " Ваш код подтверждения: " + Convert.ToString(xEE) + " \n Введите его для завержения регистрации!");
+            
+            // Отправляем код на Емейл
+            SendEmail SE = new SendEmail();
+            SE.Send(this.email, xEE);            
             MessageBox.Show("На ваш Email был выслан новый код подтверждения!");
         }
 
@@ -120,12 +118,11 @@ namespace NotesApp
                         createT.ExecuteNonQuery();
                         command.ExecuteNonQuery();
                         db.closeConn(); // Закрываем соединение
-                        SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-                        sm.UseDefaultCredentials = false;
-                        sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-                        sm.EnableSsl = true;
-                        sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        sm.Send("menoteapp@gmail.com", "" + email + "", "MeNote", " Спасибо за регистрацию!\n Ваш Логин: " + login + "\n Ваш Пароль: " + pass + " \n Используйте их, для авторизации в приложении!");
+
+                        // Отправляем смс на почту об успешной регистрации
+                        SendEmail SE = new SendEmail();
+                        SE.RegistrationConfirm(this.email, this.login, this.pass);
+
                         MessageBox.Show("Вы успешно зарегистрировались!\nНа вашу почту был отправлен Логин и Пароль.\nНе забудьте их запомнить!");
                         this.Close();
                         Application.Restart();

@@ -115,7 +115,6 @@ namespace NotesApp
             this.Name = "MeNote";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MeNote";
-            this.Load += new System.EventHandler(this.MeNote_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

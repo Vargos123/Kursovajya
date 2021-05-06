@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="751072">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NotesApp.exe" size="751584">
       <assemblyIdentity name="NotesApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8NuG8rjpAc1V7AVMDp5+TuX/mDHXM3DyRmBsB/j6p1k=</dsig:DigestValue>
+        <dsig:DigestValue>czH3e2xCyTuPiGRAfS8d/YaqfZ5uKXOAUcEzYn2tTQM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

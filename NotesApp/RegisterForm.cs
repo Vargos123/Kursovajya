@@ -78,12 +78,12 @@ namespace NotesApp
         {
             Random m = new Random();
             int x = m.Next(1000, 9999);
-            SmtpClient sm = new SmtpClient("smtp.gmail.com", 587);
-            sm.UseDefaultCredentials = false;
-            sm.Credentials = new NetworkCredential("menoteapp@gmail.com", "M$$&(En0T3");
-            sm.EnableSsl = true;
-            sm.DeliveryMethod = SmtpDeliveryMethod.Network;
-            sm.Send("menoteapp@gmail.com", "" + emailF.Text + "", "MeNote - Подтверждение Email", "Ваш код подтверждения: " + Convert.ToString(x) + "\nВведите его для завержения регистрации!");
+
+            // Отправляем код на Емейл
+            SendEmail SE = new SendEmail();
+            SE.Send(this.emailF.Text, x);
+
+
             // Открываем форму подтверждения емейла и регистрируем пользователя там
             EmailConf EC = new EmailConf(this.emailF.Text, this.loginF.Text, this.passF.Text, x);
             MessageBox.Show("На вашу почту был выслан код для подтверждения Email!\nВведите его для подтверждения регистрации!");
@@ -175,7 +175,7 @@ namespace NotesApp
         // Кнопка Зарегистрироваться 
         private void butRegister_Click(object sender, EventArgs e)
         {
-            Register();            
+            Register();        
         }
 
 
@@ -238,19 +238,13 @@ namespace NotesApp
             {
                 try
                 {
-                    // Создаем таблицу в которой будут проверяться данные
                     DataTable table = new DataTable();
-
-                    // Получаем и Сохраняем данные в adapter
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-                    // Ищем в базе данных Логин который ввёл пользователь раннее
                     MySqlCommand command = new MySqlCommand("SELECT * FROM `AllUsersLogPass` WHERE `login` = @userL", db.getConn());
                     command.Parameters.Add("@userL", MySqlDbType.VarChar).Value = loginF.Text;
-
-                    adapter.SelectCommand = command;    // Выполняем комманду
-                    adapter.Fill(table);    // Записываем итог выполения комманды в таблицу
-                    if (table.Rows.Count > 0)   // Проверяем есть ли совпадения с логином
+                    adapter.SelectCommand = command;    
+                    adapter.Fill(table);    
+                    if (table.Rows.Count > 0)
                     {
                         MessageBox.Show("Данный Логин уже зарегистрирован!");
                         return true;
