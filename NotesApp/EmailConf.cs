@@ -1,15 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NotesApp
@@ -60,7 +51,8 @@ namespace NotesApp
         {
             Random m = new Random();
             int xEE = m.Next(1000, 9999);
-            
+            Random = xEE;
+
             // Отправляем код на Емейл
             SendEmail SE = new SendEmail();
             SE.Send(this.email, xEE);            

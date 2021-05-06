@@ -1,11 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotesApp
 {
@@ -57,5 +53,4 @@ namespace NotesApp
             sm.Send("menoteapp@gmail.com", "" + emailname + "", "MeNote - Удаление аккаунт", "Ваш аккаунт с ником: " + login + " , был успешно удалён! \nВсе данные были успешно удалены!");
         }
     }
-
 }
