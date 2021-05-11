@@ -115,7 +115,7 @@ namespace NotesApp
                         SendEmail SE = new SendEmail();
                         SE.RegistrationConfirm(this.email, this.login, this.pass);
 
-                        MessageBox.Show("Вы успешно зарегистрировались!\nНа вашу почту был отправлен Логин и Пароль.\nНе забудьте их запомнить!");
+                        MessageBox.Show("Вы успешно зарегистрировались!\nВаш логин: " + login + "\nВаш пароль: " + pass + "\nНе забудьте их запомнить!");
                         this.Close();
                         Application.Restart();
                     }
