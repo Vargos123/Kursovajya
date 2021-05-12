@@ -189,11 +189,11 @@
             // 
             this.textBoxSearch.BackColor = System.Drawing.Color.HotPink;
             this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxSearch.Location = new System.Drawing.Point(609, 210);
             this.textBoxSearch.MaxLength = 50;
-            this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(134, 25);
+            this.textBoxSearch.Size = new System.Drawing.Size(134, 24);
             this.textBoxSearch.TabIndex = 4;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
@@ -233,7 +233,7 @@
             this.bttRead.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bttRead.Location = new System.Drawing.Point(639, 282);
             this.bttRead.Name = "bttRead";
-            this.bttRead.Size = new System.Drawing.Size(104, 26);
+            this.bttRead.Size = new System.Drawing.Size(104, 25);
             this.bttRead.TabIndex = 6;
             this.bttRead.Text = "Открыть";
             this.bttRead.UseVisualStyleBackColor = false;
@@ -334,7 +334,7 @@
             this.bttDelete.BackColor = System.Drawing.Color.PaleVioletRed;
             this.bttDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bttDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bttDelete.Location = new System.Drawing.Point(667, 314);
+            this.bttDelete.Location = new System.Drawing.Point(667, 313);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(76, 26);
             this.bttDelete.TabIndex = 7;

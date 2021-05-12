@@ -98,17 +98,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3B53EbFnucip/EY9CDZKfhEqPqZlLWPvv4uEDglJ0os=</dsig:DigestValue>
+        <dsig:DigestValue>U5IpUvqgfHDqQz1IlpYf9ZRhtMRCKDFQPgm0FnpqCdw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="NotesApp.exe.config" size="662">
+  <file name="NotesApp.exe.config" size="649">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>OhbuYdG8SovTdMCcpLCmTvSfDvZ4/2MTkLcoPpfGp2I=</dsig:DigestValue>
+      <dsig:DigestValue>DOG/iqdup1X9cQKHB3C/iFQ0YDMeqdDNHa8Jb6af8C0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\$this.Icon.ico" size="20837">

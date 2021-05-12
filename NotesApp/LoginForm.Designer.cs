@@ -228,7 +228,6 @@
             this.loginF.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.loginF.Location = new System.Drawing.Point(128, 255);
             this.loginF.MaxLength = 16;
-            this.loginF.Multiline = true;
             this.loginF.Name = "loginF";
             this.loginF.Size = new System.Drawing.Size(245, 39);
             this.loginF.TabIndex = 0;

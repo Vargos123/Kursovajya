@@ -121,7 +121,6 @@ namespace NotesApp
             this.loginF.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loginF.Location = new System.Drawing.Point(128, 286);
             this.loginF.MaxLength = 16;
-            this.loginF.Multiline = true;
             this.loginF.Name = "loginF";
             this.loginF.Size = new System.Drawing.Size(270, 39);
             this.loginF.TabIndex = 1;
@@ -261,7 +260,6 @@ namespace NotesApp
             this.emailF.Location = new System.Drawing.Point(129, 207);
             this.emailF.MaxLength = 200;
             this.emailF.Name = "emailF";
-            this.emailF.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.emailF.Size = new System.Drawing.Size(269, 39);
             this.emailF.TabIndex = 0;
             this.emailF.TextChanged += new System.EventHandler(this.emailF_TextChanged);
